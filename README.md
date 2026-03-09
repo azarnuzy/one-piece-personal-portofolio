@@ -1,7 +1,7 @@
 # [TanStarter](https://github.com/mugnavo/tanstarter)
 
 > [!TIP]
-> We're working on a monorepo version of this template with Turborepo. See the [`next` branch](https://github.com/mugnavo/tanstarter/tree/next) if you want to try it out. ([#45](https://github.com/mugnavo/tanstarter/pull/45))
+> This template is also available as a monorepo, powered by Turborepo and pnpm workspaces. See [mugnavo/tanstarter-monorepo](https://github.com/mugnavo/tanstarter-monorepo).
 
 <!-- scaffold:description -->
 
