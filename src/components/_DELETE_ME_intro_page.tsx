@@ -359,7 +359,7 @@ const DATA_BADGES: TechBadge[] = [
 const PLATFORM_BADGES: TechBadge[] = [
   {
     alt: "Vite version",
-    href: "https://vite.dev/blog/announcing-vite8-beta",
+    href: "https://vite.dev",
     src: "https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fmugnavo%2Ftanstarter%2Fmain%2Fpackage.json&query=%24.devDependencies.vite&label=vite&style=flat-square",
   },
   {
