@@ -1,13 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+import { useAuthSuspense } from "@/lib/auth/hooks";
+
 export const Route = createFileRoute("/_auth/app/")({
   component: AppIndex,
 });
 
 function AppIndex() {
-  const { user } = Route.useRouteContext();
-  // we can also use the useAuth() or useAuthSuspense() hooks here from ~/lib/auth/hooks
-  // this is just to demo that route context is available in route components, in addition to loaders/beforeLoad
+  const { user } = useAuthSuspense();
+  // We can also use Route.useRouteContext() which uses loader/beforeLoad data from parent layouts.
+  // But useAuth() or useAuthSuspense() is preferred for direct TanStack Query revalidation,
+  // since beforeLoad only re-runs on navigation.
 
   return (
     <div className="flex flex-col items-center gap-3 text-center text-sm">
@@ -17,7 +20,7 @@ function AppIndex() {
 
       <div>
         User from route context:
-        <span className="mt-0.5 block font-mono text-xs">{user.name}</span>
+        <span className="mt-0.5 block font-mono text-xs">{user?.name}</span>
       </div>
 
       <div>
