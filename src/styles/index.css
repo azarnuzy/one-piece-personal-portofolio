@@ -1,0 +1,16 @@
+/**
+ * Design System entry — imported by `src/styles.css`.
+ * Order matters: tailwind → fonts → typography tokens → theme palette
+ * → @theme tokens (Tailwind mapping) → utilities → base resets.
+ */
+
+@import "tailwindcss" source("../");
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+
+@import "./typography.css";
+@import "./themes.css";
+@import "./tokens.css";
+@import "./utilities.css";
+@import "./base.css";

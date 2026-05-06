@@ -1,0 +1,142 @@
+/**
+ * Themes — Light (Day Sea) & Dark (Night Sea)
+ * --------------------------------------------------------------
+ * Brand palette is anchored on a One-Piece / pirate-adventure mood:
+ *   - sun     : warm amber (CTA / primary)
+ *   - sunset  : coral-orange (highlight on names, accents)
+ *   - treasure: gold (badges, sidebar active)
+ *   - sea     : deep navy (night) / sky blue (day)
+ *   - parchment: cream (light surfaces)
+ *
+ * Tokens are exposed as raw values here. They are mapped to
+ * shadcn/Tailwind semantic tokens (background, foreground, primary,
+ * card, ...) inside `tokens.css` via @theme inline.
+ */
+
+:root,
+.light {
+  /* ------- Brand (shared across themes) ------- */
+  --brand-sun: oklch(0.83 0.16 80); /* #f3b94a-ish */
+  --brand-sun-hover: oklch(0.78 0.17 75);
+  --brand-sunset: oklch(0.7 0.19 35); /* coral-orange */
+  --brand-sunset-hover: oklch(0.65 0.2 32);
+  --brand-treasure: oklch(0.88 0.14 95); /* warm gold */
+  --brand-ink: oklch(0.18 0.04 250); /* deep navy ink */
+  --brand-parchment: oklch(0.97 0.022 85); /* cream */
+  --brand-rope: oklch(0.55 0.08 60); /* rope brown */
+  --brand-success: oklch(0.7 0.17 150);
+  --brand-danger: oklch(0.62 0.23 27);
+  --brand-info: oklch(0.7 0.13 230);
+  --brand-warn: oklch(0.78 0.16 75);
+
+  /* ------- Light surface (Day Sea) ------- */
+  --background: oklch(0.95 0.04 230); /* sky blue wash */
+  --foreground: oklch(0.2 0.04 250); /* deep navy ink */
+
+  --card: oklch(0.98 0.018 85); /* parchment */
+  --card-foreground: oklch(0.2 0.04 250);
+
+  --popover: oklch(0.99 0.012 85);
+  --popover-foreground: oklch(0.2 0.04 250);
+
+  --primary: var(--brand-sun);
+  --primary-foreground: oklch(0.18 0.04 250);
+
+  --secondary: oklch(0.92 0.04 230);
+  --secondary-foreground: oklch(0.22 0.05 250);
+
+  --muted: oklch(0.94 0.02 230);
+  --muted-foreground: oklch(0.45 0.035 250);
+
+  --accent: var(--brand-sunset);
+  --accent-foreground: oklch(0.99 0.01 85);
+
+  --destructive: var(--brand-danger);
+
+  --border: oklch(0.85 0.025 230);
+  --input: oklch(0.9 0.02 230);
+  --ring: var(--brand-sun);
+
+  --chart-1: var(--brand-sun);
+  --chart-2: var(--brand-sunset);
+  --chart-3: var(--brand-info);
+  --chart-4: var(--brand-success);
+  --chart-5: var(--brand-treasure);
+
+  --sidebar: oklch(0.97 0.02 85); /* parchment */
+  --sidebar-foreground: oklch(0.22 0.04 250);
+  --sidebar-primary: var(--brand-sun);
+  --sidebar-primary-foreground: oklch(0.18 0.04 250);
+  --sidebar-accent: oklch(0.86 0.07 72);
+  --sidebar-accent-foreground: oklch(0.18 0.04 250);
+  --sidebar-border: oklch(0.85 0.03 80);
+  --sidebar-ring: var(--brand-sun);
+
+  /* Decorative gradients (used via bg-[image:var(--gradient-*)]) */
+  --gradient-sky: linear-gradient(
+    180deg,
+    oklch(0.92 0.06 230) 0%,
+    oklch(0.86 0.08 235) 60%,
+    oklch(0.78 0.1 240) 100%
+  );
+  --gradient-sea-night: linear-gradient(
+    180deg,
+    oklch(0.22 0.05 255) 0%,
+    oklch(0.16 0.05 255) 60%,
+    oklch(0.12 0.04 255) 100%
+  );
+
+  /* Soft warm glow (for CTAs, lanterns, active sidebar) */
+  --glow-sun: 0 0 0 1px oklch(0.83 0.16 80 / 0.35), 0 8px 24px -8px oklch(0.83 0.16 80 / 0.55);
+  --glow-sunset: 0 0 0 1px oklch(0.7 0.19 35 / 0.35), 0 8px 24px -8px oklch(0.7 0.19 35 / 0.5);
+}
+
+.dark {
+  /* ------- Dark surface (Night Sea) ------- */
+  --background: oklch(0.16 0.045 255); /* deep navy */
+  --foreground: oklch(0.96 0.02 85); /* parchment text */
+
+  --card: oklch(0.2 0.05 255);
+  --card-foreground: oklch(0.96 0.02 85);
+
+  --popover: oklch(0.22 0.05 255);
+  --popover-foreground: oklch(0.96 0.02 85);
+
+  --primary: var(--brand-sun);
+  --primary-foreground: oklch(0.16 0.045 255);
+
+  --secondary: oklch(0.26 0.05 255);
+  --secondary-foreground: oklch(0.96 0.02 85);
+
+  --muted: oklch(0.24 0.045 255);
+  --muted-foreground: oklch(0.72 0.03 85);
+
+  --accent: var(--brand-sunset);
+  --accent-foreground: oklch(0.16 0.045 255);
+
+  --destructive: oklch(0.7 0.2 25);
+
+  --border: oklch(1 0 0 / 0.1);
+  --input: oklch(1 0 0 / 0.14);
+  --ring: var(--brand-sun);
+
+  --chart-1: var(--brand-sun);
+  --chart-2: var(--brand-sunset);
+  --chart-3: var(--brand-info);
+  --chart-4: var(--brand-success);
+  --chart-5: var(--brand-treasure);
+
+  --sidebar: oklch(0.18 0.045 255);
+  --sidebar-foreground: oklch(0.92 0.02 85);
+  --sidebar-primary: var(--brand-sun);
+  --sidebar-primary-foreground: oklch(0.16 0.045 255);
+  --sidebar-accent: oklch(0.24 0.05 255);
+  --sidebar-accent-foreground: oklch(0.96 0.02 85);
+  --sidebar-border: oklch(1 0 0 / 0.08);
+  --sidebar-ring: var(--brand-sun);
+
+  --gradient-sky: var(--gradient-sea-night);
+
+  --glow-sun: 0 0 0 1px oklch(0.83 0.16 80 / 0.45), 0 10px 30px -8px oklch(0.83 0.16 80 / 0.55);
+  --glow-sunset: 0 0 0 1px oklch(0.7 0.19 35 / 0.45), 0 10px 30px -8px oklch(0.7 0.19 35 / 0.5);
+}
