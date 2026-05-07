@@ -18,6 +18,8 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40 focus-visible:ring-destructive/20 dark:bg-destructive/20 dark:hover:bg-destructive/30 dark:focus-visible:ring-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
+        treasure:
+          "rounded-2xl border border-brand-sun/50 bg-btn-pirate-bg text-brand-sun shadow-[var(--shadow-btn-treasure)] backdrop-blur-md duration-300 hover:-translate-y-0.5 hover:border-brand-sun/72 hover:shadow-[var(--shadow-btn-treasure-hover)] active:translate-y-0 active:scale-[0.97]",
       },
       size: {
         default:

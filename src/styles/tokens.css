@@ -90,6 +90,16 @@
   --shadow-pop: 0 12px 32px -8px oklch(0 0 0 / 0.22);
   --shadow-glow-sun: var(--glow-sun);
   --shadow-glow-sunset: var(--glow-sunset);
+  /* Pirate CTA button shadows */
+  --shadow-btn-treasure: var(--glow-btn-treasure);
+  --shadow-btn-treasure-hover: var(--glow-btn-treasure-hover);
+  --shadow-btn-treasure-secondary: var(--glow-btn-treasure-secondary);
+  --shadow-btn-treasure-secondary-hover: var(--glow-btn-treasure-secondary-hover);
+
+  /* Pirate CTA button backgrounds */
+  --color-btn-pirate-bg: var(--btn-pirate-bg);
+  --color-btn-pirate-bg-primary: var(--btn-pirate-bg-primary);
+  --color-btn-pirate-bg-secondary: var(--btn-pirate-bg-secondary);
 
   /* Motion */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);

@@ -6,7 +6,7 @@ import { WhatICanDo } from "@/components/portfolio/WhatICanDo";
 
 export function HomePage() {
   return (
-    <div className="flex min-h-screen bg-background lg:h-screen lg:overflow-hidden">
+    <div className="flex min-h-screen bg-background xl:h-screen xl:overflow-hidden">
       <Sidebar />
 
       {/* Main content — scrollable */}
@@ -15,14 +15,14 @@ export function HomePage() {
         <HeroSection />
 
         {/* Three-panel content row */}
-        <div className="relative z-10 flex flex-col bg-background lg:min-h-0 lg:flex-1 lg:flex-row">
+        <div className="relative z-10 flex flex-col bg-background xl:min-h-0 xl:flex-1 xl:flex-row">
           {/* Featured Projects — full width on mobile/tablet, widest col on desktop */}
-          <div className="min-w-0 border-b border-border lg:flex-[5] lg:border-b-0">
+          <div className="min-w-0 border-b border-border xl:flex-[5] xl:border-b-0">
             <FeaturedProjects />
           </div>
 
           {/* What I Can Do + Latest Insights — side-by-side at md+, columns at lg */}
-          <div className="flex min-w-0 flex-col md:flex-row lg:flex-[6]">
+          <div className="flex min-w-0 flex-col xl:flex-[6] xl:flex-row">
             <div className="min-w-0 border-b border-border md:flex-1 md:border-b-0">
               <WhatICanDo />
             </div>

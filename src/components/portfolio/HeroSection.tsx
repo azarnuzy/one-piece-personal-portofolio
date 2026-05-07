@@ -1,9 +1,9 @@
 import { SiReact, SiTailwindcss, SiTypescript } from "@icons-pack/react-simple-icons";
-import { BookOpenIcon, CheckIcon, CompassIcon, ZapIcon } from "lucide-react";
+import { CheckIcon, CompassIcon, ScrollTextIcon, ZapIcon } from "lucide-react";
 
+import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
 import { ThemeTogglePill } from "@/components/portfolio/ThemeTogglePill";
 import { useTheme } from "@/components/theme-provider";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const TECH_CHIPS = [
@@ -18,6 +18,23 @@ const STATS = [
   { icon: CompassIcon, text: "2+ Years Experience" },
   { icon: CheckIcon, text: "Clean Code Lover" },
 ];
+
+function WheelIcon({ size = 16 }: { size?: number }) {
+  return (
+    <span
+      className="block shrink-0 bg-current"
+      style={{
+        width: size,
+        height: size,
+        maskImage: "url(/svg/captains_wheel.svg)",
+        WebkitMaskImage: "url(/svg/captains_wheel.svg)",
+        maskRepeat: "no-repeat",
+        maskSize: "contain",
+        maskPosition: "center",
+      }}
+    />
+  );
+}
 
 export function HeroSection() {
   const { theme } = useTheme();
@@ -55,7 +72,7 @@ export function HeroSection() {
         {/* Hero body: text left, person right */}
         <div className="relative flex flex-1 items-end">
           {/* Text content */}
-          <div className="max-w-[580px] flex-1 px-4 pb-8 md:px-8 md:pb-10">
+          <div className="z-10 max-w-[580px] flex-1 px-4 pb-8 md:px-8 md:pb-10">
             <h1 className="mb-3 heading-display text-3xl text-foreground md:text-5xl">
               Hey, I'm <span className="text-highlight-sunset">Azar!</span>{" "}
               <span aria-hidden>👋</span>
@@ -96,26 +113,20 @@ export function HeroSection() {
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-3">
-              <Button
-                size="lg"
-                className="gap-2 bg-primary font-sans font-semibold text-primary-foreground shadow-[var(--shadow-glow-sun)] hover:bg-brand-sun-hover"
-              >
-                <CompassIcon size={16} />
+              <PirateCTAButton icon={<WheelIcon size={16} />} variant="primary">
                 Explore My Work
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="gap-2 bg-background/40 font-sans font-semibold backdrop-blur-sm"
+              </PirateCTAButton>
+              <PirateCTAButton
+                icon={<ScrollTextIcon size={16} strokeWidth={2} />}
+                variant="secondary"
               >
-                <BookOpenIcon size={16} />
                 Read My Thinking
-              </Button>
+              </PirateCTAButton>
             </div>
           </div>
 
           {/* Person image — hidden on mobile, visible md+ */}
-          <div className="lg pointer-events-none absolute right-0 bottom-0 z-0 hidden h-full items-end select-none md:flex lg:right-20 lg:-bottom-28 xl:right-20 xl:-bottom-40">
+          <div className="pointer-events-none absolute -bottom-28 -z-0 hidden h-full items-end select-none sm:-bottom-24 md:-right-10 md:-bottom-24 md:flex lg:right-20 lg:-bottom-28 xl:right-20 xl:-bottom-40">
             <img
               src="/person.png"
               alt="Azar — Frontend Developer"

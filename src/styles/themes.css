@@ -89,6 +89,17 @@
   /* Soft warm glow (for CTAs, lanterns, active sidebar) */
   --glow-sun: 0 0 0 1px oklch(0.83 0.16 80 / 0.35), 0 8px 24px -8px oklch(0.83 0.16 80 / 0.55);
   --glow-sunset: 0 0 0 1px oklch(0.7 0.19 35 / 0.35), 0 8px 24px -8px oklch(0.7 0.19 35 / 0.5);
+  /* Pirate CTA button glows — primary (warm gold) */
+  --glow-btn-treasure: 0 0 25px oklch(0.83 0.16 80 / 0.28);
+  --glow-btn-treasure-hover: 0 0 35px oklch(0.83 0.16 80 / 0.45);
+  /* Secondary (barely-there whisper) */
+  --glow-btn-treasure-secondary: 0 0 18px oklch(1 0 0 / 0.05);
+  --glow-btn-treasure-secondary-hover: 0 0 25px oklch(0.83 0.16 80 / 0.18);
+
+  /* Semi-transparent deep navy — same for both variants, opacity differs */
+  --btn-pirate-bg: oklch(0.18 0.055 255 / 0.78);
+  --btn-pirate-bg-primary: oklch(0.12 0.05 255 / 0.85);
+  --btn-pirate-bg-secondary: oklch(0.12 0.05 255 / 0.7);
 }
 
 .dark {
@@ -139,4 +150,11 @@
 
   --glow-sun: 0 0 0 1px oklch(0.83 0.16 80 / 0.45), 0 10px 30px -8px oklch(0.83 0.16 80 / 0.55);
   --glow-sunset: 0 0 0 1px oklch(0.7 0.19 35 / 0.45), 0 10px 30px -8px oklch(0.7 0.19 35 / 0.5);
+  --glow-btn-treasure: 0 0 28px oklch(0.83 0.16 80 / 0.32);
+  --glow-btn-treasure-hover: 0 0 40px oklch(0.83 0.16 80 / 0.5);
+  --glow-btn-treasure-secondary: 0 0 18px oklch(1 0 0 / 0.06);
+  --glow-btn-treasure-secondary-hover: 0 0 28px oklch(0.83 0.16 80 / 0.22);
+  --btn-pirate-bg: oklch(0.15 0.05 255 / 0.82);
+  --btn-pirate-bg-primary: oklch(0.12 0.05 255 / 0.85);
+  --btn-pirate-bg-secondary: oklch(0.12 0.05 255 / 0.7);
 }

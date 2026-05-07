@@ -5,6 +5,7 @@ import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import viteReact, { reactCompilerPreset } from "@vitejs/plugin-react";
 import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
+import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
   resolve: {
@@ -14,6 +15,7 @@ export default defineConfig({
     port: 3000,
   },
   plugins: [
+    svgr(),
     devtools(),
     tanstackStart(),
     // https://tanstack.com/start/latest/docs/framework/react/guide/hosting
