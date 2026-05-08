@@ -7,13 +7,11 @@ import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
-import type { AuthQueryResult } from "@/lib/auth/queries";
 
 import appCss from "@/styles.css?url";
 
 interface MyRouterContext {
   queryClient: QueryClient;
-  user: AuthQueryResult;
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
