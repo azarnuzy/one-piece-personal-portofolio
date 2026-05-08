@@ -1,12 +1,6 @@
 [build]
-command = "pnpm build && mkdir -p .output/public"
-publish = ".output/public"
+command = "pnpm build"
+publish = "dist/client"
 
 [build.environment]
-NITRO_PRESET = "netlify"
 NODE_VERSION = "20"
-
-[[redirects]]
-from = "/*"
-to = "/.netlify/functions/server"
-status = 200

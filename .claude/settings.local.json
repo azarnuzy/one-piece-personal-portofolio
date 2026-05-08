@@ -16,7 +16,10 @@
       "Bash(npm install:*)",
       "Bash(find:*)",
       "Bash(ls:*)",
-      "Bash(node -e:*)"
+      "Bash(node -e:*)",
+      "PowerShell(Head-Object *)",
+      "PowerShell(Get-ChildItem -Recurse \"C:\\\\CODING\\\\personal-portofolio-2026\\\\.netlify\" -ErrorAction SilentlyContinue | Select-Object -First 20 | ForEach-Object { $_.FullName.Replace\\(\"C:\\\\CODING\\\\personal-portofolio-2026\\\\.netlify\\\\\", \"\"\\) })",
+      "PowerShell(Get-ChildItem -Recurse \"C:\\\\CODING\\\\personal-portofolio-2026\\\\.output\\\\public\" | Where-Object { $_.Extension -in \".js\",\".css\" } | ForEach-Object { $_.Name })"
     ],
     "deny": []
   }
