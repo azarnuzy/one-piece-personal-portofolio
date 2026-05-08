@@ -1,4 +1,5 @@
 import { SiDribbble, SiGithub, SiX } from "@icons-pack/react-simple-icons";
+import { useRouterState } from "@tanstack/react-router";
 import {
   BookOpenIcon,
   BriefcaseIcon,
@@ -21,13 +22,18 @@ function LinkedInIcon({ size = 16 }: { size?: number }) {
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
-  { icon: HomeIcon, label: "Home", href: "/", active: true },
+  { icon: HomeIcon, label: "Home", href: "/" },
   { icon: UserIcon, label: "About Me", href: "/about" },
   { icon: BriefcaseIcon, label: "Projects", href: "/projects" },
   { icon: ZapIcon, label: "Skills", href: "/skills" },
   { icon: BookOpenIcon, label: "Blog", href: "/blog" },
   { icon: MailIcon, label: "Contact", href: "/contact" },
 ];
+
+function isItemActive(pathname: string, href: string) {
+  if (href === "/") return pathname === "/";
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 const SOCIAL_LINKS = [
   { icon: SiGithub, href: "https://github.com/azarnuzy", label: "GitHub" },
@@ -42,6 +48,8 @@ interface SidebarProps {
 }
 
 export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+
   return (
     <>
       {/* Mobile backdrop */}
@@ -83,22 +91,25 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
 
         {/* Navigation */}
         <nav className="shrink-0 space-y-0.5 p-3">
-          {NAV_ITEMS.map(({ icon: Icon, label, href, active }) => (
-            <a
-              key={label}
-              href={href}
-              onClick={onClose}
-              className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 font-sans text-sm font-medium transition-all duration-[var(--duration-base)]",
-                active
-                  ? "nav-active-glow"
-                  : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-              )}
-            >
-              <Icon size={17} />
-              {label}
-            </a>
-          ))}
+          {NAV_ITEMS.map(({ icon: Icon, label, href }) => {
+            const active = isItemActive(pathname, href);
+            return (
+              <a
+                key={label}
+                href={href}
+                onClick={onClose}
+                className={cn(
+                  "flex items-center gap-3 rounded-lg px-3 py-2.5 font-sans text-sm font-medium transition-all duration-[var(--duration-base)]",
+                  active
+                    ? "nav-active-glow"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                )}
+              >
+                <Icon size={17} />
+                {label}
+              </a>
+            );
+          })}
         </nav>
 
         {/* Spacer */}
