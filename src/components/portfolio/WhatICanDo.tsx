@@ -1,6 +1,6 @@
 import { ArrowRightIcon, LayoutIcon, PaletteIcon, ZapIcon } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
 
 const SKILLS = [
   {
@@ -30,18 +30,18 @@ const SKILLS = [
 
 export function WhatICanDo() {
   return (
-    <section className="border-r border-border px-5 py-6">
+    <section className="flex h-full flex-col surface-card rounded-2xl border border-border p-6 md:p-8">
       {/* Header */}
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="flex items-center gap-2 heading-section text-xl text-foreground">
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="flex items-center gap-2 heading-section text-2xl text-foreground">
           🧭 What I Can Do
         </h2>
         <a
           href="/skills"
-          className="flex items-center gap-1 font-sans text-xs text-brand-sunset transition-colors duration-[var(--duration-base)] hover:text-brand-sunset-hover"
+          className="flex items-center gap-1 font-sans text-sm text-brand-sunset transition-colors duration-[var(--duration-base)] hover:text-brand-sunset-hover"
         >
           View All
-          <ArrowRightIcon size={12} />
+          <ArrowRightIcon size={14} />
         </a>
       </div>
 
@@ -62,10 +62,15 @@ export function WhatICanDo() {
         ))}
       </div>
 
-      <Button className="w-full gap-2 bg-primary font-sans text-sm font-semibold text-primary-foreground">
-        View All Skills
-        <ArrowRightIcon size={14} />
-      </Button>
+      <div className="mt-auto pt-4">
+        <PirateCTAButton
+          variant="secondary"
+          icon={<ArrowRightIcon size={14} />}
+          className="w-full justify-center"
+        >
+          View All Skills
+        </PirateCTAButton>
+      </div>
     </section>
   );
 }

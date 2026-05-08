@@ -1,5 +1,7 @@
 import { ArrowRightIcon, ExternalLinkIcon, FileTextIcon } from "lucide-react";
 
+import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
+
 const PROJECTS = [
   {
     image: "/projects/bluebird-project.png",
@@ -34,42 +36,49 @@ const PROJECTS = [
 
 export function FeaturedProjects() {
   return (
-    <section className="border-r border-border px-6 py-6">
+    <section className="flex h-full flex-col surface-card rounded-2xl border border-border p-6 md:p-8">
       {/* Header */}
-      <div className="mb-4 flex items-center justify-between">
-        <h2 className="flex items-center gap-2 heading-section text-xl text-foreground">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="flex items-center gap-2 heading-section text-2xl text-foreground">
           ⚡ Featured Projects
         </h2>
-        <a
-          href="/projects"
-          className="flex items-center gap-1 font-sans text-xs text-brand-sunset transition-colors duration-[var(--duration-base)] hover:text-brand-sunset-hover"
+        <PirateCTAButton
+          variant="secondary"
+          icon={<ArrowRightIcon size={14} />}
+          className="w-full sm:w-auto"
         >
           View All Projects
-          <ArrowRightIcon size={12} />
-        </a>
+        </PirateCTAButton>
       </div>
 
       {/* Project cards grid — 3 cols */}
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {PROJECTS.map((project) => (
-          <div key={project.title} className="group flex flex-col overflow-hidden surface-card">
+          <div
+            key={project.title}
+            className="group flex flex-col overflow-hidden rounded-xl border border-border/50 bg-background/50 transition-colors hover:bg-muted/30"
+          >
             {/* Thumbnail */}
-            <div className="relative aspect-[16/9] overflow-hidden bg-muted lg:aspect-auto lg:h-[100px]">
+            <div className="relative aspect-[16/9] overflow-hidden rounded-t-xl bg-muted/20">
+              <div className="absolute inset-0 z-10 bg-gradient-to-t from-background/90 via-background/20 to-transparent opacity-60 transition-opacity group-hover:opacity-40" />
               <img
                 src={project.image}
                 alt={project.title}
-                className="h-full w-full object-cover object-top transition-transform duration-[var(--duration-slow)] group-hover:scale-105"
+                className="h-full w-full object-cover object-top transition-all duration-700 ease-out group-hover:-translate-y-1 group-hover:scale-105"
               />
               {project.badge && (
-                <span className="absolute top-1.5 left-1.5 chip-treasure px-2 py-0.5 text-2xs">
+                <span className="absolute top-2.5 left-2.5 z-20 chip-treasure px-2.5 py-1 text-xs font-semibold shadow-sm backdrop-blur-md">
                   {project.badge}
                 </span>
               )}
+
+              {/* Elegant overlay glow on hover */}
+              <div className="absolute inset-0 z-20 bg-brand-treasure/10 opacity-0 mix-blend-overlay transition-opacity duration-500 group-hover:opacity-100" />
             </div>
 
             {/* Body */}
-            <div className="flex flex-1 flex-col p-3">
-              <h3 className="mb-1 font-display text-sm font-bold text-card-foreground">
+            <div className="flex flex-1 flex-col p-4">
+              <h3 className="mb-1.5 font-display text-base font-bold text-foreground transition-colors group-hover:text-brand-sunset">
                 {project.title}
               </h3>
               <p className="mb-2.5 flex-1 font-sans text-xs leading-relaxed text-muted-foreground">

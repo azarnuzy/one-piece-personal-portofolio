@@ -48,7 +48,7 @@ export function PirateCTAButton({
       {/* Default border */}
       <div
         className={cn(
-          "pointer-events-none absolute inset-0 z-10 rounded-[14px] p-[1.5px] transition-opacity duration-300 group-hover:opacity-0",
+          "pointer-events-none absolute inset-0 z-10 rounded-[14px] p-[2px] transition-opacity duration-300 group-hover:opacity-0",
           isPrimary
             ? "bg-gradient-to-r from-brand-treasure/70 via-brand-sun/90 to-brand-treasure/70"
             : "bg-gradient-to-r from-brand-treasure/30 via-brand-sun/50 to-brand-treasure/30",
@@ -58,7 +58,7 @@ export function PirateCTAButton({
 
       {/* Hover cursor following border */}
       <div
-        className="pointer-events-none absolute inset-0 z-10 rounded-[14px] p-[1.5px] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 z-10 rounded-[14px] p-[2px] opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         style={{
           background: `radial-gradient(80px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), ${
             isPrimary
@@ -78,7 +78,7 @@ export function PirateCTAButton({
       />
 
       {/* Subtle inner top highlight */}
-      <div className="pointer-events-none absolute inset-[1.5px] z-0 rounded-[12px] bg-gradient-to-b from-white/10 via-transparent to-transparent" />
+      <div className="pointer-events-none absolute inset-[2px] z-0 rounded-[12px] bg-gradient-to-b from-white/10 via-transparent to-transparent" />
 
       {/* Content wrapper */}
       <div className="relative z-20 flex items-center gap-2 px-4 py-2">
