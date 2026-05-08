@@ -1,6 +1,7 @@
 import { SiReact, SiTailwindcss, SiTypescript } from "@icons-pack/react-simple-icons";
 import { CheckIcon, CompassIcon, ScrollTextIcon, ZapIcon } from "lucide-react";
 
+import { OnePieceBadge } from "@/components/portfolio/OnePieceBadge";
 import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
 import { ThemeTogglePill } from "@/components/portfolio/ThemeTogglePill";
 import { useTheme } from "@/components/theme-provider";
@@ -63,30 +64,30 @@ export function HeroSection() {
 
       {/* Content layer */}
       <div className="relative z-10 flex min-h-[430px] flex-col xl:min-h-[520px]">
-        {/* Top bar: welcome chip + theme toggle */}
+        {/* Top bar: welcome badge + theme toggle */}
         <div className="flex items-center justify-between px-4 py-4 md:px-8">
-          <div className="chip-treasure">⚓ WELCOME TO MY PORTFOLIO</div>
+          <OnePieceBadge text="WELCOME TO MY PORTFOLIO" />
           <ThemeTogglePill />
         </div>
 
         {/* Hero body: text left, person right */}
-        <div className="relative flex flex-1 items-end">
+        <div className="relative flex flex-1 items-center">
           {/* Text content */}
           <div className="z-10 max-w-[580px] flex-1 px-4 pb-8 md:px-8 md:pb-10">
-            <h1 className="mb-3 heading-display text-3xl text-foreground md:text-5xl">
+            <h1 className="mb-2 heading-display text-3xl text-foreground md:text-5xl">
               Hey, I'm <span className="text-highlight-sunset">Azar!</span>{" "}
               <span aria-hidden>👋</span>
             </h1>
 
             <p
-              className="mb-5 max-w-md font-sans text-base text-foreground/80 md:text-lg"
+              className="mb-4 max-w-md font-sans text-base text-foreground/80 md:text-lg"
               style={{ lineHeight: "1.55" }}
             >
               Frontend Developer crafting fast, scalable &amp; interactive web experiences.
             </p>
 
             {/* Tech chips */}
-            <div className="mb-4 flex flex-wrap gap-2">
+            <div className="mb-3 flex flex-wrap gap-2">
               {TECH_CHIPS.map(({ icon: Icon, label, colorClass }) => (
                 <span
                   key={label}
@@ -99,7 +100,7 @@ export function HeroSection() {
             </div>
 
             {/* Stats */}
-            <div className="mb-7 flex flex-wrap gap-5">
+            <div className="mb-6 flex flex-wrap gap-5">
               {STATS.map(({ icon: Icon, text }) => (
                 <span
                   key={text}
