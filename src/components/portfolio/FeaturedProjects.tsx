@@ -7,7 +7,7 @@ import {
   FileTextIcon,
   LayersIcon,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { CardWatermark } from "@/components/portfolio/CardWatermark";
 import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
@@ -61,11 +61,30 @@ const PROJECTS = [
   },
 ];
 
-const VISIBLE = 3;
+function useVisibleCount() {
+  const getCount = () => {
+    if (typeof window === "undefined") return 3;
+    if (window.innerWidth < 640) return 1;
+    if (window.innerWidth < 1024) return 2;
+    return 3;
+  };
+  const [visible, setVisible] = useState(getCount);
+  useEffect(() => {
+    const handler = () => setVisible(getCount());
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+  return visible;
+}
 
 export function FeaturedProjects() {
+  const visible = useVisibleCount();
   const [index, setIndex] = useState(0);
-  const maxIndex = Math.max(0, PROJECTS.length - VISIBLE);
+  const maxIndex = Math.max(0, PROJECTS.length - visible);
+
+  useEffect(() => {
+    setIndex((i) => Math.min(i, maxIndex));
+  }, [maxIndex]);
 
   const prev = () => setIndex((i) => Math.max(0, i - 1));
   const next = () => setIndex((i) => Math.min(maxIndex, i + 1));
@@ -105,7 +124,7 @@ export function FeaturedProjects() {
         {/* Track */}
         <div className="relative overflow-hidden">
           <motion.div
-            animate={{ x: `${-index * (100 / VISIBLE)}%` }}
+            animate={{ x: `${-index * (100 / visible)}%` }}
             transition={{ type: "spring", stiffness: 220, damping: 28 }}
             className="flex"
           >
@@ -113,7 +132,7 @@ export function FeaturedProjects() {
               <article
                 key={project.title}
                 className="group shrink-0 px-1.5"
-                style={{ width: `${100 / VISIBLE}%` }}
+                style={{ width: `${100 / visible}%` }}
               >
                 <div className="flex h-full flex-col overflow-hidden rounded-xl border border-brand-treasure/25 bg-background/40 transition-all duration-300 hover:-translate-y-1 hover:border-brand-treasure/50 hover:shadow-[0_8px_24px_-8px_rgba(234,179,8,0.25)]">
                   {/* Thumbnail */}

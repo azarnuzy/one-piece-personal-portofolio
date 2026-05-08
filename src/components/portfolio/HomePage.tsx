@@ -1,4 +1,5 @@
 import { AnchorIcon, HeartIcon } from "lucide-react";
+import { useState } from "react";
 
 import { Availability } from "@/components/portfolio/Availability";
 import { DailyFuel } from "@/components/portfolio/DailyFuel";
@@ -13,12 +14,14 @@ import { ThingsIFocusOn } from "@/components/portfolio/ThingsIFocusOn";
 import { WhatICanDo } from "@/components/portfolio/WhatICanDo";
 
 export function HomePage() {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <div className="flex min-h-screen bg-background">
-      <Sidebar />
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <main className="flex flex-1 flex-col md:ml-[220px]">
-        <HeroSection />
+        <HeroSection onOpenSidebar={() => setSidebarOpen(true)} />
 
         {/* Bento grid — three rows matching reference layout */}
         <div className="relative z-10 flex flex-col gap-4 bg-background px-4 pt-2 pb-4 md:gap-5 md:px-6 md:pt-3 md:pb-6 lg:px-8 lg:pt-4 lg:pb-8">

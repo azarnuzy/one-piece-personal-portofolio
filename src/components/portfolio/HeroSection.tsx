@@ -1,5 +1,5 @@
 import { SiReact, SiTailwindcss, SiTypescript } from "@icons-pack/react-simple-icons";
-import { CheckIcon, CompassIcon, ScrollTextIcon, ZapIcon } from "lucide-react";
+import { CheckIcon, CompassIcon, MenuIcon, ScrollTextIcon, ZapIcon } from "lucide-react";
 
 import { OnePieceBadge } from "@/components/portfolio/OnePieceBadge";
 import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
@@ -37,7 +37,11 @@ function WheelIcon({ size = 16 }: { size?: number }) {
   );
 }
 
-export function HeroSection() {
+interface HeroSectionProps {
+  onOpenSidebar?: () => void;
+}
+
+export function HeroSection({ onOpenSidebar }: HeroSectionProps) {
   const { theme } = useTheme();
   const isDark = theme === "dark";
 
@@ -66,9 +70,21 @@ export function HeroSection() {
 
       {/* Content layer */}
       <div className="relative z-10 flex min-h-[340px] flex-col xl:min-h-[430px]">
-        {/* Top bar: welcome badge + theme toggle */}
+        {/* Top bar: hamburger (mobile) + welcome badge + theme toggle */}
         <div className="flex items-center justify-between px-4 py-4 md:px-8">
-          <OnePieceBadge text="WELCOME TO MY PORTFOLIO" />
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={onOpenSidebar}
+              aria-label="Open navigation menu"
+              className="flex h-8 w-8 items-center justify-center rounded-lg text-foreground/70 transition-colors hover:bg-muted/60 hover:text-foreground md:hidden"
+            >
+              <MenuIcon size={18} />
+            </button>
+            <span className="hidden sm:block">
+              <OnePieceBadge text="WELCOME TO MY PORTFOLIO" />
+            </span>
+          </div>
           <ThemeTogglePill />
         </div>
 

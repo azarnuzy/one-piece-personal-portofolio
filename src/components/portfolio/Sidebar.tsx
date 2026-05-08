@@ -6,6 +6,7 @@ import {
   MailIcon,
   MapPinIcon,
   UserIcon,
+  XIcon,
   ZapIcon,
 } from "lucide-react";
 
@@ -35,86 +36,119 @@ const SOCIAL_LINKS = [
   { icon: SiDribbble, href: "https://dribbble.com/azarnuzy", label: "Dribbble" },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
   return (
-    <aside className="fixed top-0 left-0 z-[var(--z-sticky)] hidden h-screen w-[220px] flex-col overflow-hidden border-r border-sidebar-border bg-sidebar md:flex">
-      {/* Logo */}
-      <div className="flex shrink-0 items-center gap-3 border-b border-sidebar-border px-4 py-4">
-        <img src="/skull-logo.png" alt="Azar Portfolio" className="h-9 w-9 object-contain" />
-        <div>
-          <p className="font-display text-base leading-tight font-bold text-sidebar-foreground">
-            Azar
-          </p>
-          <p className="font-sans text-2xs tracking-wide text-muted-foreground">Frontend Dev</p>
-        </div>
-      </div>
+    <>
+      {/* Mobile backdrop */}
+      <div
+        className={cn(
+          "fixed inset-0 z-[999] bg-black/50 backdrop-blur-sm transition-opacity duration-300 md:hidden",
+          isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
+        )}
+        onClick={onClose}
+        aria-hidden
+      />
 
-      {/* Navigation */}
-      <nav className="shrink-0 space-y-0.5 p-3">
-        {NAV_ITEMS.map(({ icon: Icon, label, href, active }) => (
-          <a
-            key={label}
-            href={href}
-            className={cn(
-              "flex items-center gap-3 rounded-lg px-3 py-2.5 font-sans text-sm font-medium transition-all duration-[var(--duration-base)]",
-              active
-                ? "nav-active-glow"
-                : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
-            )}
-          >
-            <Icon size={17} />
-            {label}
-          </a>
-        ))}
-      </nav>
-
-      {/* Spacer */}
-      <div className="flex-1" />
-
-      {/* Bottom section */}
-      <div className="shrink-0">
-        <div className="px-4 pt-2 pb-3">
-          {/* Quote */}
-          <div className="mb-3 text-center">
-            <p className="font-display text-2xs leading-relaxed text-brand-rope/70 italic dark:text-muted-foreground">
-              "I'm gonna become the King of the Pirates!"
+      <aside
+        className={cn(
+          "fixed top-0 left-0 z-[1000] flex h-screen w-[75vw] max-w-[260px] flex-col overflow-hidden border-r border-sidebar-border bg-sidebar transition-transform duration-300 ease-in-out",
+          isOpen ? "translate-x-0" : "-translate-x-full",
+          "md:z-[100] md:w-[220px] md:max-w-none md:translate-x-0",
+        )}
+      >
+        {/* Logo */}
+        <div className="flex shrink-0 items-center gap-3 border-b border-sidebar-border px-4 py-4">
+          <img src="/skull-logo.png" alt="Azar Portfolio" className="h-9 w-9 object-contain" />
+          <div className="flex-1">
+            <p className="font-display text-base leading-tight font-bold text-sidebar-foreground">
+              Azar
             </p>
-            <p className="mt-0.5 font-sans text-2xs text-muted-foreground">— Monkey D. Luffy</p>
+            <p className="font-sans text-2xs tracking-wide text-muted-foreground">Frontend Dev</p>
           </div>
-
-          {/* Location */}
-          <div className="mb-3 flex items-center justify-center gap-1.5 text-muted-foreground">
-            <MapPinIcon size={11} />
-            <span className="font-sans text-xs">Based in Indonesia</span>
-          </div>
-
-          {/* Social icons */}
-          <div className="flex items-center justify-center gap-3">
-            {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="text-muted-foreground transition-colors duration-[var(--duration-base)] hover:text-brand-treasure"
-              >
-                <Icon size={15} />
-              </a>
-            ))}
-          </div>
+          {/* Close button — mobile only */}
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close menu"
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-foreground md:hidden"
+          >
+            <XIcon size={15} />
+          </button>
         </div>
 
-        {/* Wave decoration */}
-        <div className="relative overflow-hidden">
-          <img
-            src="/wave-background.png"
-            alt=""
-            aria-hidden
-            className="block h-auto w-full opacity-70 mix-blend-multiply dark:opacity-30 dark:mix-blend-normal dark:invert"
-          />
+        {/* Navigation */}
+        <nav className="shrink-0 space-y-0.5 p-3">
+          {NAV_ITEMS.map(({ icon: Icon, label, href, active }) => (
+            <a
+              key={label}
+              href={href}
+              onClick={onClose}
+              className={cn(
+                "flex items-center gap-3 rounded-lg px-3 py-2.5 font-sans text-sm font-medium transition-all duration-[var(--duration-base)]",
+                active
+                  ? "nav-active-glow"
+                  : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+              )}
+            >
+              <Icon size={17} />
+              {label}
+            </a>
+          ))}
+        </nav>
+
+        {/* Spacer */}
+        <div className="flex-1" />
+
+        {/* Bottom section */}
+        <div className="shrink-0">
+          <div className="px-4 pt-2 pb-3">
+            {/* Quote */}
+            <div className="mb-3 text-center">
+              <p className="font-display text-2xs leading-relaxed text-brand-rope/70 italic dark:text-muted-foreground">
+                "I'm gonna become the King of the Pirates!"
+              </p>
+              <p className="mt-0.5 font-sans text-2xs text-muted-foreground">— Monkey D. Luffy</p>
+            </div>
+
+            {/* Location */}
+            <div className="mb-3 flex items-center justify-center gap-1.5 text-muted-foreground">
+              <MapPinIcon size={11} />
+              <span className="font-sans text-xs">Based in Indonesia</span>
+            </div>
+
+            {/* Social icons */}
+            <div className="flex items-center justify-center gap-3">
+              {SOCIAL_LINKS.map(({ icon: Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="text-muted-foreground transition-colors duration-[var(--duration-base)] hover:text-brand-treasure"
+                >
+                  <Icon size={15} />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Wave decoration */}
+          <div className="relative overflow-hidden">
+            <img
+              src="/wave-background.png"
+              alt=""
+              aria-hidden
+              className="block h-auto w-full opacity-70 mix-blend-multiply dark:opacity-30 dark:mix-blend-normal dark:invert"
+            />
+          </div>
         </div>
-      </div>
-    </aside>
+      </aside>
+    </>
   );
 }
