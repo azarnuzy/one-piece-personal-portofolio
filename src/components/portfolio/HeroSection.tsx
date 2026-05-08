@@ -60,10 +60,12 @@ export function HeroSection() {
               : "bg-gradient-to-r from-background/92 via-background/65 to-background/5",
           )}
         />
+        {/* Bottom fade — dissolves the hero into the content section below */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background to-transparent" />
       </div>
 
       {/* Content layer */}
-      <div className="relative z-10 flex min-h-[430px] flex-col xl:min-h-[520px]">
+      <div className="relative z-10 flex min-h-[340px] flex-col xl:min-h-[430px]">
         {/* Top bar: welcome badge + theme toggle */}
         <div className="flex items-center justify-between px-4 py-4 md:px-8">
           <OnePieceBadge text="WELCOME TO MY PORTFOLIO" />
@@ -73,7 +75,7 @@ export function HeroSection() {
         {/* Hero body: text left, person right */}
         <div className="relative flex flex-1 items-center">
           {/* Text content */}
-          <div className="z-10 max-w-[580px] flex-1 px-4 pb-8 md:px-8 md:pb-10">
+          <div className="z-10 max-w-[580px] flex-1 px-4 pb-4 md:px-8 md:pb-6">
             <h1 className="mb-2 heading-display text-3xl text-foreground md:text-5xl">
               Hey, I'm <span className="text-highlight-sunset">Azar!</span>{" "}
               <span aria-hidden>👋</span>

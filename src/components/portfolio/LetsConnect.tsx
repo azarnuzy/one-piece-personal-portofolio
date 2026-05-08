@@ -1,6 +1,7 @@
 import { SiDribbble, SiGithub } from "@icons-pack/react-simple-icons";
-import { MailIcon } from "lucide-react";
+import { AnchorIcon, MailIcon } from "lucide-react";
 
+import { CardWatermark } from "@/components/portfolio/CardWatermark";
 import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
 
 function LinkedInIcon({ size = 14 }: { size?: number }) {
@@ -13,40 +14,43 @@ function LinkedInIcon({ size = 14 }: { size?: number }) {
 
 export function LetsConnect() {
   return (
-    <section className="flex h-full flex-col justify-center surface-card rounded-2xl border border-border p-6 md:p-8">
-      <div className="mb-6 max-w-lg">
-        <h2 className="mb-2 heading-section text-2xl text-foreground">🤝 Let's Connect!</h2>
-        <p className="font-sans text-sm leading-relaxed text-muted-foreground">
-          I'm open for opportunities and interesting projects. Let's create something amazing
-          together! Feel free to reach out through any of these platforms.
-        </p>
-      </div>
+    <section className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6">
+      <CardWatermark asset="sunny" position="top-right" size={140} opacity={0.06} rotate={10} />
+      {/* Header */}
+      <h2 className="relative mb-1.5 flex items-center gap-2 heading-section text-lg text-foreground">
+        <AnchorIcon size={16} className="text-brand-sunset" />
+        Let's Connect
+      </h2>
+      <p className="relative mb-5 font-sans text-xs leading-relaxed text-muted-foreground">
+        Open for opportunities and interesting projects. Reach out through any platform.
+      </p>
 
-      <div className="mt-auto grid grid-cols-2 gap-3 pt-4">
+      {/* Social grid — 2×2 compact buttons */}
+      <div className="relative mt-auto grid grid-cols-2 gap-2">
         <PirateCTAButton
           variant="secondary"
-          icon={<MailIcon size={16} />}
+          icon={<MailIcon size={14} />}
           className="w-full justify-center bg-transparent shadow-none hover:bg-white/5"
         >
           Email Me
         </PirateCTAButton>
         <PirateCTAButton
           variant="secondary"
-          icon={<LinkedInIcon size={16} />}
+          icon={<LinkedInIcon size={14} />}
           className="w-full justify-center bg-transparent shadow-none hover:bg-white/5"
         >
           LinkedIn
         </PirateCTAButton>
         <PirateCTAButton
           variant="secondary"
-          icon={<SiGithub size={16} />}
+          icon={<SiGithub size={14} />}
           className="w-full justify-center bg-transparent shadow-none hover:bg-white/5"
         >
           GitHub
         </PirateCTAButton>
         <PirateCTAButton
           variant="secondary"
-          icon={<SiDribbble size={16} />}
+          icon={<SiDribbble size={14} />}
           className="w-full justify-center bg-transparent shadow-none hover:bg-white/5"
         >
           Dribbble
