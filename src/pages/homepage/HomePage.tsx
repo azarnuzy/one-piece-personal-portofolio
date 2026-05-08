@@ -1,17 +1,17 @@
 import { AnchorIcon, HeartIcon } from "lucide-react";
 import { useState } from "react";
 
-import { Availability } from "@/components/portfolio/Availability";
-import { DailyFuel } from "@/components/portfolio/DailyFuel";
-import { FeaturedProjects } from "@/components/portfolio/FeaturedProjects";
-import { HeroSection } from "@/components/portfolio/HeroSection";
-import { LatestInsights } from "@/components/portfolio/LatestInsights";
-import { LetsConnect } from "@/components/portfolio/LetsConnect";
-import { QuickContact } from "@/components/portfolio/QuickContact";
 import { Sidebar } from "@/components/portfolio/Sidebar";
-import { TechIUse } from "@/components/portfolio/TechIUse";
-import { ThingsIFocusOn } from "@/components/portfolio/ThingsIFocusOn";
-import { WhatICanDo } from "@/components/portfolio/WhatICanDo";
+import { Availability } from "@/pages/homepage/Availability";
+import { DailyFuel } from "@/pages/homepage/DailyFuel";
+import { FeaturedProjects } from "@/pages/homepage/FeaturedProjects";
+import { HeroSection } from "@/pages/homepage/HeroSection";
+import { LatestInsights } from "@/pages/homepage/LatestInsights";
+import { LetsConnect } from "@/pages/homepage/LetsConnect";
+import { QuickContact } from "@/pages/homepage/QuickContact";
+import { TechIUse } from "@/pages/homepage/TechIUse";
+import { ThingsIFocusOn } from "@/pages/homepage/ThingsIFocusOn";
+import { WhatICanDo } from "@/pages/homepage/WhatICanDo";
 
 export function HomePage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
