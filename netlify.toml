@@ -1,5 +1,5 @@
 [build]
-command = "pnpm build"
+command = "pnpm build && mkdir -p .output/public"
 publish = ".output/public"
 
 [build.environment]
