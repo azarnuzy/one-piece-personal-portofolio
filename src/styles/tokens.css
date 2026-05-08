@@ -73,6 +73,11 @@
   --color-brand-info: var(--brand-info);
   --color-brand-warn: var(--brand-warn);
 
+  /* One Piece Badge wood plank */
+  --color-badge-plank-base: var(--badge-plank-base);
+  --color-badge-plank-highlight: var(--badge-plank-highlight);
+  --color-badge-plank-shadow: var(--badge-plank-shadow);
+
   /* Radii */
   --radius-xs: calc(var(--radius) * 0.4);
   --radius-sm: calc(var(--radius) * 0.6);
