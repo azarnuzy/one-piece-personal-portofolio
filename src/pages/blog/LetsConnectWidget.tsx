@@ -22,48 +22,48 @@ function SocialButton({ href, icon, label, className }: SocialButtonProps) {
       rel="noopener noreferrer"
       aria-label={label}
       className={cn(
-        "group flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-border/60 bg-card/60 px-3 py-2 font-sans text-xs font-medium text-muted-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-treasure/30 hover:brightness-110",
+        "group flex items-center justify-center gap-1.5 rounded-lg border border-border/50 bg-card/50 px-2.5 py-1.5 font-sans text-2xs font-medium text-muted-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-treasure/30 hover:brightness-110",
         className,
       )}
     >
       <span className="shrink-0">{icon}</span>
-      <span className="hidden sm:inline">{label}</span>
+      <span className="leading-none">{label}</span>
     </a>
   );
 }
 
 export function LetsConnectWidget() {
   return (
-    <GoldPanelCard padding="md" static>
-      <SectionHeader icon={AnchorIcon} title="Let's Connect!" tone="sunset" />
+    <GoldPanelCard padding="sm" static>
+      <SectionHeader icon={AnchorIcon} title="Let's Connect" tone="sunset" />
 
-      <p className="mb-3 font-sans text-xs leading-relaxed text-muted-foreground">
-        I'm open for opportunities and exciting projects. Let's build something amazing together!
+      <p className="mb-2.5 font-sans text-2xs leading-relaxed text-muted-foreground">
+        Open for opportunities & exciting projects. Let's build something amazing!
       </p>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-2 gap-1.5">
         <SocialButton
           href="mailto:azar@example.com"
-          icon={<MailIcon size={12} />}
-          label="Email Me"
-          className="bg-brand-sunset/10 text-brand-sunset hover:border-brand-sunset/40"
+          icon={<MailIcon size={11} />}
+          label="Email"
+          className="bg-brand-sunset/8 text-brand-sunset hover:border-brand-sunset/35"
         />
         <SocialButton
           href="https://linkedin.com/in/azarnuzy"
-          icon={<LinkedInIcon size={12} />}
+          icon={<LinkedInIcon size={11} />}
           label="LinkedIn"
-          className="bg-brand-info/10 text-brand-info hover:border-brand-info/40"
+          className="bg-brand-info/8 text-brand-info hover:border-brand-info/35"
         />
         <SocialButton
           href="https://github.com/azarnuzy"
-          icon={<SiGithub size={12} />}
-          label="Github"
+          icon={<SiGithub size={11} />}
+          label="GitHub"
         />
         <SocialButton
           href="https://dribbble.com/azarnuzy"
-          icon={<SiDribbble size={12} />}
+          icon={<SiDribbble size={11} />}
           label="Dribbble"
-          className="bg-brand-sunset/10 text-brand-sunset hover:border-brand-sunset/40"
+          className="bg-brand-sunset/8 text-brand-sunset hover:border-brand-sunset/35"
         />
       </div>
     </GoldPanelCard>

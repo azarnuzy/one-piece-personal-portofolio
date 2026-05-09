@@ -82,6 +82,61 @@ export const POSTS: BlogPost[] = [
     likes: 28,
     thumbnailKey: "javascript",
   },
+  {
+    id: "5",
+    title: "TypeScript Advanced Patterns You Need in 2024",
+    description:
+      "Explore utility types, conditional types, template literals, and other powerful TypeScript patterns that make large codebases maintainable.",
+    date: "Jun 18, 2024",
+    readTime: 8,
+    category: "web-development",
+    likes: 61,
+    thumbnailKey: "react",
+  },
+  {
+    id: "6",
+    title: "Mastering CSS Grid for Complex Layouts",
+    description:
+      "A comprehensive guide to CSS Grid — from basic tracks to advanced placement, auto-fill, and responsive magazine-style layouts.",
+    date: "Jul 03, 2024",
+    readTime: 6,
+    category: "tutorials",
+    likes: 45,
+    thumbnailKey: "javascript",
+  },
+  {
+    id: "7",
+    title: "Node.js Best Practices for Scalable APIs",
+    description:
+      "How to structure, secure, and scale a Node.js REST API — covering project architecture, error handling, and performance patterns.",
+    date: "Jul 20, 2024",
+    readTime: 9,
+    category: "web-development",
+    likes: 34,
+    thumbnailKey: "websocket",
+  },
+  {
+    id: "8",
+    title: "Freelancing as a Developer: Lessons Learned",
+    description:
+      "Honest reflections on transitioning to freelance work — finding clients, pricing projects, and avoiding common rookie mistakes.",
+    date: "Aug 05, 2024",
+    readTime: 5,
+    category: "career",
+    likes: 57,
+    thumbnailKey: "journey",
+  },
+  {
+    id: "9",
+    title: "State Management Without the Headache",
+    description:
+      "Comparing Zustand, Jotai, and React Query — when to use each, and how to pick the right tool for your project's complexity.",
+    date: "Aug 22, 2024",
+    readTime: 7,
+    category: "web-development",
+    likes: 48,
+    thumbnailKey: "react",
+  },
 ];
 
 export const POPULAR_POSTS = [...POSTS].sort((a, b) => b.likes - a.likes).slice(0, 3);

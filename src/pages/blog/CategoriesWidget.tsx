@@ -2,6 +2,7 @@ import { LayoutGridIcon } from "lucide-react";
 
 import { GoldPanelCard } from "@/components/portfolio/GoldPanelCard";
 import { SectionHeader } from "@/components/portfolio/SectionHeader";
+import { cn } from "@/lib/utils";
 
 import { CATEGORIES } from "./data";
 
@@ -9,24 +10,30 @@ export function CategoriesWidget() {
   const cats = CATEGORIES.filter((c) => c.value !== "all");
 
   return (
-    <GoldPanelCard padding="md" static>
+    <GoldPanelCard padding="sm" static>
       <SectionHeader icon={LayoutGridIcon} title="Categories" tone="info" />
 
-      <ul className="flex flex-col divide-y divide-border/40">
+      <div className="grid grid-cols-2 gap-1.5">
         {cats.map((cat) => (
-          <li
+          <button
             key={cat.value}
-            className="group flex cursor-pointer items-center justify-between px-1 py-2.5 transition-all duration-150 hover:translate-x-0.5"
+            type="button"
+            className={cn(
+              "group flex items-center justify-between gap-1.5 rounded-lg border border-border/40 bg-muted/30 px-2.5 py-1.5 text-left transition-all duration-150",
+              "hover:-translate-y-0.5 hover:border-brand-treasure/30 hover:bg-muted/60 hover:shadow-[var(--shadow-card)]",
+            )}
           >
-            <span className="font-sans text-xs font-medium text-foreground/80 transition-colors group-hover:text-brand-treasure">
+            <span className="truncate font-sans text-2xs font-medium text-foreground/80 transition-colors group-hover:text-brand-treasure">
               {cat.label}
             </span>
-            <span className="flex h-5 min-w-[1.4rem] items-center justify-center rounded-full bg-muted/60 px-1.5 font-sans text-2xs text-muted-foreground">
-              {cat.count}
-            </span>
-          </li>
+            {cat.count !== undefined && (
+              <span className="shrink-0 rounded-full bg-card/80 px-1.5 py-px font-sans text-2xs leading-none text-muted-foreground tabular-nums">
+                {cat.count}
+              </span>
+            )}
+          </button>
         ))}
-      </ul>
+      </div>
     </GoldPanelCard>
   );
 }

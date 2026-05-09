@@ -110,22 +110,7 @@ export function BlogHero({ onOpenSidebar, activeCategory, onSelectCategory }: Bl
       minHeight="min-h-[380px] md:min-h-[440px]"
     >
       <div className="relative flex flex-1 items-center">
-        <div className="z-10 max-w-[580px] flex-1 px-4 pb-7 md:px-8 md:pb-9">
-          {/* Straw hat accent above the heading */}
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.05 }}
-            className="mb-1"
-          >
-            <img
-              src="/strawhat-logo.png"
-              alt=""
-              aria-hidden
-              className="h-8 w-8 object-contain opacity-90 drop-shadow-sm md:h-9 md:w-9"
-            />
-          </motion.div>
-
+        <div className="z-10 max-w-[860px] flex-1 px-4 pb-7 md:px-8 md:pb-9">
           {/* Main heading */}
           <motion.h1
             initial="hidden"
