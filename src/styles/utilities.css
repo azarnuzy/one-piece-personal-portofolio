@@ -83,3 +83,15 @@
   background-image: var(--gradient-sky);
   background-color: var(--background);
 }
+
+/* Hero fog drift — slow horizontal sweep behind hero content.
+   Replaces a framer-motion infinite loop with a CSS keyframe (no JS RAF tick). */
+@keyframes hero-fog-drift {
+  0%,
+  100% {
+    transform: translate3d(-5%, 0, 0);
+  }
+  50% {
+    transform: translate3d(5%, 0, 0);
+  }
+}

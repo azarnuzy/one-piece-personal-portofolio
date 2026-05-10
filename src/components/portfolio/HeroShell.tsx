@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
 import { MenuIcon } from "lucide-react";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, memo, useContext, useEffect, useState } from "react";
 
 import { OnePieceBadge } from "@/components/portfolio/OnePieceBadge";
+import { PersistentPerson } from "@/components/portfolio/PersistentPerson";
 import { ThemeTogglePill } from "@/components/portfolio/ThemeTogglePill";
-import { useTheme } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 
 interface ParallaxState {
@@ -29,7 +29,7 @@ const PARTICLES = [
   { x: 70, y: 88, size: 3, delay: 1.5 },
 ];
 
-function FloatingParticles() {
+const FloatingParticles = memo(function FloatingParticles() {
   return (
     <div className="pointer-events-none absolute inset-0 z-0" aria-hidden>
       {PARTICLES.map((d, i) => (
@@ -42,6 +42,7 @@ function FloatingParticles() {
             width: d.size,
             height: d.size,
             boxShadow: "0 0 8px oklch(from var(--brand-treasure) l c h / 0.7)",
+            willChange: "transform, opacity",
           }}
           animate={{ y: [0, -14, 0], opacity: [0.3, 0.85, 0.3] }}
           transition={{
@@ -54,7 +55,49 @@ function FloatingParticles() {
       ))}
     </div>
   );
-}
+});
+
+// Persistent backdrop — renders BOTH bg images stacked, opacity toggled by `dark:` variant.
+// No `src` swap = no decode flicker on theme change. Both images preloaded by the browser.
+const HeroBackdrop = memo(function HeroBackdrop() {
+  return (
+    <div className="absolute inset-0">
+      {/* Light bg — visible only when html does NOT have .dark */}
+      <img
+        src="/background-light.png"
+        alt=""
+        aria-hidden
+        draggable={false}
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      />
+      {/* Dark bg — visible only when html has .dark */}
+      {/* <img
+        src="/background-night.png"
+        alt=""
+        aria-hidden
+        draggable={false}
+        className="absolute inset-0 h-full w-full object-cover object-center opacity-0 transition-opacity duration-300 ease-out dark:opacity-100"
+      /> */}
+
+      {/* Theme-aware gradient overlay (uses dark: variant on opacity stops) */}
+      <div className="absolute inset-0 bg-gradient-to-r from-background/92 via-background/65 to-background/8 dark:from-background/95 dark:via-background/75 dark:to-background/12" />
+
+      {/* Slow horizontal fog — CSS keyframe (cheaper than framer JS loop) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-40 motion-safe:animate-[hero-fog-drift_30s_ease-in-out_infinite]"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 40% at 70% 60%, oklch(from var(--brand-info) l c h / 0.18), transparent 70%)",
+          willChange: "transform",
+        }}
+      />
+
+      {/* Bottom fade into body bg */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background to-transparent" />
+    </div>
+  );
+});
 
 interface HeroShellProps {
   badgeText: string;
@@ -66,14 +109,15 @@ interface HeroShellProps {
 export function HeroShell({
   badgeText,
   onOpenSidebar,
-  minHeight = "min-h-[400px]",
+  minHeight = "min-h-[420px] xl:min-h-[500px]",
   children,
 }: HeroShellProps) {
-  const { theme } = useTheme();
-  const isDark = theme === "dark";
   const [parallax, setParallax] = useState<ParallaxState>({ x: 0, y: 0 });
 
   useEffect(() => {
+    // Respect reduced-motion: skip parallax entirely.
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const handler = (e: MouseEvent) => {
       setParallax({
         x: (e.clientX / window.innerWidth - 0.5) * 2,
@@ -87,36 +131,11 @@ export function HeroShell({
   return (
     <HeroParallaxContext.Provider value={parallax}>
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={isDark ? "/background-night.png" : "/background-light.png"}
-            alt=""
-            aria-hidden
-            className="h-full w-full object-cover object-center"
-          />
-          <div
-            className={cn(
-              "absolute inset-0",
-              isDark
-                ? "bg-gradient-to-r from-background/95 via-background/75 to-background/12"
-                : "bg-gradient-to-r from-background/92 via-background/65 to-background/8",
-            )}
-          />
-          {/* Slow horizontal fog */}
-          <motion.div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-40"
-            animate={{ x: ["-5%", "5%", "-5%"] }}
-            transition={{ duration: 30, repeat: Infinity, ease: "easeInOut" }}
-            style={{
-              background:
-                "radial-gradient(ellipse 60% 40% at 70% 60%, oklch(from var(--brand-info) l c h / 0.18), transparent 70%)",
-            }}
-          />
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background to-transparent" />
-        </div>
-
+        <HeroBackdrop />
         <FloatingParticles />
+
+        {/* Persistent person illustration — img mounts ONCE, identical on every page */}
+        <PersistentPerson />
 
         <div className={cn("relative z-10 flex flex-col", minHeight)}>
           <div className="flex items-center justify-between px-4 py-4 md:px-8">

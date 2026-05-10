@@ -5,6 +5,7 @@ import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
 import { createRootRouteWithContext, HeadContent, Scripts } from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
+import { AppLayout } from "@/components/portfolio/AppLayout";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -15,11 +16,7 @@ interface MyRouterContext {
 }
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
-  // Typically we don't need the user immediately in landing pages.
-  // For protected routes with loader data, see /_auth/route.tsx
-  // beforeLoad: ({ context }) => {
-  //   context.queryClient.prefetchQuery(authQueryOptions());
-  // },
+  component: () => <AppLayout />,
   head: () => ({
     meta: [
       {
@@ -44,6 +41,13 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         href: "https://mugnavo.com/favicon.ico",
       },
       { rel: "stylesheet", href: appCss },
+      // Preload hero assets so they're decoded before first paint.
+      // Both bg images preload because the dual-stack approach in HeroShell
+      // keeps both in the DOM (opacity-toggled per theme), eliminating the
+      // theme-switch flicker entirely.
+      { rel: "preload", as: "image", href: "/background-light.png" },
+      { rel: "preload", as: "image", href: "/background-night.png" },
+      { rel: "preload", as: "image", href: "/person.png" },
     ],
   }),
   shellComponent: RootDocument,

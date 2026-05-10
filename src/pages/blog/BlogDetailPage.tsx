@@ -1,3 +1,4 @@
+import { useParams } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
   AnchorIcon,
@@ -7,11 +8,8 @@ import {
   QuoteIcon,
   TrendingUpIcon,
 } from "lucide-react";
-import { useState } from "react";
+import { memo } from "react";
 
-import { Sidebar } from "@/components/portfolio/Sidebar";
-
-import { BlogDetailHero } from "./BlogDetailHero";
 import { CategoriesWidget } from "./CategoriesWidget";
 import { POSTS } from "./data";
 import { LetsConnectWidget } from "./LetsConnectWidget";
@@ -109,7 +107,6 @@ function ArticleMilestoneList({ items }: { items: { year: string; text: string }
 function ArticleBody() {
   return (
     <article className="min-w-0">
-      {/* Drop-cap intro */}
       <p className="mb-5 font-sans text-sm leading-7 text-foreground/75 md:text-base md:leading-8 [&:first-letter]:float-left [&:first-letter]:mr-2 [&:first-letter]:font-display [&:first-letter]:text-5xl [&:first-letter]:leading-none [&:first-letter]:font-bold [&:first-letter]:text-brand-treasure">
         Every developer has a story — a moment when a blank screen and a blinking cursor stopped
         feeling intimidating and started feeling like an invitation. For me, that moment arrived
@@ -249,7 +246,6 @@ createModal('<h2>Hello World</h2><p>My first modal!</p>');`}</ArticleCode>
         cursor and enough stubbornness to keep going.
       </ArticleParagraph>
 
-      {/* Post footer */}
       <div className="mt-8 flex items-center justify-between border-t border-border/40 pt-5">
         <div className="flex items-center gap-2 font-sans text-xs text-muted-foreground">
           <HeartIcon size={13} className="text-brand-sunset/70" />
@@ -262,56 +258,43 @@ createModal('<h2>Hello World</h2><p>My first modal!</p>');`}</ArticleCode>
 
 // ─── Blog Detail Page ─────────────────────────────────────────────────────────
 
-interface BlogDetailPageProps {
-  postId: string;
-  onBack: () => void;
-}
-
-export function BlogDetailPage({ postId, onBack }: BlogDetailPageProps) {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
-  const post = POSTS.find((p) => p.id === postId) ?? POSTS[0];
+function BlogDetailPageInner() {
+  const { postId } = useParams({ strict: false }) as { postId?: string };
+  const post = postId ? (POSTS.find((p) => p.id === postId) ?? POSTS[0]) : POSTS[0];
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+    <>
+      <div className="relative z-10 flex-1 bg-background px-3 pt-4 pb-6 md:px-5 md:pt-5 md:pb-8 lg:px-6">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
+          {/* Left: article */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="min-w-0 flex-1 rounded-2xl border border-border/50 bg-card/50 p-5 backdrop-blur-sm md:p-6"
+          >
+            <ArticleBody />
+          </motion.div>
 
-      <main className="flex min-w-0 flex-1 flex-col md:ml-[220px]">
-        {/* Hero */}
-        <BlogDetailHero post={post} onBack={onBack} onOpenSidebar={() => setSidebarOpen(true)} />
-
-        {/* Content */}
-        <div className="relative z-10 flex-1 bg-background px-3 pt-4 pb-6 md:px-5 md:pt-5 md:pb-8 lg:px-6">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-            {/* Left: article */}
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="min-w-0 flex-1 rounded-2xl border border-border/50 bg-card/50 p-5 backdrop-blur-sm md:p-6"
-            >
-              <ArticleBody />
-            </motion.div>
-
-            {/* Right: sidebar widgets */}
-            <div className="flex flex-col gap-3 lg:w-[248px] lg:shrink-0 xl:w-[264px]">
-              <PopularPostsWidget />
-              <CategoriesWidget />
-              <LetsConnectWidget />
-            </div>
+          {/* Right: sidebar widgets */}
+          <div className="flex flex-col gap-3 lg:w-[248px] lg:shrink-0 xl:w-[264px]">
+            <PopularPostsWidget />
+            <CategoriesWidget />
+            <LetsConnectWidget />
           </div>
         </div>
+      </div>
 
-        {/* Footer */}
-        <footer className="flex shrink-0 items-center justify-between border-t border-border px-4 py-3 font-sans text-xs text-muted-foreground md:px-6">
-          <span className="flex items-center gap-1.5">
-            <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
-          </span>
-          <span className="flex items-center gap-1.5">
-            Made with <HeartIcon size={11} className="text-brand-sunset" /> and lots of ☕
-          </span>
-        </footer>
-      </main>
-    </div>
+      <footer className="flex shrink-0 items-center justify-between border-t border-border px-4 py-3 font-sans text-xs text-muted-foreground md:px-6">
+        <span className="flex items-center gap-1.5">
+          <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
+        </span>
+        <span className="flex items-center gap-1.5">
+          Made with <HeartIcon size={11} className="text-brand-sunset" /> and lots of ☕
+        </span>
+      </footer>
+    </>
   );
 }
+
+export const BlogDetailPage = memo(BlogDetailPageInner);

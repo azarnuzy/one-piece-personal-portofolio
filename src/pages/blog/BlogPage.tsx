@@ -1,14 +1,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { AnchorIcon, ChevronLeftIcon, ChevronRightIcon, HeartIcon } from "lucide-react";
-import { useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 
-import { Sidebar } from "@/components/portfolio/Sidebar";
+import { useBlogCategory } from "@/contexts/blog-category";
 import { cn } from "@/lib/utils";
 
-import { BlogHero } from "./BlogHero";
 import { BlogPostCard } from "./BlogPostCard";
 import { CategoriesWidget } from "./CategoriesWidget";
-import { POSTS, type BlogCategory } from "./data";
+import { POSTS } from "./data";
 import { LetsConnectWidget } from "./LetsConnectWidget";
 import { PopularPostsWidget } from "./PopularPostsWidget";
 
@@ -69,10 +68,13 @@ function Pagination({
 
 // ─── Blog page ────────────────────────────────────────────────────────────────
 
-export function BlogPage() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<BlogCategory>("all");
+function BlogPageInner() {
+  const { activeCategory } = useBlogCategory();
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    setPage(1);
+  }, [activeCategory]);
 
   const filtered = useMemo(() => {
     if (activeCategory === "all") return POSTS;
@@ -81,113 +83,92 @@ export function BlogPage() {
 
   const paginated = filtered.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
 
-  function handleCategoryChange(cat: BlogCategory) {
-    setActiveCategory(cat);
-    setPage(1);
-  }
-
-  // Split posts: first featured post gets the wide card, rest go into compact grid
   const featuredPost = paginated[0]?.featured ? paginated[0] : null;
   const gridPosts = featuredPost ? paginated.slice(1) : paginated;
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+    <>
+      <div className="relative z-10 flex-1 bg-background px-3 pt-4 pb-6 md:px-5 md:pt-5 md:pb-8 lg:px-6">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
+          {/* Left: blog feed */}
+          <div className="flex min-w-0 flex-1 flex-col gap-2.5">
+            <AnimatePresence mode="wait">
+              {paginated.length > 0 ? (
+                <motion.div
+                  key={`${activeCategory}-${page}`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.18 }}
+                  className="flex flex-col gap-2.5"
+                >
+                  {featuredPost && (
+                    <BlogPostCard post={featuredPost} index={0} variant="featured" />
+                  )}
 
-      <main className="flex min-w-0 flex-1 flex-col md:ml-[220px]">
-        {/* Hero */}
-        <BlogHero
-          onOpenSidebar={() => setSidebarOpen(true)}
-          activeCategory={activeCategory}
-          onSelectCategory={handleCategoryChange}
-        />
-
-        {/* Content */}
-        <div className="relative z-10 flex-1 bg-background px-3 pt-4 pb-6 md:px-5 md:pt-5 md:pb-8 lg:px-6">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-            {/* Left: blog feed — 8 col */}
-            <div className="flex min-w-0 flex-1 flex-col gap-2.5">
-              <AnimatePresence mode="wait">
-                {paginated.length > 0 ? (
-                  <motion.div
-                    key={`${activeCategory}-${page}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.18 }}
-                    className="flex flex-col gap-2.5"
-                  >
-                    {/* Featured post — full width */}
-                    {featuredPost && (
-                      <BlogPostCard post={featuredPost} index={0} variant="featured" />
-                    )}
-
-                    {/* Compact grid — 2 columns on sm+ */}
-                    {gridPosts.length > 0 && (
-                      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                        {gridPosts.map((post, i) => {
-                          const isLastOdd =
-                            gridPosts.length % 2 !== 0 && i === gridPosts.length - 1;
-                          return (
-                            <div key={post.id} className={isLastOdd ? "sm:col-span-2" : ""}>
-                              <BlogPostCard
-                                post={post}
-                                index={featuredPost ? i + 1 : i}
-                                variant="compact"
-                              />
-                            </div>
-                          );
-                        })}
-                      </div>
-                    )}
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="empty"
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border/50 bg-card/30 py-12"
-                  >
-                    <AnchorIcon size={24} className="text-muted-foreground/40" />
-                    <p className="font-sans text-sm text-muted-foreground">
-                      No posts found in this category.
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              {/* Pagination */}
-              {filtered.length > POSTS_PER_PAGE && (
-                <div className="mt-1.5 flex justify-center">
-                  <Pagination
-                    current={page}
-                    total={Math.ceil(filtered.length / POSTS_PER_PAGE)}
-                    onChange={setPage}
-                  />
-                </div>
+                  {gridPosts.length > 0 && (
+                    <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+                      {gridPosts.map((post, i) => {
+                        const isLastOdd = gridPosts.length % 2 !== 0 && i === gridPosts.length - 1;
+                        return (
+                          <div key={post.id} className={isLastOdd ? "sm:col-span-2" : ""}>
+                            <BlogPostCard
+                              post={post}
+                              index={featuredPost ? i + 1 : i}
+                              variant="compact"
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="empty"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border/50 bg-card/30 py-12"
+                >
+                  <AnchorIcon size={24} className="text-muted-foreground/40" />
+                  <p className="font-sans text-sm text-muted-foreground">
+                    No posts found in this category.
+                  </p>
+                </motion.div>
               )}
-            </div>
+            </AnimatePresence>
 
-            {/* Right: sidebar widgets — 4 col */}
-            <div className="flex flex-col gap-3 lg:w-[248px] lg:shrink-0 xl:w-[264px]">
-              <PopularPostsWidget />
-              <CategoriesWidget />
-              <LetsConnectWidget />
-            </div>
+            {filtered.length > POSTS_PER_PAGE && (
+              <div className="mt-1.5 flex justify-center">
+                <Pagination
+                  current={page}
+                  total={Math.ceil(filtered.length / POSTS_PER_PAGE)}
+                  onChange={setPage}
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Right: sidebar widgets */}
+          <div className="flex flex-col gap-3 lg:w-[248px] lg:shrink-0 xl:w-[264px]">
+            <PopularPostsWidget />
+            <CategoriesWidget />
+            <LetsConnectWidget />
           </div>
         </div>
+      </div>
 
-        {/* Footer */}
-        <footer className="flex shrink-0 items-center justify-between border-t border-border px-4 py-3 font-sans text-xs text-muted-foreground md:px-6">
-          <span className="flex items-center gap-1.5">
-            <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
-          </span>
-          <span className="flex items-center gap-1.5">
-            Made with <HeartIcon size={11} className="text-brand-sunset" /> and lots of ☕
-          </span>
-        </footer>
-      </main>
-    </div>
+      <footer className="flex shrink-0 items-center justify-between border-t border-border px-4 py-3 font-sans text-xs text-muted-foreground md:px-6">
+        <span className="flex items-center gap-1.5">
+          <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
+        </span>
+        <span className="flex items-center gap-1.5">
+          Made with <HeartIcon size={11} className="text-brand-sunset" /> and lots of ☕
+        </span>
+      </footer>
+    </>
   );
 }
+
+export const BlogPage = memo(BlogPageInner);

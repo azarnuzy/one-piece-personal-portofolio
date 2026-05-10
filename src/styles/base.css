@@ -14,6 +14,11 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    /* Match body bg so any momentary transparent gap during route transitions
+       (between unmount/remount of body subtrees) reveals the theme-correct
+       color instead of the browser default white — eliminates the light flash
+       on dark mode. The .dark/.light class on <html> drives var(--background). */
+    background-color: var(--background);
   }
 
   body {

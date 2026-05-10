@@ -1,12 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { AnchorIcon, HeartIcon, UsersIcon, ZapIcon } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-
-import { HeroShell, useHeroParallax } from "@/components/portfolio/HeroShell";
-
-interface ProjectsHeroProps {
-  onOpenSidebar?: () => void;
-}
+import { memo, useEffect, useRef, useState } from "react";
 
 function useCountUp(target: number, inView: boolean, duration = 1200) {
   const [current, setCurrent] = useState(0);
@@ -78,92 +72,49 @@ function HeadingLine({ children }: { children: React.ReactNode }) {
   );
 }
 
-function PersonIllustration() {
-  const parallax = useHeroParallax();
+function ProjectsHeroContentInner() {
   return (
-    <div
-      className="pointer-events-none absolute -bottom-24 -z-0 hidden h-full items-end select-none md:-right-8 md:-bottom-20 md:flex lg:right-16 lg:-bottom-24 xl:right-16 xl:-bottom-36"
-      style={{
-        transform: `translate(${parallax.x * -5}px, ${parallax.y * -3}px)`,
-        transition: "transform 0.1s ease-out",
-      }}
-    >
-      <img
-        src="/person.png"
-        alt="Azar — Frontend Developer"
-        className="max-h-[400px] w-auto object-contain object-bottom xl:max-h-[490px]"
-      />
-
-      {/* Quote card */}
-      <motion.div
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
-        className="pointer-events-auto absolute top-10 -right-4 w-[190px] rounded-2xl border border-brand-treasure/25 bg-card/85 p-4 shadow-[var(--shadow-card-lg)] backdrop-blur-md xl:top-14 xl:right-0 xl:w-[205px]"
-      >
-        <span
-          aria-hidden
-          className="block heading-display text-3xl leading-none text-brand-treasure/70"
+    <div className="relative flex flex-1 items-center">
+      <div className="z-10 max-w-[520px] flex-1 px-4 pb-8 md:px-8 md:pb-10">
+        <motion.h1
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: {},
+            show: { transition: { staggerChildren: 0.12, delayChildren: 0.08 } },
+          }}
+          className="mb-3 heading-display text-4xl text-foreground md:text-5xl xl:text-6xl"
         >
-          "
-        </span>
-        <p className="mt-1 font-display text-xs leading-relaxed text-foreground/85 italic">
-          Every project is a new adventure and a chance to learn something incredible.
-        </p>
-      </motion.div>
+          <HeadingLine>Things I've</HeadingLine>{" "}
+          <HeadingLine>
+            <span className="text-highlight-sunset">Built</span>
+          </HeadingLine>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.42 }}
+          className="mb-6 max-w-xs font-sans text-sm text-foreground/70 md:max-w-sm md:text-base"
+          style={{ lineHeight: 1.6 }}
+        >
+          A collection of projects that represent my skills, experience and passion for creating
+          value.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.45, delay: 0.56 }}
+          className="flex divide-x divide-border/40 overflow-hidden rounded-xl border border-border/50 bg-card/40 backdrop-blur-sm"
+        >
+          {STATS.map((stat, i) => (
+            <StatItem key={stat.label} {...stat} delay={i} />
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 }
 
-export function ProjectsHero({ onOpenSidebar }: ProjectsHeroProps) {
-  return (
-    <HeroShell
-      badgeText="PROJECTS"
-      onOpenSidebar={onOpenSidebar}
-      minHeight="min-h-[400px] md:min-h-[460px]"
-    >
-      <div className="relative flex flex-1 items-center">
-        <div className="z-10 max-w-[520px] flex-1 px-4 pb-8 md:px-8 md:pb-10">
-          <motion.h1
-            initial="hidden"
-            animate="show"
-            variants={{
-              hidden: {},
-              show: { transition: { staggerChildren: 0.12, delayChildren: 0.08 } },
-            }}
-            className="mb-3 heading-display text-4xl text-foreground md:text-5xl xl:text-6xl"
-          >
-            <HeadingLine>Things I've</HeadingLine>{" "}
-            <HeadingLine>
-              <span className="text-highlight-sunset">Built</span>
-            </HeadingLine>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.42 }}
-            className="mb-6 max-w-xs font-sans text-sm text-foreground/70 md:max-w-sm md:text-base"
-            style={{ lineHeight: 1.6 }}
-          >
-            A collection of projects that represent my skills, experience and passion for creating
-            value.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.56 }}
-            className="flex divide-x divide-border/40 overflow-hidden rounded-xl border border-border/50 bg-card/40 backdrop-blur-sm"
-          >
-            {STATS.map((stat, i) => (
-              <StatItem key={stat.label} {...stat} delay={i} />
-            ))}
-          </motion.div>
-        </div>
-
-        <PersonIllustration />
-      </div>
-    </HeroShell>
-  );
-}
+export const ProjectsHeroContent = memo(ProjectsHeroContentInner);

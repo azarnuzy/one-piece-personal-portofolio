@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 
 import { BlogDetailPage } from "@/pages/blog/BlogDetailPage";
 
@@ -12,12 +12,5 @@ export const Route = createFileRoute("/blog/$postId")({
       },
     ],
   }),
-  component: BlogPostRoute,
+  component: BlogDetailPage,
 });
-
-function BlogPostRoute() {
-  const { postId } = Route.useParams();
-  const navigate = useNavigate();
-
-  return <BlogDetailPage postId={postId} onBack={() => navigate({ to: "/blog" })} />;
-}

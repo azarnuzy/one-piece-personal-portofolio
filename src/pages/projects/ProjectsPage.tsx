@@ -1,20 +1,17 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { AnchorIcon, CompassIcon, HeartIcon } from "lucide-react";
-import { useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 
 import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
-import { Sidebar } from "@/components/portfolio/Sidebar";
 
 import { PROJECTS, type ProjectCategory } from "./data";
 import { ProjectCard } from "./ProjectCard";
 import { ProjectFilter } from "./ProjectFilter";
 import { ProjectHighlights } from "./ProjectHighlights";
 import { ProjectsCTA } from "./ProjectsCTA";
-import { ProjectsHero } from "./ProjectsHero";
 import { TechStackOverview } from "./TechStackOverview";
 
-export function ProjectsPage() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+function ProjectsPageInner() {
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>("all");
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("latest");
@@ -39,98 +36,89 @@ export function ProjectsPage() {
   }, [activeFilter, search, sort]);
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+    <>
+      <div className="relative z-10 flex-1 bg-background px-4 pt-4 pb-8 md:px-6 md:pt-5 md:pb-10 lg:px-8">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-start">
+          {/* Left: filter + project cards */}
+          <div className="flex min-w-0 flex-1 flex-col gap-4">
+            <ProjectFilter
+              active={activeFilter}
+              onSelect={setActiveFilter}
+              search={search}
+              onSearch={setSearch}
+              sort={sort}
+              onSort={setSort}
+            />
 
-      <main className="flex min-w-0 flex-1 flex-col md:ml-[220px]">
-        <ProjectsHero onOpenSidebar={() => setSidebarOpen(true)} />
-
-        {/* Main content */}
-        <div className="relative z-10 flex-1 bg-background px-4 pt-4 pb-8 md:px-6 md:pt-5 md:pb-10 lg:px-8">
-          {/* Two-column layout: grid left, widgets right */}
-          <div className="flex flex-col gap-5 lg:flex-row lg:items-start">
-            {/* Left: filter + project cards */}
-            <div className="flex min-w-0 flex-1 flex-col gap-4">
-              <ProjectFilter
-                active={activeFilter}
-                onSelect={setActiveFilter}
-                search={search}
-                onSearch={setSearch}
-                sort={sort}
-                onSort={setSort}
-              />
-
-              {/* Cards grid */}
-              <AnimatePresence mode="wait">
-                {filtered.length > 0 ? (
-                  <motion.div
-                    key="grid"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                    className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3"
-                  >
-                    {filtered.map((project, i) => (
-                      <ProjectCard key={project.id} project={project} index={i} />
-                    ))}
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="empty"
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border/50 bg-card/30 py-16"
-                  >
-                    <CompassIcon size={32} className="text-muted-foreground/40" />
-                    <p className="font-sans text-sm text-muted-foreground">
-                      No projects found for this filter.
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* Right: widgets */}
-            <div className="flex flex-col gap-4 lg:w-[270px] lg:shrink-0 xl:w-[290px]">
-              <TechStackOverview />
-              <ProjectHighlights />
-              <ProjectsCTA />
-            </div>
+            <AnimatePresence mode="wait">
+              {filtered.length > 0 ? (
+                <motion.div
+                  key="grid"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3"
+                >
+                  {filtered.map((project, i) => (
+                    <ProjectCard key={project.id} project={project} index={i} />
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="empty"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border/50 bg-card/30 py-16"
+                >
+                  <CompassIcon size={32} className="text-muted-foreground/40" />
+                  <p className="font-sans text-sm text-muted-foreground">
+                    No projects found for this filter.
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
-          {/* View All Projects */}
-          <div className="mt-10 flex flex-col items-center gap-4">
-            <div className="flex w-full items-center gap-4">
-              <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
-              <CompassIcon size={14} className="shrink-0 text-brand-treasure/40" />
-              <div className="h-px flex-1 bg-gradient-to-l from-transparent via-border to-transparent" />
-            </div>
-
-            <PirateCTAButton icon={<CompassIcon size={15} />} variant="primary">
-              View All Projects
-            </PirateCTAButton>
-
-            <p className="flex items-center gap-1.5 font-sans text-xs text-muted-foreground/70">
-              <AnchorIcon size={11} />
-              Keep Sailing and Keep Building!
-            </p>
+          {/* Right: widgets */}
+          <div className="flex flex-col gap-4 lg:w-[270px] lg:shrink-0 xl:w-[290px]">
+            <TechStackOverview />
+            <ProjectHighlights />
+            <ProjectsCTA />
           </div>
         </div>
 
-        {/* Footer */}
-        <footer className="flex shrink-0 items-center justify-between border-t border-border px-4 py-3 font-sans text-xs text-muted-foreground md:px-8">
-          <span className="flex items-center gap-1.5">
-            <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
-          </span>
-          <span className="flex items-center gap-1.5">
-            Made with
-            <HeartIcon size={11} className="text-brand-sunset" />
-            and lots of ☕
-          </span>
-        </footer>
-      </main>
-    </div>
+        <div className="mt-10 flex flex-col items-center gap-4">
+          <div className="flex w-full items-center gap-4">
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-border to-transparent" />
+            <CompassIcon size={14} className="shrink-0 text-brand-treasure/40" />
+            <div className="h-px flex-1 bg-gradient-to-l from-transparent via-border to-transparent" />
+          </div>
+
+          <PirateCTAButton icon={<CompassIcon size={15} />} variant="primary">
+            View All Projects
+          </PirateCTAButton>
+
+          <p className="flex items-center gap-1.5 font-sans text-xs text-muted-foreground/70">
+            <AnchorIcon size={11} />
+            Keep Sailing and Keep Building!
+          </p>
+        </div>
+      </div>
+
+      <footer className="flex shrink-0 items-center justify-between border-t border-border px-4 py-3 font-sans text-xs text-muted-foreground md:px-8">
+        <span className="flex items-center gap-1.5">
+          <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
+        </span>
+        <span className="flex items-center gap-1.5">
+          Made with
+          <HeartIcon size={11} className="text-brand-sunset" />
+          and lots of ☕
+        </span>
+      </footer>
+    </>
   );
 }
+
+export const ProjectsPage = memo(ProjectsPageInner);
