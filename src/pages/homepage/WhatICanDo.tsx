@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { ArrowRightIcon, CompassIcon, LayoutIcon, PaletteIcon, ZapIcon } from "lucide-react";
 
 import { CardWatermark } from "@/components/portfolio/CardWatermark";
@@ -31,7 +32,13 @@ const SKILLS = [
 
 export function WhatICanDo() {
   return (
-    <section className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6">
+    <motion.section
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6"
+    >
       <CardWatermark asset="sunny" position="bottom-right" size={170} opacity={0.06} rotate={-8} />
       {/* Header */}
       <div className="relative mb-4 flex shrink-0 items-center justify-between">
@@ -50,8 +57,15 @@ export function WhatICanDo() {
 
       {/* Skill list — divide-y instead of nested cards */}
       <div className="relative flex flex-col divide-y divide-border/40">
-        {SKILLS.map(({ icon: Icon, title, description, iconBg, iconColor }) => (
-          <div key={title} className="flex items-start gap-3 py-3 first:pt-0 last:pb-0">
+        {SKILLS.map(({ icon: Icon, title, description, iconBg, iconColor }, idx) => (
+          <motion.div
+            key={title}
+            initial={{ opacity: 0, x: -12 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.4, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-start gap-3 py-3 first:pt-0 last:pb-0"
+          >
             <div className={`mt-0.5 shrink-0 rounded-lg p-1.5 ${iconBg}`}>
               <Icon size={14} className={iconColor} />
             </div>
@@ -63,7 +77,7 @@ export function WhatICanDo() {
                 {description}
               </p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
 
@@ -76,6 +90,6 @@ export function WhatICanDo() {
           View All Skills
         </PirateCTAButton>
       </div>
-    </section>
+    </motion.section>
   );
 }

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { ArrowRightIcon, BookOpenIcon, ClockIcon } from "lucide-react";
 
 import { CardWatermark } from "@/components/portfolio/CardWatermark";
@@ -28,7 +29,13 @@ const INSIGHTS = [
 
 export function LatestInsights() {
   return (
-    <section className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6">
+    <motion.section
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6"
+    >
       <CardWatermark asset="skull" position="bottom-right" size={150} opacity={0.05} rotate={-15} />
 
       {/* Header */}
@@ -49,9 +56,13 @@ export function LatestInsights() {
       {/* Article list with thumbnails */}
       <div className="relative flex flex-col divide-y divide-border/40">
         {INSIGHTS.map(({ image, title, date, readTime, href }, index) => (
-          <a
+          <motion.a
             key={href}
             href={href}
+            initial={{ opacity: 0, x: -12 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.4, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
             className="group flex items-center gap-3 py-3 first:pt-0 last:pb-0"
           >
             {/* Number */}
@@ -86,9 +97,9 @@ export function LatestInsights() {
               size={12}
               className="shrink-0 text-muted-foreground/30 transition-all group-hover:translate-x-1 group-hover:text-brand-sunset"
             />
-          </a>
+          </motion.a>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

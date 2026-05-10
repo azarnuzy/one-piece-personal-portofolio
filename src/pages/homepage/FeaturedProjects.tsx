@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
   ArrowRightIcon,
   ChevronLeftIcon,
@@ -118,7 +119,13 @@ export function FeaturedProjects() {
   }, [api]);
 
   return (
-    <section className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6">
+    <motion.section
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6"
+    >
       <CardWatermark asset="skull" position="top-right" size={140} opacity={0.05} rotate={12} />
 
       {/* Header */}
@@ -247,6 +254,6 @@ export function FeaturedProjects() {
           />
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

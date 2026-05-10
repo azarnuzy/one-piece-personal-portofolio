@@ -18,7 +18,7 @@ const BADGE_MAP: Record<string, string> = {
   "/": "WELCOME TO MY PORTFOLIO",
   "/about": "ABOUT ME",
   "/projects": "PROJECTS",
-  "/blog": "WELCOME TO MY PORTFOLIO",
+  "/blog": "BLOGS",
 };
 
 const STANDARD_HEIGHT = "min-h-[420px] xl:min-h-[500px]";
@@ -50,7 +50,7 @@ export function AppLayout() {
   const postId = params?.postId as string | undefined;
   const isBlogDetail = !!postId;
 
-  const badge = BADGE_MAP[pathname] ?? "WELCOME TO MY PORTFOLIO";
+  const badge = BADGE_MAP[pathname] ?? "BLOGS";
   const heroKey = getHeroKey(pathname, isBlogDetail);
 
   const heroContent = useMemo(

@@ -12,7 +12,13 @@ const FOCUS = [
 
 export function ThingsIFocusOn() {
   return (
-    <section className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6">
+    <motion.section
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6"
+    >
       <CardWatermark asset="skull" position="bottom-right" size={180} opacity={0.05} rotate={-10} />
 
       <div className="relative mb-4 flex shrink-0 items-center gap-2">
@@ -46,6 +52,6 @@ export function ThingsIFocusOn() {
           </div>
         ))}
       </div>
-    </section>
+    </motion.section>
   );
 }

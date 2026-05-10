@@ -5,7 +5,13 @@ import { CardWatermark } from "@/components/portfolio/CardWatermark";
 
 export function DailyFuel() {
   return (
-    <section className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6">
+    <motion.section
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6"
+    >
       <CardWatermark asset="skull" position="bottom-right" size={150} opacity={0.07} rotate={8} />
 
       <div className="relative mb-2 flex shrink-0 items-center gap-2">
@@ -28,6 +34,6 @@ export function DailyFuel() {
         </div>
         <span className="font-sans text-xs font-medium text-card-foreground">2 / 3 cups today</span>
       </div>
-    </section>
+    </motion.section>
   );
 }

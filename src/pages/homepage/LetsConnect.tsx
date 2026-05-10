@@ -1,4 +1,5 @@
 import { SiDribbble, SiGithub } from "@icons-pack/react-simple-icons";
+import { motion } from "framer-motion";
 import { AnchorIcon, MailIcon } from "lucide-react";
 
 import { CardWatermark } from "@/components/portfolio/CardWatermark";
@@ -14,7 +15,13 @@ export function LinkedInIcon({ size = 14 }: { size?: number }) {
 
 export function LetsConnect() {
   return (
-    <section className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6">
+    <motion.section
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6"
+    >
       <CardWatermark asset="sunny" position="top-right" size={140} opacity={0.06} rotate={10} />
       {/* Header */}
       <h2 className="relative mb-1.5 flex items-center gap-2 heading-section text-lg text-foreground">
@@ -56,6 +63,6 @@ export function LetsConnect() {
           Dribbble
         </PirateCTAButton>
       </div>
-    </section>
+    </motion.section>
   );
 }
