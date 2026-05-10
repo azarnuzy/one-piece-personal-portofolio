@@ -68,16 +68,16 @@ const HeroBackdrop = memo(function HeroBackdrop() {
         alt=""
         aria-hidden
         draggable={false}
-        className="absolute inset-0 h-full w-full object-cover object-center"
+        className="absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-300 ease-out dark:opacity-0"
       />
       {/* Dark bg — visible only when html has .dark */}
-      {/* <img
+      <img
         src="/background-night.png"
         alt=""
         aria-hidden
         draggable={false}
         className="absolute inset-0 h-full w-full object-cover object-center opacity-0 transition-opacity duration-300 ease-out dark:opacity-100"
-      /> */}
+      />
 
       {/* Theme-aware gradient overlay (uses dark: variant on opacity stops) */}
       <div className="absolute inset-0 bg-gradient-to-r from-background/92 via-background/65 to-background/8 dark:from-background/95 dark:via-background/75 dark:to-background/12" />

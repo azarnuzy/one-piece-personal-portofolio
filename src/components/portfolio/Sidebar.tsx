@@ -1,5 +1,5 @@
 import { SiDribbble, SiGithub, SiX } from "@icons-pack/react-simple-icons";
-import { useRouterState } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import {
   BookOpenIcon,
   BriefcaseIcon,
@@ -94,10 +94,12 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
           {NAV_ITEMS.map(({ icon: Icon, label, href }) => {
             const active = isItemActive(pathname, href);
             return (
-              <a
+              <Link
                 key={label}
-                href={href}
+                to={href}
                 onClick={onClose}
+                viewTransition
+                preload="intent"
                 className={cn(
                   "flex items-center gap-3 rounded-lg px-3 py-2.5 font-sans text-sm font-medium transition-all duration-[var(--duration-base)]",
                   active
@@ -107,7 +109,7 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
               >
                 <Icon size={17} />
                 {label}
-              </a>
+              </Link>
             );
           })}
         </nav>
