@@ -1,5 +1,5 @@
 import { motion, useInView } from "framer-motion";
-import { AnchorIcon, HeartIcon, UsersIcon, ZapIcon } from "lucide-react";
+import { AnchorIcon, LayersIcon, TargetIcon, ZapIcon, type LucideIcon } from "lucide-react";
 import { memo, useEffect, useRef, useState } from "react";
 
 function useCountUp(target: number, inView: boolean, duration = 1200) {
@@ -22,23 +22,35 @@ function useCountUp(target: number, inView: boolean, duration = 1200) {
   return current;
 }
 
-const STATS = [
-  { target: 6, suffix: "+", label: "Projects Completed", icon: ZapIcon },
-  { target: 2, suffix: "+", label: "Years Building", icon: AnchorIcon },
-  { target: 10, suffix: "K+", label: "Users Impacted", icon: UsersIcon },
-  { target: 100, suffix: "%", label: "Passion Put In", icon: HeartIcon },
+type NumericStat = {
+  kind: "numeric";
+  target: number;
+  suffix: string;
+  label: string;
+  icon: LucideIcon;
+};
+
+type TextStat = {
+  kind: "text";
+  value: string;
+  label: string;
+  icon: LucideIcon;
+};
+
+type Stat = NumericStat | TextStat;
+
+const STATS: Stat[] = [
+  { kind: "numeric", target: 6, suffix: "+", label: "Projects Completed", icon: ZapIcon },
+  { kind: "numeric", target: 2, suffix: "+", label: "Years Building", icon: AnchorIcon },
+  { kind: "text", value: "React + TS", label: "Latest Stack", icon: LayersIcon },
+  { kind: "text", value: "Web · SaaS · EdTech", label: "Primary Domain", icon: TargetIcon },
 ];
 
-function StatItem({
-  target,
-  suffix,
-  label,
-  icon: Icon,
-  delay = 0,
-}: (typeof STATS)[number] & { delay?: number }) {
+function NumericStatItem({ stat, delay }: { stat: NumericStat; delay: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
-  const count = useCountUp(target, inView, 1000 + delay * 150);
+  const count = useCountUp(stat.target, inView, 1000 + delay * 150);
+  const Icon = stat.icon;
 
   return (
     <div
@@ -48,10 +60,27 @@ function StatItem({
       <Icon size={13} className="text-brand-treasure/60" />
       <div className="flex items-baseline gap-0.5">
         <span className="heading-display text-xl leading-none text-brand-treasure">{count}</span>
-        <span className="font-display text-sm leading-none font-bold text-brand-sun">{suffix}</span>
+        <span className="font-display text-sm leading-none font-bold text-brand-sun">
+          {stat.suffix}
+        </span>
       </div>
       <span className="text-center font-sans text-2xs leading-tight text-muted-foreground">
-        {label}
+        {stat.label}
+      </span>
+    </div>
+  );
+}
+
+function TextStatItem({ stat }: { stat: TextStat }) {
+  const Icon = stat.icon;
+  return (
+    <div className="flex flex-1 flex-col items-center gap-1 px-3 py-3 transition-colors duration-200 hover:bg-card/60">
+      <Icon size={13} className="text-brand-treasure/60" />
+      <span className="text-center font-display text-sm leading-tight font-bold text-brand-treasure">
+        {stat.value}
+      </span>
+      <span className="text-center font-sans text-2xs leading-tight text-muted-foreground">
+        {stat.label}
       </span>
     </div>
   );
@@ -108,9 +137,13 @@ function ProjectsHeroContentInner() {
           transition={{ duration: 0.45, delay: 0.56 }}
           className="flex divide-x divide-border/40 overflow-hidden rounded-xl border border-border/50 bg-card/40 backdrop-blur-sm"
         >
-          {STATS.map((stat, i) => (
-            <StatItem key={stat.label} {...stat} delay={i} />
-          ))}
+          {STATS.map((stat, i) =>
+            stat.kind === "numeric" ? (
+              <NumericStatItem key={stat.label} stat={stat} delay={i} />
+            ) : (
+              <TextStatItem key={stat.label} stat={stat} />
+            ),
+          )}
         </motion.div>
       </div>
     </div>

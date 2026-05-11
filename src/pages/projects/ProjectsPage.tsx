@@ -1,15 +1,14 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { AnchorIcon, CompassIcon, HeartIcon } from "lucide-react";
+import { AnchorIcon, CompassIcon } from "lucide-react";
 import { memo, useMemo, useState } from "react";
 
 import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
 
+import { BuildPhilosophy } from "./BuildPhilosophy";
 import { PROJECTS, type ProjectCategory } from "./data";
 import { ProjectCard } from "./ProjectCard";
 import { ProjectFilter } from "./ProjectFilter";
-import { ProjectHighlights } from "./ProjectHighlights";
 import { ProjectsCTA } from "./ProjectsCTA";
-import { TechStackOverview } from "./TechStackOverview";
 
 function ProjectsPageInner() {
   const [activeFilter, setActiveFilter] = useState<ProjectCategory>("all");
@@ -38,55 +37,52 @@ function ProjectsPageInner() {
   return (
     <>
       <div className="relative z-10 flex-1 bg-background px-4 pt-4 pb-8 md:px-6 md:pt-5 md:pb-10 lg:px-8">
-        <div className="flex flex-col gap-5 lg:flex-row lg:items-start">
-          {/* Left: filter + project cards */}
-          <div className="flex min-w-0 flex-1 flex-col gap-4">
-            <ProjectFilter
-              active={activeFilter}
-              onSelect={setActiveFilter}
-              search={search}
-              onSearch={setSearch}
-              sort={sort}
-              onSort={setSort}
-            />
+        {/* Filter + project grid — now full width */}
+        <div className="flex flex-col gap-4">
+          <ProjectFilter
+            active={activeFilter}
+            onSelect={setActiveFilter}
+            search={search}
+            onSearch={setSearch}
+            sort={sort}
+            onSort={setSort}
+          />
 
-            <AnimatePresence mode="wait">
-              {filtered.length > 0 ? (
-                <motion.div
-                  key="grid"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3"
-                >
-                  {filtered.map((project, i) => (
-                    <ProjectCard key={project.id} project={project} index={i} />
-                  ))}
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="empty"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border/50 bg-card/30 py-16"
-                >
-                  <CompassIcon size={32} className="text-muted-foreground/40" />
-                  <p className="font-sans text-sm text-muted-foreground">
-                    No projects found for this filter.
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+          <AnimatePresence mode="wait">
+            {filtered.length > 0 ? (
+              <motion.div
+                key="grid"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+                className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              >
+                {filtered.map((project, i) => (
+                  <ProjectCard key={project.id} project={project} index={i} />
+                ))}
+              </motion.div>
+            ) : (
+              <motion.div
+                key="empty"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-border/50 bg-card/30 py-16"
+              >
+                <CompassIcon size={32} className="text-muted-foreground/40" />
+                <p className="font-sans text-sm text-muted-foreground">
+                  No projects found for this filter.
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
-          {/* Right: widgets */}
-          <div className="flex flex-col gap-4 lg:w-[270px] lg:shrink-0 xl:w-[290px]">
-            <TechStackOverview />
-            <ProjectHighlights />
-            <ProjectsCTA />
-          </div>
+        {/* Bottom row — Build Philosophy + CTA, fills former empty area */}
+        <div className="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-[1.6fr_1fr]">
+          <BuildPhilosophy />
+          <ProjectsCTA />
         </div>
 
         <div className="mt-10 flex flex-col items-center gap-4">
@@ -112,9 +108,8 @@ function ProjectsPageInner() {
           <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
         </span>
         <span className="flex items-center gap-1.5">
-          Made with
-          <HeartIcon size={11} className="text-brand-sunset" />
-          and lots of ☕
+          <AnchorIcon size={11} className="text-brand-treasure" />
+          Sailing the React seas
         </span>
       </footer>
     </>

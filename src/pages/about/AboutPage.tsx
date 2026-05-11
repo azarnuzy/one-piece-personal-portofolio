@@ -1,10 +1,11 @@
-import { AnchorIcon, HeartIcon } from "lucide-react";
+import { AnchorIcon } from "lucide-react";
 import { memo } from "react";
 
+import { Achievements } from "@/pages/about/Achievements";
+import { BeyondTheCode } from "@/pages/about/BeyondTheCode";
+import { Certifications } from "@/pages/about/Certifications";
 import { Education } from "@/pages/about/Education";
-import { FunFacts } from "@/pages/about/FunFacts";
 import { MyJourney } from "@/pages/about/MyJourney";
-import { MyPhilosophy } from "@/pages/about/MyPhilosophy";
 import { TechArsenal } from "@/pages/about/TechArsenal";
 import { WhatDrivesMe } from "@/pages/about/WhatDrivesMe";
 import { WhatImLookingFor } from "@/pages/about/WhatImLookingFor";
@@ -12,28 +13,37 @@ import { WhatImLookingFor } from "@/pages/about/WhatImLookingFor";
 function AboutPageInner() {
   return (
     <>
-      {/* Bento dashboard grid — parent fade in AppLayout handles entrance. */}
       <div className="relative z-10 flex flex-col gap-3 bg-background px-4 pt-2 pb-6 md:gap-4 md:px-6 md:pt-3 md:pb-8 lg:px-8">
         <div className="grid grid-cols-1 gap-3 md:gap-4 lg:grid-cols-12">
-          <div className="lg:max-2xl:col-span-6 lg:max-2xl:row-span-2 2xl:col-span-4 2xl:row-span-2">
-            <MyJourney />
+          {/* Left Column — Journey + Personal Bits */}
+          <div className="flex flex-col gap-3 md:gap-4 lg:col-span-4 lg:row-span-3">
+            <div className="flex flex-[3] flex-col">
+              <MyJourney />
+            </div>
+            <div className="flex flex-[1.2] flex-col">
+              <BeyondTheCode />
+            </div>
           </div>
 
-          <div className="lg:max-2xl:col-span-6 2xl:col-span-5">
+          {/* Row 1 right — What Drives Me (with merged Philosophy) */}
+          <div className="lg:col-span-8">
             <WhatDrivesMe />
           </div>
-          <div className="lg:max-2xl:col-span-6 2xl:col-span-3">
+
+          {/* Row 2 right — Tech Arsenal + Education */}
+          <div className="lg:col-span-4">
             <TechArsenal />
           </div>
-
-          <div className="lg:max-2xl:col-span-5 2xl:col-span-3">
-            <MyPhilosophy />
-          </div>
-          <div className="lg:max-2xl:col-span-3 2xl:col-span-2">
-            <FunFacts />
-          </div>
-          <div className="lg:max-2xl:col-span-4 2xl:col-span-3">
+          <div className="lg:col-span-4">
             <Education />
+          </div>
+
+          {/* Row 3 right — Achievements + Certifications */}
+          <div className="lg:col-span-4">
+            <Achievements />
+          </div>
+          <div className="lg:col-span-4">
+            <Certifications />
           </div>
         </div>
 
@@ -45,9 +55,8 @@ function AboutPageInner() {
           <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
         </span>
         <span className="flex items-center gap-1.5">
-          Built with
-          <HeartIcon size={11} className="text-brand-sunset" />
-          and lots of ☕
+          <AnchorIcon size={11} className="text-brand-treasure" />
+          Sailing the React seas
         </span>
       </footer>
     </>

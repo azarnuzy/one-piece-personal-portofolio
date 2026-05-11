@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowRightIcon, CalendarIcon, ClockIcon, HeartIcon, StarIcon } from "lucide-react";
+import { ArrowRightIcon, CalendarIcon, ClockIcon, StarIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
@@ -312,7 +312,7 @@ function FeaturedCard({ post, index }: { post: BlogPost; index: number }) {
             {post.description}
           </p>
 
-          {/* Bottom row */}
+          {/* Bottom row — title, excerpt, date, read time only */}
           <div className="mt-auto flex items-center justify-between gap-2 pt-0.5">
             <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 font-sans text-2xs text-muted-foreground">
               <span className="flex items-center gap-1">
@@ -326,17 +326,8 @@ function FeaturedCard({ post, index }: { post: BlogPost; index: number }) {
               </span>
             </div>
 
-            <div className="flex shrink-0 items-center gap-2.5">
-              <span className="flex items-center gap-1 font-sans text-2xs text-muted-foreground">
-                <HeartIcon
-                  size={11}
-                  className="text-brand-sunset/70 transition-colors group-hover:text-brand-sunset"
-                />
-                {post.likes}
-              </span>
-              <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border/60 text-muted-foreground transition-all duration-200 group-hover:translate-x-0.5 group-hover:border-brand-treasure/50 group-hover:bg-brand-treasure/10 group-hover:text-brand-treasure">
-                <ArrowRightIcon size={11} />
-              </div>
+            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border/60 text-muted-foreground transition-all duration-200 group-hover:translate-x-0.5 group-hover:border-brand-treasure/50 group-hover:bg-brand-treasure/10 group-hover:text-brand-treasure">
+              <ArrowRightIcon size={11} />
             </div>
           </div>
         </div>
@@ -374,7 +365,7 @@ function CompactCard({ post, index }: { post: BlogPost; index: number }) {
             </p>
           </div>
 
-          {/* Meta row */}
+          {/* Meta row — date + read time only */}
           <div className="flex items-center justify-between gap-1.5">
             <div className="flex items-center gap-2 font-sans text-2xs text-muted-foreground">
               <span className="flex items-center gap-0.5">
@@ -386,17 +377,8 @@ function CompactCard({ post, index }: { post: BlogPost; index: number }) {
                 {post.readTime}m
               </span>
             </div>
-            <div className="flex shrink-0 items-center gap-2">
-              <span className="flex items-center gap-0.5 font-sans text-2xs text-muted-foreground">
-                <HeartIcon
-                  size={9}
-                  className="text-brand-sunset/60 transition-colors group-hover:text-brand-sunset"
-                />
-                {post.likes}
-              </span>
-              <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-all duration-200 group-hover:border-brand-treasure/40 group-hover:text-brand-treasure">
-                <ArrowRightIcon size={9} />
-              </div>
+            <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-all duration-200 group-hover:border-brand-treasure/40 group-hover:text-brand-treasure">
+              <ArrowRightIcon size={9} />
             </div>
           </div>
         </div>

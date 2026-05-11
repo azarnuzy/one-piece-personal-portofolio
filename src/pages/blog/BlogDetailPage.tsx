@@ -10,10 +10,8 @@ import {
 } from "lucide-react";
 import { memo } from "react";
 
-import { CategoriesWidget } from "./CategoriesWidget";
 import { POSTS } from "./data";
-import { LetsConnectWidget } from "./LetsConnectWidget";
-import { PopularPostsWidget } from "./PopularPostsWidget";
+import { PopularPostsStrip } from "./PopularPostsStrip";
 
 // ─── Article sub-components ───────────────────────────────────────────────────
 
@@ -265,22 +263,20 @@ function BlogDetailPageInner() {
   return (
     <>
       <div className="relative z-10 flex-1 bg-background px-3 pt-4 pb-6 md:px-5 md:pt-5 md:pb-8 lg:px-6">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-          {/* Left: article */}
+        <div className="flex flex-col gap-4">
+          {/* Full-width article — sidebar widgets removed */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="min-w-0 flex-1 rounded-2xl border border-border/50 bg-card/50 p-5 backdrop-blur-sm md:p-6"
+            className="mx-auto w-full max-w-4xl rounded-2xl border border-border/50 bg-card/50 p-5 backdrop-blur-sm md:p-6"
           >
             <ArticleBody />
           </motion.div>
 
-          {/* Right: sidebar widgets */}
-          <div className="flex flex-col gap-3 lg:w-[248px] lg:shrink-0 xl:w-[264px]">
-            <PopularPostsWidget />
-            <CategoriesWidget />
-            <LetsConnectWidget />
+          {/* Read next — popular posts strip at the bottom */}
+          <div className="mx-auto w-full max-w-4xl">
+            <PopularPostsStrip />
           </div>
         </div>
       </div>
@@ -290,7 +286,8 @@ function BlogDetailPageInner() {
           <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
         </span>
         <span className="flex items-center gap-1.5">
-          Made with <HeartIcon size={11} className="text-brand-sunset" /> and lots of ☕
+          <AnchorIcon size={11} className="text-brand-treasure" />
+          Sailing the React seas
         </span>
       </footer>
     </>

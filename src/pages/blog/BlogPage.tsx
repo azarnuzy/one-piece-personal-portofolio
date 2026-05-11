@@ -1,18 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { AnchorIcon, ChevronLeftIcon, ChevronRightIcon, HeartIcon } from "lucide-react";
+import { AnchorIcon, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { memo, useEffect, useMemo, useState } from "react";
 
 import { useBlogCategory } from "@/contexts/blog-category";
 import { cn } from "@/lib/utils";
 
 import { BlogPostCard } from "./BlogPostCard";
-import { CategoriesWidget } from "./CategoriesWidget";
 import { POSTS } from "./data";
-import { LetsConnectWidget } from "./LetsConnectWidget";
-import { PopularPostsWidget } from "./PopularPostsWidget";
+import { PopularPostsSidebar } from "./PopularPostsSidebar";
 
 const POSTS_PER_PAGE = 10;
-const TOTAL_PAGES = 1;
 
 // ─── Pagination ───────────────────────────────────────────────────────────────
 
@@ -66,8 +63,6 @@ function Pagination({
   );
 }
 
-// ─── Blog page ────────────────────────────────────────────────────────────────
-
 function BlogPageInner() {
   const { activeCategory } = useBlogCategory();
   const [page, setPage] = useState(1);
@@ -89,9 +84,9 @@ function BlogPageInner() {
   return (
     <>
       <div className="relative z-10 flex-1 bg-background px-3 pt-4 pb-6 md:px-5 md:pt-5 md:pb-8 lg:px-6">
-        <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-          {/* Left: blog feed */}
-          <div className="flex min-w-0 flex-1 flex-col gap-2.5">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-12">
+          {/* Main Feed */}
+          <div className="flex flex-col gap-3 lg:col-span-8 xl:col-span-9">
             <AnimatePresence mode="wait">
               {paginated.length > 0 ? (
                 <motion.div
@@ -108,18 +103,14 @@ function BlogPageInner() {
 
                   {gridPosts.length > 0 && (
                     <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
-                      {gridPosts.map((post, i) => {
-                        const isLastOdd = gridPosts.length % 2 !== 0 && i === gridPosts.length - 1;
-                        return (
-                          <div key={post.id} className={isLastOdd ? "sm:col-span-2" : ""}>
-                            <BlogPostCard
-                              post={post}
-                              index={featuredPost ? i + 1 : i}
-                              variant="compact"
-                            />
-                          </div>
-                        );
-                      })}
+                      {gridPosts.map((post, i) => (
+                        <BlogPostCard
+                          key={post.id}
+                          post={post}
+                          index={featuredPost ? i + 1 : i}
+                          variant="compact"
+                        />
+                      ))}
                     </div>
                   )}
                 </motion.div>
@@ -150,12 +141,10 @@ function BlogPageInner() {
             )}
           </div>
 
-          {/* Right: sidebar widgets */}
-          <div className="flex flex-col gap-3 lg:w-[248px] lg:shrink-0 xl:w-[264px]">
-            <PopularPostsWidget />
-            <CategoriesWidget />
-            <LetsConnectWidget />
-          </div>
+          {/* Sidebar */}
+          <aside className="lg:col-span-4 xl:col-span-3">
+            <PopularPostsSidebar />
+          </aside>
         </div>
       </div>
 
@@ -164,7 +153,8 @@ function BlogPageInner() {
           <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
         </span>
         <span className="flex items-center gap-1.5">
-          Made with <HeartIcon size={11} className="text-brand-sunset" /> and lots of ☕
+          <AnchorIcon size={11} className="text-brand-treasure" />
+          Sailing the React seas
         </span>
       </footer>
     </>

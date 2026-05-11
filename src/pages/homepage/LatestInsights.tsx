@@ -3,25 +3,19 @@ import { ArrowRightIcon, BookOpenIcon, ClockIcon } from "lucide-react";
 
 import { CardWatermark } from "@/components/portfolio/CardWatermark";
 
-const INSIGHTS = [
+const POSTS = [
   {
-    image: "/projects/bluebird-project-2.png",
     title: "How I Built Real-time Chat with WebSocket",
-    date: "May 12, 2024",
     readTime: "5 min read",
     href: "/blog/real-time-chat",
   },
   {
-    image: "/projects/lind-project.png",
     title: "Optimizing React Performance in Production",
-    date: "Apr 28, 2024",
     readTime: "4 min read",
     href: "/blog/react-performance",
   },
   {
-    image: "/projects/bluebird-project.png",
     title: "My Journey as a Frontend Developer",
-    date: "Apr 10, 2024",
     readTime: "6 min read",
     href: "/blog/journey",
   },
@@ -39,7 +33,7 @@ export function LatestInsights() {
       <CardWatermark asset="skull" position="bottom-right" size={150} opacity={0.05} rotate={-15} />
 
       {/* Header */}
-      <div className="relative mb-4 flex shrink-0 items-center justify-between">
+      <div className="relative mb-3 flex shrink-0 items-center justify-between">
         <h2 className="flex items-center gap-2 heading-section text-lg text-foreground">
           <BookOpenIcon size={16} className="text-brand-sunset" />
           Latest Insights
@@ -53,41 +47,27 @@ export function LatestInsights() {
         </a>
       </div>
 
-      {/* Article list with thumbnails */}
+      {/* Compact list — title + read time only */}
       <div className="relative flex flex-col divide-y divide-border/40">
-        {INSIGHTS.map(({ image, title, date, readTime, href }, index) => (
+        {POSTS.map(({ title, readTime, href }, index) => (
           <motion.a
             key={href}
             href={href}
-            initial={{ opacity: 0, x: -12 }}
+            initial={{ opacity: 0, x: -10 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.4, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="group flex items-center gap-3 py-3 first:pt-0 last:pb-0"
+            transition={{ duration: 0.4, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="group flex items-center gap-3 py-2.5 first:pt-0 last:pb-0"
           >
-            {/* Number */}
-            <span className="shrink-0 font-mono text-xs font-bold text-muted-foreground/60 tabular-nums">
+            <span className="shrink-0 font-mono text-2xs font-bold text-muted-foreground/60 tabular-nums">
               {String(index + 1).padStart(2, "0")}
             </span>
 
-            {/* Thumbnail */}
-            <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md border border-brand-treasure/30">
-              <img
-                src={image}
-                alt={title}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/40 to-transparent" />
-            </div>
-
-            {/* Body */}
             <div className="min-w-0 flex-1">
               <h3 className="mb-0.5 line-clamp-1 font-sans text-xs leading-snug font-semibold text-card-foreground transition-colors group-hover:text-brand-sunset">
                 {title}
               </h3>
-              <div className="flex items-center gap-1.5 font-sans text-2xs text-muted-foreground">
-                <span>{date}</span>
-                <span>·</span>
+              <div className="flex items-center gap-1 font-sans text-2xs text-muted-foreground">
                 <ClockIcon size={9} />
                 <span>{readTime}</span>
               </div>

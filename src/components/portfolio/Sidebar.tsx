@@ -25,7 +25,6 @@ const NAV_ITEMS = [
   { icon: HomeIcon, label: "Home", href: "/" },
   { icon: UserIcon, label: "About Me", href: "/about" },
   { icon: BriefcaseIcon, label: "Projects", href: "/projects" },
-  { icon: ZapIcon, label: "Skills", href: "/skills" },
   { icon: BookOpenIcon, label: "Blog", href: "/blog" },
   { icon: MailIcon, label: "Contact", href: "/contact" },
 ];

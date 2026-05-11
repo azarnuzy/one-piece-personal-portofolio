@@ -15,7 +15,6 @@ import {
   ExternalLinkIcon,
   FileTextIcon,
   GlobeIcon,
-  HeartIcon,
   ImageIcon,
   InfoIcon,
   LayersIcon,
@@ -648,7 +647,8 @@ function ProjectDetailPageInner() {
           <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
         </span>
         <span className="flex items-center gap-1.5">
-          Made with <HeartIcon size={11} className="text-brand-sunset" /> and lots of ☕
+          <AnchorIcon size={11} className="text-brand-treasure" />
+          Sailing the React seas
         </span>
       </footer>
     </>

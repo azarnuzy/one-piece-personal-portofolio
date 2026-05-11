@@ -9,6 +9,7 @@ import { AboutHeroContent } from "@/pages/about/AboutHero";
 import { BlogDetailHeroContent } from "@/pages/blog/BlogDetailHero";
 import { BlogHeroContent } from "@/pages/blog/BlogHero";
 import type { BlogCategory } from "@/pages/blog/data";
+import { ContactHeroContent } from "@/pages/contact/ContactHero";
 import { HomeHeroContent } from "@/pages/homepage/HeroSection";
 import { ProjectDetailHeroContent } from "@/pages/projects/ProjectDetailHero";
 import { ProjectsHeroContent } from "@/pages/projects/ProjectsHero";
@@ -20,6 +21,7 @@ const BADGE_MAP: Record<string, string> = {
   "/about": "ABOUT ME",
   "/projects": "PROJECTS",
   "/blog": "BLOGS",
+  "/contact": "CONTACT",
 };
 
 const STANDARD_HEIGHT = "min-h-[420px] xl:min-h-[500px]";
@@ -29,6 +31,7 @@ function getHeroContent(pathname: string, isBlogDetail: boolean, isProjectDetail
   if (pathname === "/about") return <AboutHeroContent />;
   if (isProjectDetail) return <ProjectDetailHeroContent />;
   if (pathname === "/projects") return <ProjectsHeroContent />;
+  if (pathname === "/contact") return <ContactHeroContent />;
   if (isBlogDetail) return <BlogDetailHeroContent />;
   return <BlogHeroContent />;
 }

@@ -3,6 +3,7 @@ import {
   AnchorIcon,
   CompassIcon,
   FlameIcon,
+  RadarIcon,
   RocketIcon,
   SailboatIcon,
   TrendingUpIcon,
@@ -64,13 +65,13 @@ const TONE_CLASSES = {
 
 const STATS = [
   { value: "5+", label: "Projects" },
-  { value: "2+", label: "Yrs Exp" },
-  { value: "15+", label: "Techs" },
+  { value: "2+", label: "Years" },
+  { value: "15+", label: "Tech" },
 ];
 
 export function MyJourney() {
   return (
-    <GoldPanelCard padding="md" className="h-full">
+    <GoldPanelCard padding="sm" className="h-full">
       <CardWatermark asset="skull" position="bottom-right" size={120} opacity={0.05} />
       <SectionHeader icon={CompassIcon} title="My Journey" tone="sunset" />
 
@@ -96,7 +97,7 @@ export function MyJourney() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="relative flex gap-4 pb-4 last:pb-0"
+              className="relative flex gap-3 pb-2.5 last:pb-0"
             >
               <div className="shrink-0">
                 <div
@@ -115,7 +116,7 @@ export function MyJourney() {
                     {item.year}
                   </span>
                 </div>
-                <p className="font-sans text-xs leading-relaxed text-muted-foreground">
+                <p className="font-sans text-xs leading-snug text-muted-foreground">
                   {item.description}
                 </p>
               </div>
@@ -124,15 +125,49 @@ export function MyJourney() {
         })}
       </ol>
 
-      {/* Quick stats */}
-      <div className="mt-5 grid grid-cols-3 gap-2 border-t border-border/40 pt-4">
-        {STATS.map((stat) => (
-          <div key={stat.label} className="text-center">
-            <p className="font-display text-xl font-bold text-brand-treasure">{stat.value}</p>
-            <p className="font-sans text-2xs text-muted-foreground">{stat.label}</p>
-          </div>
+      {/* Compact inline stats strip */}
+      <div className="mt-3 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 border-t border-border/40 pt-2.5 font-sans text-2xs text-muted-foreground">
+        {STATS.map((stat, i) => (
+          <span key={stat.label} className="inline-flex items-center gap-2">
+            <span>
+              <span className="font-display text-sm font-bold text-brand-treasure">
+                {stat.value}
+              </span>{" "}
+              <span className="text-foreground/75">{stat.label}</span>
+            </span>
+            {i < STATS.length - 1 && <span className="text-border">•</span>}
+          </span>
         ))}
       </div>
+
+      {/* Current Focus — tighter */}
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-60px" }}
+        transition={{ duration: 0.45, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+        className="mt-2.5 flex gap-2.5 rounded-xl border border-brand-sunset/30 bg-brand-sunset/[0.06] p-2.5 ring-1 ring-brand-sunset/20 backdrop-blur-md"
+      >
+        <div className="shrink-0">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-brand-sunset/15 text-brand-sunset">
+            <RadarIcon size={13} />
+          </div>
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="mb-0.5 flex flex-wrap items-center gap-1.5">
+            <h3 className="font-display text-2xs font-bold tracking-wider text-foreground/85 uppercase">
+              Current Focus
+            </h3>
+            <span className="rounded-pill border border-brand-sunset/40 bg-brand-sunset/10 px-1.5 py-0 font-sans text-[10px] font-semibold text-brand-sunset">
+              2026
+            </span>
+          </div>
+          <p className="font-sans text-2xs leading-snug text-muted-foreground">
+            Scalable frontend architecture and crafting interfaces that feel as good as they
+            perform.
+          </p>
+        </div>
+      </motion.div>
     </GoldPanelCard>
   );
 }

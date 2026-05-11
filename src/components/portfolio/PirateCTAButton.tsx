@@ -4,10 +4,12 @@ import { cn } from "@/lib/utils";
 
 interface PirateCTAButtonProps {
   children: ReactNode;
-  icon: ReactNode;
+  icon?: ReactNode;
   variant?: "primary" | "secondary";
   className?: string;
   onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export function PirateCTAButton({
@@ -16,6 +18,8 @@ export function PirateCTAButton({
   variant = "primary",
   className,
   onClick,
+  type = "button",
+  disabled = false,
 }: PirateCTAButtonProps) {
   const isPrimary = variant === "primary";
 
@@ -35,13 +39,17 @@ export function PirateCTAButton({
 
   return (
     <button
+      type={type}
       onClick={onClick}
       onMouseMove={handleMouseMove}
+      disabled={disabled}
       className={cn(
         "group relative overflow-hidden rounded-[14px] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.97]",
         isPrimary
           ? "bg-btn-pirate-bg-primary shadow-[var(--shadow-btn-treasure)] hover:shadow-[var(--shadow-btn-treasure-hover)]"
           : "bg-btn-pirate-bg-secondary shadow-[var(--shadow-btn-treasure-secondary)] hover:shadow-[var(--shadow-btn-treasure-secondary-hover)]",
+        disabled &&
+          "cursor-not-allowed opacity-60 hover:translate-y-0 active:translate-y-0 active:scale-100",
         className,
       )}
     >
@@ -82,14 +90,18 @@ export function PirateCTAButton({
 
       {/* Content wrapper */}
       <div className="relative z-20 flex items-center gap-2 px-4 py-2">
-        <div
-          className={cn(
-            "rounded-full p-1",
-            isPrimary ? "bg-brand-sun/10 text-brand-sun" : "bg-foreground/5 text-brand-treasure/90",
-          )}
-        >
-          {icon}
-        </div>
+        {icon != null && (
+          <div
+            className={cn(
+              "rounded-full p-1",
+              isPrimary
+                ? "bg-brand-sun/10 text-brand-sun"
+                : "bg-foreground/5 text-brand-treasure/90",
+            )}
+          >
+            {icon}
+          </div>
+        )}
 
         <span
           className={cn(
