@@ -10,6 +10,7 @@ import { BlogDetailHeroContent } from "@/pages/blog/BlogDetailHero";
 import { BlogHeroContent } from "@/pages/blog/BlogHero";
 import type { BlogCategory } from "@/pages/blog/data";
 import { HomeHeroContent } from "@/pages/homepage/HeroSection";
+import { ProjectDetailHeroContent } from "@/pages/projects/ProjectDetailHero";
 import { ProjectsHeroContent } from "@/pages/projects/ProjectsHero";
 
 // ─── Route → hero config ──────────────────────────────────────────────────────
@@ -23,18 +24,20 @@ const BADGE_MAP: Record<string, string> = {
 
 const STANDARD_HEIGHT = "min-h-[420px] xl:min-h-[500px]";
 
-function getHeroContent(pathname: string, isBlogDetail: boolean) {
+function getHeroContent(pathname: string, isBlogDetail: boolean, isProjectDetail: boolean) {
   if (pathname === "/") return <HomeHeroContent />;
   if (pathname === "/about") return <AboutHeroContent />;
+  if (isProjectDetail) return <ProjectDetailHeroContent />;
   if (pathname === "/projects") return <ProjectsHeroContent />;
   if (isBlogDetail) return <BlogDetailHeroContent />;
   return <BlogHeroContent />;
 }
 
-// Stable key for the hero crossfade — collapses /blog/$id variants into one key
-// so navigating between blog posts doesn't re-trigger the full hero crossfade.
-function getHeroKey(pathname: string, isBlogDetail: boolean) {
+// Stable key for the hero crossfade — collapses detail variants into one key
+// so navigating between posts/projects doesn't re-trigger the full crossfade.
+function getHeroKey(pathname: string, isBlogDetail: boolean, isProjectDetail: boolean) {
   if (isBlogDetail) return "/blog/$";
+  if (isProjectDetail) return "/projects/$";
   return pathname;
 }
 
@@ -48,14 +51,21 @@ export function AppLayout() {
 
   const pathname = location.pathname;
   const postId = params?.postId as string | undefined;
+  const projectId = params?.projectId as string | undefined;
   const isBlogDetail = !!postId;
+  const isProjectDetail = !!projectId;
 
-  const badge = BADGE_MAP[pathname] ?? "BLOGS";
-  const heroKey = getHeroKey(pathname, isBlogDetail);
+  const badge = useMemo(() => {
+    if (isProjectDetail) return "PROJECTS";
+    if (isBlogDetail) return "BLOGS";
+    return BADGE_MAP[pathname] ?? "BLOGS";
+  }, [pathname, isBlogDetail, isProjectDetail]);
+
+  const heroKey = getHeroKey(pathname, isBlogDetail, isProjectDetail);
 
   const heroContent = useMemo(
-    () => getHeroContent(pathname, isBlogDetail),
-    [pathname, isBlogDetail],
+    () => getHeroContent(pathname, isBlogDetail, isProjectDetail),
+    [pathname, isBlogDetail, isProjectDetail],
   );
 
   const blogCategoryValue = useMemo(

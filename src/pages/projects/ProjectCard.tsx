@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import { ArrowRightIcon, ExternalLinkIcon, FileTextIcon } from "lucide-react";
 
@@ -93,19 +94,18 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               />
             </a>
           )}
-          {project.caseStudyUrl && (
-            <a
-              href={project.caseStudyUrl}
-              className="group/btn flex items-center gap-1.5 font-sans text-xs font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
-            >
-              <FileTextIcon size={11} />
-              Case Study
-              <ArrowRightIcon
-                size={10}
-                className="transition-transform duration-200 group-hover/btn:translate-x-0.5"
-              />
-            </a>
-          )}
+          <Link
+            to="/projects/$projectId"
+            params={{ projectId: project.id }}
+            className="group/btn flex items-center gap-1.5 font-sans text-xs font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
+          >
+            <FileTextIcon size={11} />
+            View Details
+            <ArrowRightIcon
+              size={10}
+              className="transition-transform duration-200 group-hover/btn:translate-x-0.5"
+            />
+          </Link>
         </div>
       </div>
     </motion.article>
