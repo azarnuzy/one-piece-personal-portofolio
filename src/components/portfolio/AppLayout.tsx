@@ -2,7 +2,7 @@ import { Outlet, useLocation, useParams } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import { useMemo, useState } from "react";
 
-import { HeroShell } from "@/components/portfolio/HeroShell";
+import { HeroShell, ProjectThumbnailIllustration } from "@/components/portfolio/HeroShell";
 import { Sidebar } from "@/components/portfolio/Sidebar";
 import { BlogCategoryContext } from "@/contexts/blog-category";
 import { AboutHeroContent } from "@/pages/about/AboutHero";
@@ -11,6 +11,7 @@ import { BlogHeroContent } from "@/pages/blog/BlogHero";
 import type { BlogCategory } from "@/pages/blog/data";
 import { ContactHeroContent } from "@/pages/contact/ContactHero";
 import { HomeHeroContent } from "@/pages/homepage/HeroSection";
+import { getProjectV2 } from "@/pages/projects/data";
 import { ProjectDetailHeroContent } from "@/pages/projects/ProjectDetailHero";
 import { ProjectsHeroContent } from "@/pages/projects/ProjectsHero";
 
@@ -66,6 +67,15 @@ export function AppLayout() {
 
   const heroKey = getHeroKey(pathname, isBlogDetail, isProjectDetail);
 
+  const projectV2Data = useMemo(
+    () => (isProjectDetail && projectId ? getProjectV2(projectId) : undefined),
+    [isProjectDetail, projectId],
+  );
+
+  const illustration = projectV2Data ? (
+    <ProjectThumbnailIllustration src={projectV2Data.thumbnailImage} />
+  ) : undefined;
+
   const heroContent = useMemo(
     () => getHeroContent(pathname, isBlogDetail, isProjectDetail),
     [pathname, isBlogDetail, isProjectDetail],
@@ -88,6 +98,7 @@ export function AppLayout() {
             badgeText={badge}
             onOpenSidebar={() => setSidebarOpen(true)}
             minHeight={STANDARD_HEIGHT}
+            illustration={illustration}
           >
             {/* Hero text crossfade — old & new render simultaneously (overlap),
                 so there's no empty-hero gap exposing only the background. */}

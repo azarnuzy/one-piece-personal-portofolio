@@ -4,14 +4,16 @@ import { ArrowRightIcon, ExternalLinkIcon, FileTextIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-import type { Project } from "./data";
+import type { CardProject } from "./data";
 
 interface ProjectCardProps {
-  project: Project;
+  project: CardProject;
   index?: number;
 }
 
 export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
+  const isV2 = project.version === "v2";
+
   return (
     <motion.article
       initial={{ opacity: 0, y: 20 }}
@@ -20,18 +22,49 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
       transition={{ duration: 0.45, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
       className="group surface-card-treasure relative flex flex-col overflow-hidden"
     >
-      {/* Image preview */}
-      <div className="relative aspect-video shrink-0 overflow-hidden rounded-t-xl">
+      {/* Image area */}
+      <div
+        className={cn(
+          "relative shrink-0 overflow-hidden rounded-t-xl",
+          isV2 ? "h-44" : "aspect-video",
+        )}
+      >
+        {isV2 ? (
+          <>
+            {/* Themed gradient background for device-mockup thumbnails */}
+            <div className="absolute inset-0 bg-gradient-to-br from-[oklch(0.15_0.05_230)] via-[oklch(0.18_0.07_210)] to-[oklch(0.22_0.04_190)]" />
+            {/* Dot grid overlay */}
+            <div
+              className="absolute inset-0 opacity-[0.08]"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle, oklch(from var(--brand-treasure) l c h / 1) 1px, transparent 1px)",
+                backgroundSize: "18px 18px",
+              }}
+            />
+            {/* Accent glows */}
+            <div className="absolute top-0 right-0 h-20 w-20 rounded-full bg-brand-treasure/15 blur-2xl" />
+            <div className="absolute bottom-0 left-0 h-16 w-16 rounded-full bg-brand-info/20 blur-2xl" />
+            {/* Bottom glow beneath device */}
+            <div className="absolute bottom-0 left-1/2 h-6 w-3/4 -translate-x-1/2 rounded-full bg-brand-treasure/15 blur-xl" />
+          </>
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent" />
+        )}
+
         <img
-          src={project.mockupImage}
+          src={project.thumbnailImage}
           alt={project.title}
-          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+          className={cn(
+            "transition-transform duration-500 group-hover:scale-[1.03]",
+            isV2
+              ? "relative z-10 h-full w-full object-contain object-bottom px-3 pb-1 drop-shadow-[0_8px_24px_oklch(from_var(--brand-treasure)_l_c_h_/_0.35)]"
+              : "absolute inset-0 h-full w-full object-cover object-top",
+          )}
         />
-        {/* Gradient overlay — only at bottom for readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-card/60 via-transparent to-transparent" />
 
         {/* Badges */}
-        <div className="absolute top-2.5 left-2.5 flex items-center gap-1.5">
+        <div className="absolute top-2.5 left-2.5 z-20 flex items-center gap-1.5">
           {project.badge && (
             <span
               className={cn(
@@ -58,7 +91,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
 
       {/* Content */}
       <div className="flex flex-1 flex-col p-4">
-        <h3 className="mb-1.5 font-display text-sm font-bold text-foreground transition-colors duration-200 group-hover:text-brand-treasure">
+        <h3 className="mb-1.5 line-clamp-1 font-display text-sm font-bold text-foreground transition-colors duration-200 group-hover:text-brand-treasure">
           {project.title}
         </h3>
         <p className="mb-3 line-clamp-2 font-sans text-xs leading-relaxed text-muted-foreground">
@@ -67,7 +100,7 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
 
         {/* Tech tags */}
         <div className="mb-4 flex flex-wrap gap-1.5">
-          {project.tech.map((t) => (
+          {project.tech.slice(0, 4).map((t) => (
             <span
               key={t}
               className="rounded border border-border/50 bg-muted/40 px-1.5 py-0.5 font-sans text-2xs text-muted-foreground"
@@ -75,6 +108,11 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps) {
               {t}
             </span>
           ))}
+          {project.tech.length > 4 && (
+            <span className="rounded border border-border/50 bg-muted/40 px-1.5 py-0.5 font-sans text-2xs text-muted-foreground">
+              +{project.tech.length - 4}
+            </span>
+          )}
         </div>
 
         {/* Actions */}

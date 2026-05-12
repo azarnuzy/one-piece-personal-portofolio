@@ -67,6 +67,97 @@ export interface ProjectDetail extends Project {
   downloadUrl?: string;
 }
 
+// ─── V2 content interfaces (match JSON structure exactly) ─────────────────────
+
+export interface ProjectHero {
+  title: string;
+  description: string;
+  subtitle: string;
+}
+
+export interface ProjectOverview {
+  explanation: string;
+  coreValue: string;
+  interestPoints: string;
+}
+
+export interface KeyFeature {
+  name: string;
+  description: string;
+}
+
+export interface TechStackItem {
+  name: string;
+  description: string;
+}
+
+export interface EngineeringHighlight {
+  point: string;
+  description: string;
+}
+
+export interface WhatILearnedV2 {
+  topic: string;
+  description: string;
+}
+
+export interface ProjectInfoMeta {
+  category: string;
+  role: string;
+  duration: string;
+  status: string;
+}
+
+export interface GalleryCaption {
+  screen: string;
+  caption: string;
+}
+
+export interface CTAContent {
+  livePreview: string;
+  sourceCode: string;
+}
+
+export interface ProjectV2 {
+  // Portfolio metadata (not in content JSON)
+  id: string;
+  category: Exclude<ProjectCategory, "all">;
+  badge?: ProjectBadge;
+  isLive?: boolean;
+  thumbnailImage: string;
+  titleHighlight?: string;
+  liveUrl?: string;
+  githubUrl?: string;
+  downloadUrl?: string;
+  // Content fields (match JSON structure)
+  hero: ProjectHero;
+  projectOverview: ProjectOverview;
+  keyFeatures: KeyFeature[];
+  techStack: TechStackItem[];
+  engineeringHighlights: EngineeringHighlight[];
+  challenges: ProjectChallenge[];
+  whatILearned: WhatILearnedV2[];
+  projectInfo: ProjectInfoMeta;
+  highlights: string[];
+  galleryCaptions: GalleryCaption[];
+  ctaContent: CTAContent;
+}
+
+// ─── Normalized card type (used by ProjectCard, works for V1 and V2) ──────────
+
+export interface CardProject {
+  id: string;
+  title: string;
+  description: string;
+  category: Exclude<ProjectCategory, "all">;
+  badge?: ProjectBadge;
+  isLive?: boolean;
+  thumbnailImage: string;
+  liveUrl?: string;
+  tech: string[];
+  version: "v1" | "v2";
+}
+
 // ─── Base project list (used by Projects page / cards) ────────────────────────
 
 export const PROJECTS: Project[] = [
@@ -736,8 +827,203 @@ export const PROJECT_DETAILS: ProjectDetail[] = [
   },
 ];
 
+// ─── V2 project data ──────────────────────────────────────────────────────────
+
+export const PROJECTS_V2: ProjectV2[] = [
+  {
+    id: "hiazee",
+    category: "ecommerce",
+    badge: "featured",
+    isLive: true,
+    thumbnailImage: "/thumbnail-project/project-hiazee.png",
+    titleHighlight: "AI-Powered Plant Marketplace",
+    liveUrl: "#",
+    githubUrl: "#",
+    hero: {
+      title: "Hiazee: AI-Powered Plant Marketplace",
+      description:
+        "Bridging the gap between nature and technology with intelligent plant identification and a seamless e-commerce experience.",
+      subtitle:
+        "Discover, identify, and shop for your favorite plants using advanced image recognition.",
+    },
+    projectOverview: {
+      explanation:
+        "Hiazee is a specialized e-commerce platform designed to help plant enthusiasts identify unknown species and purchase them directly. Developed as a capstone project for the Bangkit Academy program, it combines machine learning with a modern retail experience.",
+      coreValue:
+        "The application solves the common problem of discovering a beautiful plant but not knowing its name or where to buy it. By integrating AI-driven scanning, users can instantly get detailed information and local recommendations.",
+      interestPoints:
+        "What makes this project stand out is its modular architecture and the seamless integration of complex state management (Recoil) with server-side data fetching (React Query) to provide a smooth, app-like performance.",
+    },
+    keyFeatures: [
+      {
+        name: "AI Plant Identification",
+        description:
+          "Intelligent image recognition that identifies plant species from user uploads to provide instant botanical insights.",
+      },
+      {
+        name: "Location-Based Recommendations",
+        description:
+          "Smart product suggestions tailored to the user's region, specifically optimized for the Indonesian climate and market.",
+      },
+      {
+        name: "Modular E-commerce Core",
+        description:
+          "A robust shopping system featuring product exploration, detailed specifications, and a secure checkout flow.",
+      },
+      {
+        name: "Responsive Multi-Surface UI",
+        description:
+          "A meticulously crafted interface that adapts dynamically to all device sizes using custom breakpoint logic.",
+      },
+    ],
+    techStack: [
+      {
+        name: "Next.js 14",
+        description: "Utilizing the App Router for optimized routing and server-side rendering.",
+      },
+      {
+        name: "Recoil",
+        description: "Handling complex global UI states with atom-based state management.",
+      },
+      {
+        name: "TanStack Query",
+        description: "Managing server state, caching, and synchronized data fetching.",
+      },
+      {
+        name: "Tailwind CSS",
+        description: "Implementing a custom design system with utility-first styling.",
+      },
+      {
+        name: "NextAuth.js",
+        description: "Secure authentication and session management for user transactions.",
+      },
+    ],
+    engineeringHighlights: [
+      {
+        point: "Feature-Sliced Modular Architecture",
+        description:
+          "Organized the codebase into self-contained modules, significantly improving maintainability and scalability.",
+      },
+      {
+        point: "Advanced State Orchestration",
+        description:
+          "Successfully synchronized local UI state via Recoil with remote server state via React Query for a zero-latency feel.",
+      },
+      {
+        point: "Optimized Image Delivery",
+        description:
+          "Implemented Next.js Image optimization and skeleton loaders to maintain high performance during data-heavy product loads.",
+      },
+      {
+        point: "Type-Safe API Integration",
+        description:
+          "Enforced strict TypeScript interfaces across the entire data layer using Zod and custom Axios interceptors.",
+      },
+    ],
+    challenges: [
+      {
+        title: "Responsive Layout Synchronization",
+        description:
+          "Managing complex grid layouts that required manual breakpoint detection for optimal column distribution across varied screen sizes.",
+      },
+      {
+        title: "State Persistence & Security",
+        description:
+          "Integrating NextAuth with a custom backend while ensuring persistent sessions and secure API requests through Bearer token injection.",
+      },
+    ],
+    whatILearned: [
+      {
+        topic: "Frontend Architecture",
+        description:
+          "Learned how to structure large-scale Next.js applications using a modular approach to prevent technical debt.",
+      },
+      {
+        topic: "AI UX Patterns",
+        description:
+          "Gained experience in designing user flows that involve asynchronous AI processing without sacrificing user engagement.",
+      },
+      {
+        topic: "Performance Optimization",
+        description:
+          "Mastered the use of server-side data fetching strategies to reduce initial bundle size and improve Core Web Vitals.",
+      },
+    ],
+    projectInfo: {
+      category: "E-commerce / AI Utility",
+      role: "Fullstack Frontend Developer",
+      duration: "4 Months",
+      status: "Production Ready / Capstone Project",
+    },
+    highlights: [
+      "AI-Integrated Shopping Flow",
+      "Modern Modular UI Architecture",
+      "Premium Responsive Design System",
+      "Optimized Server State Management",
+    ],
+    galleryCaptions: [
+      {
+        screen: "Landing Page",
+        caption:
+          "Polished hero section featuring interactive swiper modules and the core AI-scanning proposition.",
+      },
+      {
+        screen: "Product Discovery",
+        caption: "Dynamic product grid with skeleton loading and localized recommendation engine.",
+      },
+      {
+        screen: "Plant Identification",
+        caption:
+          "Seamless upload interface designed for instant AI feedback and botanical data retrieval.",
+      },
+    ],
+    ctaContent: {
+      livePreview: "Experience the intelligent plant marketplace in action.",
+      sourceCode: "Explore the modular architecture and technical implementation on GitHub.",
+    },
+  },
+];
+
 export function getProjectDetail(id: string): ProjectDetail | undefined {
   return PROJECT_DETAILS.find((p) => p.id === id);
+}
+
+export function getProjectV2(id: string): ProjectV2 | undefined {
+  return PROJECTS_V2.find((p) => p.id === id);
+}
+
+export function projectToCard(p: Project): CardProject {
+  return {
+    id: p.id,
+    title: p.title,
+    description: p.description,
+    category: p.category,
+    badge: p.badge,
+    isLive: p.isLive,
+    thumbnailImage: p.mockupImage,
+    liveUrl: p.liveUrl,
+    tech: p.tech,
+    version: "v1",
+  };
+}
+
+export function projectV2ToCard(p: ProjectV2): CardProject {
+  return {
+    id: p.id,
+    title: p.hero.title,
+    description: p.hero.description,
+    category: p.category,
+    badge: p.badge,
+    isLive: p.isLive,
+    thumbnailImage: p.thumbnailImage,
+    liveUrl: p.liveUrl,
+    tech: p.techStack.map((t) => t.name),
+    version: "v2",
+  };
+}
+
+export function getAllCardProjects(): CardProject[] {
+  return [...PROJECTS_V2.map(projectV2ToCard), ...PROJECTS.map(projectToCard)];
 }
 
 export const FILTER_TABS: { id: ProjectCategory; label: string }[] = [

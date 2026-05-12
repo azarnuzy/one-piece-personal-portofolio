@@ -5,7 +5,7 @@ import { memo, useMemo, useState } from "react";
 import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
 
 import { BuildPhilosophy } from "./BuildPhilosophy";
-import { PROJECTS, type ProjectCategory } from "./data";
+import { getAllCardProjects, type ProjectCategory } from "./data";
 import { ProjectCard } from "./ProjectCard";
 import { ProjectFilter } from "./ProjectFilter";
 import { ProjectsCTA } from "./ProjectsCTA";
@@ -16,7 +16,7 @@ function ProjectsPageInner() {
   const [sort, setSort] = useState("latest");
 
   const filtered = useMemo(() => {
-    let list = PROJECTS.filter((p) => {
+    let list = getAllCardProjects().filter((p) => {
       const matchCat = activeFilter === "all" || p.category === activeFilter;
       const q = search.toLowerCase();
       const matchSearch =

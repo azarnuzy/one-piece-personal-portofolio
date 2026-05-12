@@ -7,6 +7,7 @@ import {
   CheckCircle2Icon,
   ChevronLeftIcon,
   ChevronRightIcon,
+  ClockIcon,
   CodeIcon,
   CompassIcon,
   CpuIcon,
@@ -26,6 +27,7 @@ import {
   ServerIcon,
   ShieldIcon,
   StarIcon,
+  TagIcon,
   TrendingUpIcon,
   UsersIcon,
   ZapIcon,
@@ -36,10 +38,12 @@ import { cn } from "@/lib/utils";
 
 import {
   getProjectDetail,
+  getProjectV2,
   PROJECT_DETAILS,
+  type LearningIcon,
   type ProjectDetail,
   type ProjectLearning,
-  type LearningIcon,
+  type ProjectV2,
 } from "./data";
 
 // ─── Icon map for "What I Learned" cards ──────────────────────────────────────
@@ -142,7 +146,6 @@ function GallerySlider({ images, compact = false }: { images: string[]; compact?
           />
         </AnimatePresence>
 
-        {/* Navigation arrows */}
         <button
           type="button"
           onClick={prev}
@@ -160,13 +163,11 @@ function GallerySlider({ images, compact = false }: { images: string[]; compact?
           <ChevronRightIcon size={16} />
         </button>
 
-        {/* Image counter badge */}
         <div className="absolute right-3 bottom-3 rounded-md bg-card/80 px-2 py-0.5 font-mono text-2xs text-muted-foreground backdrop-blur-sm">
           {current + 1} / {images.length}
         </div>
       </div>
 
-      {/* Pagination dots */}
       <div className="mt-3 flex items-center justify-center gap-2">
         {images.map((_, i) => (
           <button
@@ -375,7 +376,6 @@ function DetailTabs({ project }: { project: ProjectDetail }) {
 
   return (
     <div className="rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm">
-      {/* Tab bar */}
       <div className="-mb-px flex flex-wrap border-b border-border/40 px-4 md:px-5">
         {TABS.map((tab) => {
           const Icon = TAB_ICONS[tab];
@@ -399,7 +399,6 @@ function DetailTabs({ project }: { project: ProjectDetail }) {
         })}
       </div>
 
-      {/* Tab content */}
       <div className="p-4 md:p-5">
         <AnimatePresence mode="wait">
           <motion.div
@@ -601,10 +600,541 @@ function DownloadReportCard({ project }: { project: ProjectDetail }) {
   );
 }
 
+// ─── V2 shared sub-component ──────────────────────────────────────────────────
+
+function SectionLabel({ icon: IconComponent, text }: { icon: React.ElementType; text: string }) {
+  return (
+    <div className="mb-3 flex items-center gap-2">
+      <IconComponent size={13} className="shrink-0 text-brand-treasure" />
+      <span className="font-display text-sm font-bold text-foreground">{text}</span>
+      <div className="h-px flex-1 bg-border/30" />
+    </div>
+  );
+}
+
+// ─── V2 Section: Overview ─────────────────────────────────────────────────────
+
+function OverviewSection({ project }: { project: ProjectV2 }) {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="rounded-2xl border border-border/50 bg-card/50 p-4 backdrop-blur-sm md:p-5"
+    >
+      <div className="mb-4 rounded-xl border border-brand-treasure/20 bg-brand-treasure/5 px-3.5 py-2.5">
+        <p className="font-sans text-xs leading-relaxed text-brand-treasure/90">
+          {project.hero.subtitle}
+        </p>
+      </div>
+      <p className="mb-4 font-sans text-sm leading-7 text-foreground/75">
+        {project.projectOverview.explanation}
+      </p>
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div className="rounded-xl border border-border/30 bg-muted/20 p-3.5">
+          <p className="mb-1.5 font-display text-xs font-bold text-foreground">Core Value</p>
+          <p className="font-sans text-xs leading-relaxed text-muted-foreground">
+            {project.projectOverview.coreValue}
+          </p>
+        </div>
+        <div className="rounded-xl border border-border/30 bg-muted/20 p-3.5">
+          <p className="mb-1.5 font-display text-xs font-bold text-foreground">
+            What Makes It Stand Out
+          </p>
+          <p className="font-sans text-xs leading-relaxed text-muted-foreground">
+            {project.projectOverview.interestPoints}
+          </p>
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+// ─── V2 Section: Project Snapshot ────────────────────────────────────────────
+
+function SnapshotSection({ project }: { project: ProjectV2 }) {
+  const stats = [
+    { label: "Category", value: project.projectInfo.category, Icon: TagIcon },
+    { label: "Role", value: project.projectInfo.role, Icon: UsersIcon },
+    { label: "Duration", value: project.projectInfo.duration, Icon: ClockIcon },
+    { label: "Status", value: project.projectInfo.status, Icon: CheckCircle2Icon },
+  ];
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.4, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
+      className="surface-card p-4"
+    >
+      <SectionLabel icon={CompassIcon} text="Project Snapshot" />
+      <div className="mb-3.5 flex flex-wrap gap-2">
+        {stats.map(({ label, value, Icon }) => (
+          <div
+            key={label}
+            className="flex items-center gap-1.5 rounded-lg border border-border/50 bg-muted/30 px-2.5 py-1.5"
+          >
+            <Icon size={10} className="shrink-0 text-brand-treasure/70" />
+            <span className="font-sans text-2xs text-muted-foreground">{label}</span>
+            <span className="h-3 w-px bg-border" aria-hidden />
+            <span className="font-display text-2xs font-semibold text-foreground">{value}</span>
+          </div>
+        ))}
+      </div>
+      <div className="grid grid-cols-2 gap-x-4 gap-y-1.5">
+        {project.highlights.map((h) => (
+          <div key={h} className="flex items-center gap-1.5">
+            <CheckCircle2Icon size={11} className="shrink-0 text-brand-success" />
+            <span className="font-sans text-xs text-foreground/75">{h}</span>
+          </div>
+        ))}
+      </div>
+    </motion.section>
+  );
+}
+
+// ─── V2 Section: Feature Highlights ──────────────────────────────────────────
+
+function FeaturesSection({ project }: { project: ProjectV2 }) {
+  const ICONS = [ZapIcon, MonitorIcon, UsersIcon, TrendingUpIcon, ShieldIcon, GlobeIcon];
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.4, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
+      className="rounded-2xl border border-border/50 bg-card/50 p-4 backdrop-blur-sm md:p-5"
+    >
+      <SectionLabel icon={ZapIcon} text="Key Features" />
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+        {project.keyFeatures.map((feature, i) => {
+          const Icon = ICONS[i % ICONS.length];
+          return (
+            <div
+              key={feature.name}
+              className="flex gap-3 rounded-xl border border-border/40 bg-card/30 p-3 transition-colors duration-200 hover:border-brand-treasure/30 hover:bg-card/60"
+            >
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-treasure/15">
+                <Icon size={13} className="text-brand-treasure" />
+              </div>
+              <div className="min-w-0">
+                <p className="mb-0.5 font-display text-xs font-bold text-foreground">
+                  {feature.name}
+                </p>
+                <p className="line-clamp-2 font-sans text-2xs leading-snug text-muted-foreground">
+                  {feature.description}
+                </p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </motion.section>
+  );
+}
+
+// ─── V2 Section: Showcase Preview (visual centerpiece) ───────────────────────
+
+function ShowcaseSection({ project }: { project: ProjectV2 }) {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.45, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="relative overflow-hidden rounded-2xl border border-border/40 bg-card/80">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle, oklch(from var(--brand-treasure) l c h / 1) 1px, transparent 1px)",
+            backgroundSize: "20px 20px",
+          }}
+        />
+        <div className="pointer-events-none absolute top-0 right-0 h-40 w-40 rounded-full bg-brand-treasure/10 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 left-0 h-32 w-32 rounded-full bg-brand-info/12 blur-3xl" />
+
+        <div className="relative flex items-center justify-center px-6 py-6 md:px-10 md:py-8">
+          <img
+            src={project.thumbnailImage}
+            alt={project.hero.title}
+            className="relative z-10 max-h-[300px] w-full object-contain drop-shadow-[0_20px_60px_oklch(from_var(--brand-treasure)_l_c_h_/_0.4)] md:max-h-[360px]"
+          />
+        </div>
+
+        <div className="relative border-t border-border/20 bg-card/50 px-4 py-2.5 backdrop-blur-sm">
+          <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-1">
+            {project.galleryCaptions.map((item) => (
+              <span
+                key={item.screen}
+                className="flex items-center gap-1 font-sans text-2xs text-muted-foreground/60"
+              >
+                <MonitorIcon size={9} />
+                {item.screen}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+// ─── V2 Section: Tech Stack ───────────────────────────────────────────────────
+
+function TechSection({ project }: { project: ProjectV2 }) {
+  const TECH_ICONS: Record<string, React.ElementType> = {
+    "Next.js 14": GlobeIcon,
+    "Next.js": GlobeIcon,
+    Recoil: LayersIcon,
+    "TanStack Query": DatabaseIcon,
+    "Tailwind CSS": LayersIcon,
+    "NextAuth.js": ShieldIcon,
+    React: ZapIcon,
+    TypeScript: CodeIcon,
+    "Node.js": ServerIcon,
+    NodeJs: ServerIcon,
+    Express: ServerIcon,
+    MongoDB: DatabaseIcon,
+    PostgreSQL: DatabaseIcon,
+    "Socket.io": ZapIcon,
+    SocketIO: ZapIcon,
+    Zustand: LayersIcon,
+    Stripe: CpuIcon,
+  };
+
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.4, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
+      className="surface-card p-4"
+    >
+      <SectionLabel icon={CodeIcon} text="Tech Stack" />
+      <div className="flex flex-wrap gap-2">
+        {project.techStack.map((tech) => {
+          const Icon = TECH_ICONS[tech.name] ?? CodeIcon;
+          return (
+            <div
+              key={tech.name}
+              className="flex items-center gap-1.5 rounded-lg border border-border/50 bg-muted/30 px-2.5 py-1.5 transition-colors duration-200 hover:border-brand-treasure/30 hover:bg-card/60"
+            >
+              <Icon size={12} className="text-brand-treasure" />
+              <span className="font-display text-xs font-semibold text-foreground">
+                {tech.name}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+    </motion.section>
+  );
+}
+
+// ─── V2 Section: Application Screens ─────────────────────────────────────────
+
+function PageShowcaseSection({ project }: { project: ProjectV2 }) {
+  if (!project.galleryCaptions.length) return null;
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.4, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
+      className="rounded-2xl border border-border/50 bg-card/50 p-4 backdrop-blur-sm md:p-5"
+    >
+      <SectionLabel icon={MonitorIcon} text="Application Screens" />
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-3">
+        {project.galleryCaptions.map((item, i) => (
+          <div
+            key={item.screen}
+            className="rounded-xl border border-border/40 bg-card/30 p-3.5 transition-colors duration-200 hover:border-brand-treasure/25 hover:bg-card/50"
+          >
+            <div className="mb-2.5 flex items-center justify-between">
+              <span className="rounded-md bg-brand-treasure/10 px-1.5 py-0.5 font-mono text-2xs font-bold text-brand-treasure/80">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <MonitorIcon size={11} className="text-muted-foreground/30" />
+            </div>
+            <p className="mb-1 font-display text-xs font-bold text-foreground">{item.screen}</p>
+            <p className="font-sans text-2xs leading-snug text-muted-foreground">{item.caption}</p>
+          </div>
+        ))}
+      </div>
+    </motion.section>
+  );
+}
+
+// ─── V2 Section: Engineering Notes ───────────────────────────────────────────
+
+function EngineeringSection({ project }: { project: ProjectV2 }) {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.4, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
+      className="rounded-2xl border border-border/50 bg-card/50 p-4 backdrop-blur-sm md:p-5"
+    >
+      <SectionLabel icon={CpuIcon} text="Engineering Highlights" />
+      <div className="grid grid-cols-1 gap-2.5 sm:grid-cols-2">
+        {project.engineeringHighlights.map((h) => (
+          <div
+            key={h.point}
+            className="rounded-xl border border-brand-treasure/15 bg-brand-treasure/5 p-3"
+          >
+            <div className="mb-1.5 flex items-start gap-2">
+              <ZapIcon size={11} className="mt-0.5 shrink-0 text-brand-treasure" />
+              <p className="font-display text-xs font-bold text-foreground">{h.point}</p>
+            </div>
+            <p className="pl-[19px] font-sans text-2xs leading-relaxed text-muted-foreground">
+              {h.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </motion.section>
+  );
+}
+
+// ─── V2 Section: Challenges & Learnings ──────────────────────────────────────
+
+function ChallengesLearnedSection({ project }: { project: ProjectV2 }) {
+  const LEARNED_ICONS = [LayersIcon, ZapIcon, TrendingUpIcon, CodeIcon, ServerIcon, ShieldIcon];
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.4, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
+      className="rounded-2xl border border-border/50 bg-card/50 p-4 backdrop-blur-sm md:p-5"
+    >
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div>
+          <SectionLabel icon={AlertTriangleIcon} text="Challenges" />
+          <div className="flex flex-col gap-2.5">
+            {project.challenges.map((c) => (
+              <div
+                key={c.title}
+                className="rounded-xl border border-brand-sunset/15 bg-brand-sunset/5 p-3"
+              >
+                <p className="mb-1 font-display text-xs font-bold text-foreground">{c.title}</p>
+                <p className="font-sans text-2xs leading-relaxed text-muted-foreground">
+                  {c.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <SectionLabel icon={LightbulbIcon} text="Learnings" />
+          <div className="flex flex-col gap-2.5">
+            {project.whatILearned.map((item, i) => {
+              const Icon = LEARNED_ICONS[i % LEARNED_ICONS.length];
+              return (
+                <div
+                  key={item.topic}
+                  className="flex gap-2.5 rounded-xl border border-border/40 bg-card/30 p-3"
+                >
+                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-brand-treasure/15">
+                    <Icon size={11} className="text-brand-treasure" />
+                  </div>
+                  <div>
+                    <p className="mb-0.5 font-display text-xs font-bold text-foreground">
+                      {item.topic}
+                    </p>
+                    <p className="font-sans text-2xs leading-relaxed text-muted-foreground">
+                      {item.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </motion.section>
+  );
+}
+
+// ─── V2 Section: Final CTA ────────────────────────────────────────────────────
+
+function CTASectionV2({ project }: { project: ProjectV2 }) {
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.4, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
+      className="surface-card p-4"
+    >
+      <div className="flex flex-wrap gap-3">
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-brand-treasure/40 bg-brand-treasure/10 px-4 py-2.5 font-display text-xs font-bold text-brand-treasure transition-all duration-200 hover:border-brand-treasure/60 hover:bg-brand-treasure/20 hover:shadow-[0_0_16px_-4px_oklch(from_var(--brand-treasure)_l_c_h_/_0.4)]"
+          >
+            <ExternalLinkIcon size={12} />
+            Visit Live Demo
+          </a>
+        )}
+        {project.githubUrl && (
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-border/50 bg-muted/30 px-4 py-2.5 font-display text-xs font-bold text-foreground/80 transition-all duration-200 hover:border-brand-treasure/40 hover:bg-muted/50 hover:text-brand-treasure"
+          >
+            <SiGithub size={12} />
+            View on GitHub
+          </a>
+        )}
+      </div>
+    </motion.section>
+  );
+}
+
+// ─── V2 Sidebar ───────────────────────────────────────────────────────────────
+
+function SidebarV2({ project }: { project: ProjectV2 }) {
+  const stats = [
+    { label: "Category", value: project.projectInfo.category },
+    { label: "Role", value: project.projectInfo.role },
+    { label: "Duration", value: project.projectInfo.duration },
+    { label: "Status", value: project.projectInfo.status },
+  ];
+
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="surface-card p-3.5">
+        <div className="mb-2.5 flex items-center gap-2">
+          <InfoIcon size={12} className="text-brand-treasure" />
+          <h3 className="font-display text-xs font-bold text-foreground">Project Info</h3>
+        </div>
+        <div className="flex flex-col divide-y divide-border/30">
+          {stats.map(({ label, value }) => (
+            <div
+              key={label}
+              className="flex items-start justify-between gap-2 py-1.5 first:pt-0 last:pb-0"
+            >
+              <span className="font-sans text-2xs text-muted-foreground">{label}</span>
+              <span className="text-right font-sans text-2xs font-medium text-foreground/85">
+                {value}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="surface-card p-3.5">
+        <div className="mb-2.5 flex items-center gap-2">
+          <StarIcon size={12} className="text-brand-treasure" />
+          <h3 className="font-display text-xs font-bold text-foreground">Highlights</h3>
+        </div>
+        <ul className="flex flex-col gap-1.5">
+          {project.highlights.map((h) => (
+            <li key={h} className="flex items-start gap-1.5">
+              <CheckCircle2Icon size={10} className="mt-0.5 shrink-0 text-brand-success" />
+              <span className="font-sans text-2xs leading-snug text-foreground/75">{h}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="surface-card p-3.5">
+        <div className="flex flex-col gap-2">
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-1.5 rounded-lg border border-brand-treasure/40 bg-brand-treasure/10 px-3 py-2 font-display text-xs font-bold text-brand-treasure transition-all duration-200 hover:border-brand-treasure/60 hover:bg-brand-treasure/20"
+            >
+              <ExternalLinkIcon size={11} />
+              Live Demo
+            </a>
+          )}
+          {project.githubUrl && (
+            <a
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-1.5 rounded-lg border border-border/50 bg-muted/30 px-3 py-2 font-display text-xs font-bold text-foreground/80 transition-all duration-200 hover:border-brand-treasure/30 hover:text-brand-treasure"
+            >
+              <SiGithub size={11} />
+              GitHub
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── V2 Page layout ───────────────────────────────────────────────────────────
+
+function ProjectDetailV2PageContent({ project }: { project: ProjectV2 }) {
+  return (
+    <>
+      <div className="relative z-10 flex-1 bg-background px-3 pt-4 pb-6 md:px-5 md:pt-5 md:pb-8 lg:px-6">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
+          {/* Left: continuous scroll sections */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="flex min-w-0 flex-1 flex-col gap-3"
+          >
+            <OverviewSection project={project} />
+            <SnapshotSection project={project} />
+            <FeaturesSection project={project} />
+            <ShowcaseSection project={project} />
+            <TechSection project={project} />
+            <PageShowcaseSection project={project} />
+            <EngineeringSection project={project} />
+            <ChallengesLearnedSection project={project} />
+            <CTASectionV2 project={project} />
+          </motion.div>
+
+          {/* Right: compact sticky sidebar */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="lg:sticky lg:top-4 lg:w-[260px] lg:shrink-0 lg:self-start"
+          >
+            <SidebarV2 project={project} />
+          </motion.div>
+        </div>
+      </div>
+
+      <footer className="flex shrink-0 items-center justify-between border-t border-border px-4 py-3 font-sans text-xs text-muted-foreground md:px-6">
+        <span className="flex items-center gap-1.5">
+          <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
+        </span>
+        <span className="flex items-center gap-1.5">
+          <AnchorIcon size={11} className="text-brand-treasure" />
+          Sailing the React seas
+        </span>
+      </footer>
+    </>
+  );
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 function ProjectDetailPageInner() {
   const { projectId } = useParams({ strict: false }) as { projectId?: string };
+
+  const v2 = projectId ? getProjectV2(projectId) : undefined;
+  if (v2) return <ProjectDetailV2PageContent project={v2} />;
+
   const project = projectId
     ? (getProjectDetail(projectId) ?? PROJECT_DETAILS[0])
     : PROJECT_DETAILS[0];
@@ -613,7 +1143,6 @@ function ProjectDetailPageInner() {
     <>
       <div className="relative z-10 flex-1 bg-background px-3 pt-4 pb-6 md:px-5 md:pt-5 md:pb-8 lg:px-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
-          {/* Left: tabs + what I learned */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -624,7 +1153,6 @@ function ProjectDetailPageInner() {
             <WhatILearnedSection project={project} />
           </motion.div>
 
-          {/* Right: info cards */}
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}

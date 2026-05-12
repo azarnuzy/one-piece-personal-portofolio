@@ -99,10 +99,47 @@ const HeroBackdrop = memo(function HeroBackdrop() {
   );
 });
 
+// ─── Project thumbnail illustration (replaces person on detail pages) ────────
+
+interface ProjectThumbnailIllustrationProps {
+  src: string;
+}
+
+export function ProjectThumbnailIllustration({ src }: ProjectThumbnailIllustrationProps) {
+  const parallax = useHeroParallax();
+
+  return (
+    <div
+      className="pointer-events-none absolute right-2 bottom-0 z-0 hidden h-full items-end select-none md:flex lg:right-10 xl:right-16"
+      style={{
+        transform: `translate3d(${parallax.x * -5}px, ${parallax.y * -3}px, 0)`,
+        transition: "transform 0.1s ease-out",
+        willChange: "transform",
+      }}
+    >
+      <motion.div
+        className="relative pb-1"
+        animate={{ y: [0, -7, 0] }}
+        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", repeatType: "loop" }}
+      >
+        <div className="pointer-events-none absolute -bottom-1 left-1/2 h-5 w-4/5 -translate-x-1/2 rounded-full bg-brand-treasure/25 blur-2xl" />
+        <img
+          src={src}
+          alt=""
+          aria-hidden
+          draggable={false}
+          className="max-h-[280px] w-auto object-contain object-bottom drop-shadow-[0_16px_50px_oklch(from_var(--brand-treasure)_l_c_h_/_0.4)] xl:max-h-[360px]"
+        />
+      </motion.div>
+    </div>
+  );
+}
+
 interface HeroShellProps {
   badgeText: string;
   onOpenSidebar?: () => void;
   minHeight?: string;
+  illustration?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -110,6 +147,7 @@ export function HeroShell({
   badgeText,
   onOpenSidebar,
   minHeight = "min-h-[420px] xl:min-h-[500px]",
+  illustration,
   children,
 }: HeroShellProps) {
   const [parallax, setParallax] = useState<ParallaxState>({ x: 0, y: 0 });
@@ -134,8 +172,7 @@ export function HeroShell({
         <HeroBackdrop />
         <FloatingParticles />
 
-        {/* Persistent person illustration — img mounts ONCE, identical on every page */}
-        <PersistentPerson />
+        {illustration ?? <PersistentPerson />}
 
         <div className={cn("relative z-10 flex flex-col", minHeight)}>
           <div className="flex items-center justify-between px-4 py-4 md:px-8">
