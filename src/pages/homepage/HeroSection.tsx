@@ -1,19 +1,19 @@
-import { SiReact, SiTailwindcss, SiTypescript } from "@icons-pack/react-simple-icons";
-import { CheckIcon, CompassIcon, ScrollTextIcon, ZapIcon } from "lucide-react";
+import { SiNextdotjs, SiReact, SiTailwindcss, SiTypescript } from "@icons-pack/react-simple-icons";
+import { CheckIcon, CompassIcon, ZapIcon } from "lucide-react";
 import { memo } from "react";
 
 import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
 
 const TECH_CHIPS = [
   { icon: SiReact, label: "React", colorClass: "text-brand-info" },
-  { icon: SiTailwindcss, label: "Tailwind CSS", colorClass: "text-brand-success" },
+  { icon: SiNextdotjs, label: "Next.js", colorClass: "text-foreground" },
   { icon: SiTypescript, label: "TypeScript", colorClass: "text-brand-info" },
-  { icon: ZapIcon, label: "WebSocket", colorClass: "text-brand-success" },
+  { icon: SiTailwindcss, label: "Tailwind CSS", colorClass: "text-brand-success" },
 ];
 
 const STATS = [
-  { icon: ZapIcon, text: "5+ Projects Completed" },
-  { icon: CompassIcon, text: "2+ Years Experience" },
+  { icon: ZapIcon, text: "14+ Projects Shipped" },
+  { icon: CompassIcon, text: "3+ Years Building" },
   { icon: CheckIcon, text: "Clean Code Lover" },
 ];
 
@@ -46,7 +46,8 @@ function HomeHeroContentInner() {
           className="mb-4 max-w-md font-sans text-base text-foreground/80 md:text-lg"
           style={{ lineHeight: "1.55" }}
         >
-          Frontend Developer crafting fast, scalable &amp; interactive web experiences.
+          Software Engineer building AI-powered platforms &mdash; full-stack frontend with a
+          performance-first mindset.
         </p>
 
         <div className="mb-3 flex flex-wrap gap-2">
@@ -75,10 +76,10 @@ function HomeHeroContentInner() {
 
         <div className="flex flex-wrap gap-3">
           <PirateCTAButton icon={<WheelIcon size={16} />} variant="primary">
-            Explore My Work
+            See Featured Work
           </PirateCTAButton>
-          <PirateCTAButton icon={<ScrollTextIcon size={16} strokeWidth={2} />} variant="secondary">
-            Read My Thinking
+          <PirateCTAButton icon={<CompassIcon size={16} strokeWidth={2} />} variant="secondary">
+            About Me
           </PirateCTAButton>
         </div>
       </div>

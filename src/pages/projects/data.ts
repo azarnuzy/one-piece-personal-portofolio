@@ -1,5 +1,4 @@
-export type ProjectCategory = "all" | "web" | "realtime" | "ecommerce" | "tools";
-export type ProjectBadge = "featured" | "recent";
+﻿export type ProjectCategory = "all" | "web" | "realtime" | "ecommerce" | "tools";
 export type ProjectStatus = "Completed" | "In Progress";
 export type LearningIcon =
   | "zap"
@@ -33,7 +32,7 @@ export interface ProjectLearning {
   icon: LearningIcon;
 }
 
-// ─── V2 content interfaces (match JSON structure exactly) ─────────────────────
+// â”€â”€â”€ V2 content interfaces (match JSON structure exactly) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export interface ProjectHero {
   title: string;
@@ -88,12 +87,8 @@ export interface ProjectV2 {
   // Portfolio metadata (not in content JSON)
   id: string;
   category: Exclude<ProjectCategory, "all">;
-  badge?: ProjectBadge;
-  isLive?: boolean;
   thumbnailImage: string;
   titleHighlight?: string;
-  liveUrl?: string;
-  githubUrl?: string;
   downloadUrl?: string;
   // Content fields (match JSON structure)
   hero: ProjectHero;
@@ -109,35 +104,28 @@ export interface ProjectV2 {
   ctaContent: CTAContent;
 }
 
-// ─── Normalized card type (used by ProjectCard, works for V1 and V2) ──────────
+// â”€â”€â”€ Normalized card type (used by ProjectCard, works for V1 and V2) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export interface CardProject {
   id: string;
   title: string;
   description: string;
   category: Exclude<ProjectCategory, "all">;
-  badge?: ProjectBadge;
-  isLive?: boolean;
   thumbnailImage: string;
-  liveUrl?: string;
   tech: string[];
   version: "v1" | "v2";
 }
 
-// ─── Base project list (used by Projects page / cards) ────────────────────────
+// â”€â”€â”€ Base project list (used by Projects page / cards) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-// ─── V2 project data ──────────────────────────────────────────────────────────
+// â”€â”€â”€ V2 project data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "hiazee",
     category: "ecommerce",
-    badge: "featured",
-    isLive: true,
     thumbnailImage: "/thumbnail-project/project-hiazee.png",
     titleHighlight: "AI-Powered Plant Marketplace",
-    liveUrl: "#",
-    githubUrl: "#",
     hero: {
       title: "Hiazee: AI-Powered Plant Marketplace",
       description:
@@ -179,10 +167,6 @@ export const PROJECTS_V2: ProjectV2[] = [
       {
         name: "Next.js 14",
         description: "Utilizing the App Router for optimized routing and server-side rendering.",
-      },
-      {
-        name: "Recoil",
-        description: "Handling complex global UI states with atom-based state management.",
       },
       {
         name: "TanStack Query",
@@ -284,12 +268,8 @@ export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "sygma-studio",
     category: "tools",
-    badge: "featured",
-    isLive: true,
     thumbnailImage: "/thumbnail-project/project-sygma-studio.png",
     titleHighlight: "AI Orchestration Platform",
-    liveUrl: "#",
-    githubUrl: "#",
     hero: {
       title: "Sygma Studio",
       description:
@@ -303,7 +283,7 @@ export const PROJECTS_V2: ProjectV2[] = [
       coreValue:
         "Platform ini melampaui standar chatbot biasa dengan menyediakan infrastruktur untuk integrasi WhatsApp Business, simulasi voice-to-voice Telerobotic, dan distribusi widget AI yang dapat di-embed ke aplikasi pihak ketiga, semuanya dikendalikan melalui sistem perizinan (RBAC) yang granular.",
       interestPoints:
-        "What sets Sygma Studio apart is its zero-dependency embeddable widget architecture and real-time voice-to-voice AI simulator—solving complex enterprise AI delivery challenges within a single, cohesive platform.",
+        "What sets Sygma Studio apart is its zero-dependency embeddable widget architecture and real-time voice-to-voice AI simulatorâ€”solving complex enterprise AI delivery challenges within a single, cohesive platform.",
     },
     keyFeatures: [
       {
@@ -347,10 +327,6 @@ export const PROJECTS_V2: ProjectV2[] = [
         name: "TanStack Query",
         description:
           "Server state management with aggressive caching and background synchronization.",
-      },
-      {
-        name: "Recoil",
-        description: "Fine-grained atom-based state for complex UI interactions across modules.",
       },
       {
         name: "Tailwind CSS & Radix UI",
@@ -463,12 +439,8 @@ export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "maxmar-evolution",
     category: "tools",
-    badge: "featured",
-    isLive: true,
     thumbnailImage: "/thumbnail-project/project-maxmar.png",
     titleHighlight: "Aquaculture Analytics Engine",
-    liveUrl: "#",
-    githubUrl: "#",
     hero: {
       title: "Maxmar Evolution",
       description:
@@ -524,11 +496,6 @@ export const PROJECTS_V2: ProjectV2[] = [
       {
         name: "Tailwind CSS 4 & Shadcn",
         description: "Utility-first design system with Radix UI primitives for a premium UX.",
-      },
-      {
-        name: "Recoil",
-        description:
-          "Fine-grained state management for complex UI interactions and dashboard configurations.",
       },
       {
         name: "Recharts & ApexCharts",
@@ -622,12 +589,8 @@ export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "cakra-smart-search",
     category: "tools",
-    badge: "featured",
-    isLive: true,
     thumbnailImage: "/thumbnail-project/project-smart-search.png",
     titleHighlight: "AI Banking Interface",
-    liveUrl: "#",
-    githubUrl: "#",
     hero: {
       title: "Cakra Smart Search",
       description:
@@ -675,7 +638,7 @@ export const PROJECTS_V2: ProjectV2[] = [
         description: "Ultra-fast development toolchain with next-generation utility-first styling.",
       },
       {
-        name: "Recoil & TanStack Query",
+        name: "TanStack Query",
         description:
           "Granular state management and server state synchronization for complex banking flows.",
       },
@@ -778,12 +741,8 @@ export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "lind-society",
     category: "ecommerce",
-    badge: "featured",
-    isLive: true,
     thumbnailImage: "/thumbnail-project/project-lind.png",
     titleHighlight: "Property & Travel Marketplace",
-    liveUrl: "#",
-    githubUrl: "#",
     hero: {
       title: "Lind Society",
       description:
@@ -802,7 +761,7 @@ export const PROJECTS_V2: ProjectV2[] = [
       {
         name: "Triple-Vertical Search Engine",
         description:
-          "Custom-built search logic that orchestrates results across three distinct business areas—Rentals, Sales, and Activities—with debouncing and real-time suggestions.",
+          "Custom-built search logic that orchestrates results across three distinct business areasâ€”Rentals, Sales, and Activitiesâ€”with debouncing and real-time suggestions.",
       },
       {
         name: "Advanced Filtering System",
@@ -839,7 +798,7 @@ export const PROJECTS_V2: ProjectV2[] = [
         description: "Accessible, high-performance primitives for complex UI components.",
       },
       {
-        name: "TanStack Query & Recoil",
+        name: "TanStack Query ",
         description: "Hybrid state management for server and UI state.",
       },
       {
@@ -942,12 +901,8 @@ export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "genbi-upi",
     category: "web",
-    badge: "recent",
-    isLive: true,
     thumbnailImage: "/thumbnail-project/project-genbi.png",
     titleHighlight: "Organization CMS Platform",
-    liveUrl: "#",
-    githubUrl: "#",
     hero: {
       title: "GenBI UPI Organization Platform",
       description:
@@ -999,7 +954,7 @@ export const PROJECTS_V2: ProjectV2[] = [
         description: "Utility-first design with accessible component primitives.",
       },
       {
-        name: "Recoil & TanStack Query",
+        name: "TanStack Query",
         description: "Hybrid state management for UI and server state across a multi-module panel.",
       },
       {
@@ -1094,11 +1049,8 @@ export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "kampus-gratis",
     category: "web",
-    isLive: true,
     thumbnailImage: "/thumbnail-project/project-kampus-gratis.png",
     titleHighlight: "Gamified EdTech LMS",
-    liveUrl: "#",
-    githubUrl: "#",
     hero: {
       title: "Kampus Gratis",
       description:
@@ -1155,7 +1107,7 @@ export const PROJECTS_V2: ProjectV2[] = [
         description: "Utility-first styling with smooth, physics-based animations.",
       },
       {
-        name: "Recoil & TanStack Query",
+        name: "TanStack Query",
         description: "Hybrid state management for global UI and server data synchronization.",
       },
       {
@@ -1261,11 +1213,8 @@ export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "webcommerce",
     category: "ecommerce",
-    isLive: true,
-    thumbnailImage: "/thumbnail-project/project-bluebird.png",
+    thumbnailImage: "/thumbnail-project/project-bangunan-express.png",
     titleHighlight: "High-Performance E-commerce Engine",
-    liveUrl: "#",
-    githubUrl: "#",
     hero: {
       title: "Webcommerce",
       description:
@@ -1319,8 +1268,8 @@ export const PROJECTS_V2: ProjectV2[] = [
         description: "Server state management with background synchronization and caching.",
       },
       {
-        name: "Recoil & Zustand",
-        description: "Fine-grained and lightweight state management for cart and UI state.",
+        name: "Zustand",
+        description: "Lightweight state management for cart and UI state.",
       },
       {
         name: "Tailwind CSS & Radix UI",
@@ -1415,11 +1364,8 @@ export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "asia-money",
     category: "web",
-    isLive: true,
     thumbnailImage: "/thumbnail-project/project-honey-bonney.png",
     titleHighlight: "Financial Ecosystem",
-    liveUrl: "#",
-    githubUrl: "#",
     hero: {
       title: "Asia Money Portal",
       description: "A high-fidelity financial ecosystem designed for the modern investor.",
@@ -1557,11 +1503,8 @@ export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "golden-lamian",
     category: "web",
-    isLive: true,
     thumbnailImage: "/thumbnail-project/project-bangunan-express.png",
     titleHighlight: "F&B Commercial Landing Page",
-    liveUrl: "#",
-    githubUrl: "#",
     hero: {
       title: "Golden Lamian Official",
       description:
@@ -1574,7 +1517,7 @@ export const PROJECTS_V2: ProjectV2[] = [
       coreValue:
         "The project demonstrates a clean, modular frontend architecture that balances rich visual content with technical performance, including PWA support and optimized asset delivery.",
       interestPoints:
-        "A key engineering achievement is the WhatsApp deep-link lead generation system that dynamically converts web form data into formatted business inquiry messages—bridging digital and physical brand touchpoints.",
+        "A key engineering achievement is the WhatsApp deep-link lead generation system that dynamically converts web form data into formatted business inquiry messagesâ€”bridging digital and physical brand touchpoints.",
     },
     keyFeatures: [
       {
@@ -1704,11 +1647,8 @@ export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "zora-bsd",
     category: "web",
-    isLive: true,
     thumbnailImage: "/thumbnail-project/project-the-zora.png",
     titleHighlight: "Luxury Property Landing Page",
-    liveUrl: "#",
-    githubUrl: "#",
     hero: {
       title: "The Zora BSD City",
       description:
@@ -1757,11 +1697,6 @@ export const PROJECTS_V2: ProjectV2[] = [
       {
         name: "Framer Motion",
         description: "Professional-grade interactive galleries with spring physics animations.",
-      },
-      {
-        name: "Recoil",
-        description:
-          "Lightweight global state for cross-component interactions like contact modals.",
       },
       {
         name: "Radix UI / shadcn",
@@ -1848,11 +1783,8 @@ export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "upi-opac",
     category: "tools",
-    isLive: true,
     thumbnailImage: "/thumbnail-project/project-opac-upi.png",
     titleHighlight: "Academic Resource Discovery",
-    liveUrl: "#",
-    githubUrl: "#",
     hero: {
       title: "UPI Online Public Access Catalog",
       description:
@@ -1866,7 +1798,7 @@ export const PROJECTS_V2: ProjectV2[] = [
       coreValue:
         "By replacing legacy catalog systems with a responsive, search-optimized web application, it significantly improves the research efficiency for the academic community.",
       interestPoints:
-        "The application features a sophisticated dual-search system (Basic & Advanced) integrated with real-time physical copy status tracking and intelligent resource recommendations—a significant usability improvement over legacy library systems.",
+        "The application features a sophisticated dual-search system (Basic & Advanced) integrated with real-time physical copy status tracking and intelligent resource recommendationsâ€”a significant usability improvement over legacy library systems.",
     },
     keyFeatures: [
       {
@@ -1999,11 +1931,8 @@ export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "taxpartner",
     category: "web",
-    isLive: true,
     thumbnailImage: "/thumbnail-project/project-pajak.png",
     titleHighlight: "Tax Consultation Platform",
-    liveUrl: "#",
-    githubUrl: "#",
     hero: {
       title: "TaxPartner",
       description:
@@ -2145,6 +2074,306 @@ export const PROJECTS_V2: ProjectV2[] = [
       sourceCode: "Review the clean, modular Next.js architecture.",
     },
   },
+  {
+    id: "personal-portfolio-v1",
+    category: "web",
+    thumbnailImage: "/thumbnail-project/project-personal-website-1.png",
+    titleHighlight: "Portfolio v1 — Foundations",
+    hero: {
+      title: "Personal Portfolio v1",
+      description: "Computer Science Student & Freelance Web Developer based in Bandung.",
+      subtitle: "Building modern, responsive, and user-centric web applications with precision.",
+    },
+    projectOverview: {
+      explanation:
+        "The first iteration of my personal portfolio — a professional showcase built to centralize a diverse range of web and mobile development work. It serves as a digital resume and project hub for a computer science student and freelancer.",
+      coreValue:
+        "The application prioritizes a clean, modular architecture and a high-quality user experience, demonstrating proficiency in modern frontend technologies like React and Tailwind CSS.",
+      interestPoints:
+        "What makes v1 stand out is its data-driven content system and a custom-engineered responsive timeline that holds up cleanly across screen sizes — built before adopting heavier frameworks.",
+    },
+    keyFeatures: [
+      {
+        name: "Dynamic Project Showcase",
+        description:
+          "Data-driven project gallery that renders a professional portfolio from structured JSON configurations.",
+      },
+      {
+        name: "Responsive Professional Timeline",
+        description:
+          "Custom-engineered vertical timeline for education and experience, optimized for all screen sizes.",
+      },
+      {
+        name: "Visual Skill Matrix",
+        description:
+          "Themed representation of technical competencies using iconic branding and polished UI patterns.",
+      },
+      {
+        name: "Interactive Brand Identity",
+        description:
+          "Consistent design system utilizing Tailwind CSS for a premium, mobile-first professional appearance.",
+      },
+    ],
+    techStack: [
+      {
+        name: "React",
+        description: "Component-driven UI library powering the entire portfolio experience.",
+      },
+      {
+        name: "TypeScript",
+        description: "Strict type safety across components, props, and content data layers.",
+      },
+      {
+        name: "Tailwind CSS",
+        description: "Utility-first styling for a consistent, mobile-first design system.",
+      },
+      {
+        name: "React Router",
+        description: "Client-side routing for the portfolio's multi-page navigation.",
+      },
+      {
+        name: "Vite",
+        description: "Fast development server and optimized production bundling.",
+      },
+      {
+        name: "PostCSS",
+        description: "CSS toolchain enabling Tailwind and modern syntax features.",
+      },
+      {
+        name: "Netlify",
+        description: "Continuous deployment and hosting with global CDN edge delivery.",
+      },
+    ],
+    engineeringHighlights: [
+      {
+        point: "Modular Component Architecture",
+        description:
+          "A highly reusable component system that maintains UI consistency and developer efficiency.",
+      },
+      {
+        point: "Decoupled Data Management",
+        description:
+          "JSON-driven content structures cleanly separate project metadata from the presentation layer.",
+      },
+      {
+        point: "Optimized Responsive Layouts",
+        description:
+          "Sophisticated use of Tailwind utility classes to ensure a seamless experience across desktop and mobile devices.",
+      },
+    ],
+    challenges: [
+      {
+        title: "Responsive Timeline Design",
+        description:
+          "Engineering a CSS-based vertical timeline that maintains structural integrity and readability on mobile viewports.",
+      },
+      {
+        title: "Asset Performance Optimization",
+        description:
+          "Managing a high volume of icons and project media while maintaining fast load times and smooth transitions.",
+      },
+    ],
+    whatILearned: [
+      {
+        topic: "Utility-First CSS Mastery",
+        description:
+          "Mastered utility-first CSS patterns for complex, responsive UI layouts without leaving the markup.",
+      },
+      {
+        topic: "Scalable React Architecture",
+        description:
+          "Implemented scalable and maintainable React architectures purpose-built for personal branding.",
+      },
+      {
+        topic: "Data-Driven Rendering",
+        description:
+          "Developed a deep understanding of component modularity and data-driven rendering patterns.",
+      },
+    ],
+    projectInfo: {
+      category: "Portfolio Website",
+      role: "Lead Developer",
+      duration: "Ongoing",
+      status: "Active",
+    },
+    highlights: [
+      "Responsive Portfolio Gallery",
+      "Modular React Architecture",
+      "Custom Professional Timeline",
+      "Polished Tailwind-based UI",
+    ],
+    galleryCaptions: [
+      {
+        screen: "Hero Section",
+        caption: "A welcoming professional introduction with high-impact typography and branding.",
+      },
+      {
+        screen: "Portfolio Grid",
+        caption: "A structured showcase of technical projects and freelance contributions.",
+      },
+      {
+        screen: "Resume Timeline",
+        caption:
+          "A comprehensive professional history rendered via a custom-built responsive timeline.",
+      },
+    ],
+    ctaContent: {
+      livePreview: "Explore the interactive professional showcase.",
+      sourceCode: "Review the clean, modular implementation on GitHub.",
+    },
+  },
+  {
+    id: "personal-portfolio-v2",
+    category: "web",
+    thumbnailImage: "/thumbnail-project/project-personal-website-2.png",
+    titleHighlight: "Portfolio v2 — Engineering Showcase",
+    hero: {
+      title: "Personal Portfolio v2",
+      description:
+        "A showcase of engineering excellence, from modular enterprise platforms to AI-driven consumer experiences.",
+      subtitle: "Built with React 19, TanStack Start, and the future of the web.",
+    },
+    projectOverview: {
+      explanation:
+        "This portfolio is a technical manifestation of modern web standards, serving as a playground for bleeding-edge technologies like React 19 and TanStack Start. It moves beyond a static resume, functioning as a high-performance, server-side rendered application that prioritizes architectural integrity and user experience.",
+      coreValue:
+        "The project demonstrates the ability to manage complex state, optimize rendering performance, and implement sophisticated design systems using a forward-thinking tech stack. It showcases a commitment to clean code, modular design, and the seamless integration of full-stack capabilities.",
+      interestPoints:
+        "Beyond the stack, v2 is opinionated about taste — the Pirate Adventure design language, OKLCH color spaces, and an editorial layout system give the site a distinct visual identity that holds up under engineering scrutiny.",
+    },
+    keyFeatures: [
+      {
+        name: "Advanced Project Discovery",
+        description:
+          "A sophisticated filtering system that manages large-scale project data through category-driven UI orchestration.",
+      },
+      {
+        name: "Bleeding-Edge SSR & Streaming",
+        description:
+          "Leveraging TanStack Start for optimized initial loads and progressive data hydration.",
+      },
+      {
+        name: "Modern Design System",
+        description:
+          "Implementing OKLCH color spaces and Tailwind 4 for a premium, high-fidelity visual experience.",
+      },
+      {
+        name: "Optimized Interaction Layer",
+        description:
+          "Fluid, hardware-accelerated animations powered by Framer Motion for a seamless navigational feel.",
+      },
+    ],
+    techStack: [
+      {
+        name: "React 19",
+        description:
+          "Latest React features including the compiler for automatic memoization and rendering optimization.",
+      },
+      {
+        name: "TanStack Start",
+        description:
+          "Full-stack framework providing SSR, streaming, and type-safe routing on top of Vite.",
+      },
+      {
+        name: "TanStack Query",
+        description: "Server state management with caching and background synchronization.",
+      },
+      {
+        name: "Tailwind CSS 4",
+        description: "Next-generation utility-first styling with OKLCH color spaces.",
+      },
+      {
+        name: "Framer Motion",
+        description: "Production-ready animation library powering smooth interface transitions.",
+      },
+      {
+        name: "Vite 8",
+        description: "Build tool delivering fast HMR and optimized production bundles.",
+      },
+    ],
+    engineeringHighlights: [
+      {
+        point: "Modular Feature-Sliced Design",
+        description:
+          "Organized the codebase into domain-specific modules, ensuring scalability and reducing side-effect complexity.",
+      },
+      {
+        point: "React 19 Compiler Integration",
+        description:
+          "Optimized rendering performance by adopting the React Compiler, eliminating manual memoization overhead.",
+      },
+      {
+        point: "High-Performance DX Tooling",
+        description:
+          "Integrated Rust-based linting and formatting (Oxlint) for near-instant developer feedback loops.",
+      },
+      {
+        point: "Type-Safe Full-Stack Contract",
+        description:
+          "Enforced end-to-end type safety from the database layer (Drizzle) to the UI components.",
+      },
+    ],
+    challenges: [
+      {
+        title: "Adopting Unstable APIs",
+        description:
+          "Navigating the complexities of TanStack Start (RC) and React 19 to build a production-ready environment.",
+      },
+      {
+        title: "Performance vs. Fidelity",
+        description:
+          "Balancing high-density animations and complex state transitions without compromising Core Web Vitals.",
+      },
+    ],
+    whatILearned: [
+      {
+        topic: "Frontend Orchestration",
+        description:
+          "Mastered the coordination of server-side data fetching and client-side interaction in a unified framework.",
+      },
+      {
+        topic: "Modern Styling Architecture",
+        description:
+          "Explored the capabilities of Tailwind 4 and OKLCH for creating more accessible and vibrant UI systems.",
+      },
+      {
+        topic: "System Reliability",
+        description:
+          "Strengthened the build pipeline through strict linting and type-checking strategies for enterprise-grade stability.",
+      },
+    ],
+    projectInfo: {
+      category: "Portfolio / Engineering Showcase",
+      role: "Frontend Architect / Fullstack Developer",
+      duration: "Continuous Development",
+      status: "Production / Active",
+    },
+    highlights: [
+      "Built with React 19 & TanStack Start",
+      "Feature-Sliced Modular Architecture",
+      "High-Performance Build System (Oxlint)",
+      "Premium OKLCH-based Design System",
+    ],
+    galleryCaptions: [
+      {
+        screen: "Landing Dashboard",
+        caption: "A high-fidelity entry point showcasing core values and engineering focus areas.",
+      },
+      {
+        screen: "Project Analysis",
+        caption:
+          "Deep-dive detail pages providing transparency into technical decisions and challenges.",
+      },
+      {
+        screen: "Grid Interactions",
+        caption: "Highly responsive project grid with smooth Framer Motion transitions.",
+      },
+    ],
+    ctaContent: {
+      livePreview: "Explore the high-performance architecture in action.",
+      sourceCode: "Examine the modern stack and modular engineering on GitHub.",
+    },
+  },
 ];
 
 export function getProjectV2(id: string): ProjectV2 | undefined {
@@ -2157,10 +2386,7 @@ export function projectV2ToCard(p: ProjectV2): CardProject {
     title: p.hero.title,
     description: p.hero.description,
     category: p.category,
-    badge: p.badge,
-    isLive: p.isLive,
     thumbnailImage: p.thumbnailImage,
-    liveUrl: p.liveUrl,
     tech: p.techStack.map((t) => t.name),
     version: "v2",
   };

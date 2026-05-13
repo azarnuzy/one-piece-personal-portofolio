@@ -1,4 +1,3 @@
-import { SiGithub } from "@icons-pack/react-simple-icons";
 import { useParams } from "@tanstack/react-router";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -13,7 +12,6 @@ import {
   CpuIcon,
   DatabaseIcon,
   DownloadIcon,
-  ExternalLinkIcon,
   FileTextIcon,
   GlobeIcon,
   ImageIcon,
@@ -574,45 +572,6 @@ function ChallengesLearnedSection({ project }: { project: ProjectV2 }) {
   );
 }
 
-// ─── V2 Section: Final CTA ────────────────────────────────────────────────────
-
-function CTASectionV2({ project }: { project: ProjectV2 }) {
-  return (
-    <motion.section
-      initial={{ opacity: 0, y: 12 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-30px" }}
-      transition={{ duration: 0.4, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
-      className="surface-card p-4"
-    >
-      <div className="flex flex-wrap gap-3">
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-brand-treasure/40 bg-brand-treasure/10 px-4 py-2.5 font-display text-xs font-bold text-brand-treasure transition-all duration-200 hover:border-brand-treasure/60 hover:bg-brand-treasure/20 hover:shadow-[0_0_16px_-4px_oklch(from_var(--brand-treasure)_l_c_h_/_0.4)]"
-          >
-            <ExternalLinkIcon size={12} />
-            Visit Live Demo
-          </a>
-        )}
-        {project.githubUrl && (
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-border/50 bg-muted/30 px-4 py-2.5 font-display text-xs font-bold text-foreground/80 transition-all duration-200 hover:border-brand-treasure/40 hover:bg-muted/50 hover:text-brand-treasure"
-          >
-            <SiGithub size={12} />
-            View on GitHub
-          </a>
-        )}
-      </div>
-    </motion.section>
-  );
-}
-
 // ─── V2 Sidebar ───────────────────────────────────────────────────────────────
 
 function SidebarV2({ project }: { project: ProjectV2 }) {
@@ -659,33 +618,6 @@ function SidebarV2({ project }: { project: ProjectV2 }) {
           ))}
         </ul>
       </div>
-
-      <div className="surface-card p-3.5">
-        <div className="flex flex-col gap-2">
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 rounded-lg border border-brand-treasure/40 bg-brand-treasure/10 px-3 py-2 font-display text-xs font-bold text-brand-treasure transition-all duration-200 hover:border-brand-treasure/60 hover:bg-brand-treasure/20"
-            >
-              <ExternalLinkIcon size={11} />
-              Live Demo
-            </a>
-          )}
-          {project.githubUrl && (
-            <a
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center gap-1.5 rounded-lg border border-border/50 bg-muted/30 px-3 py-2 font-display text-xs font-bold text-foreground/80 transition-all duration-200 hover:border-brand-treasure/30 hover:text-brand-treasure"
-            >
-              <SiGithub size={11} />
-              GitHub
-            </a>
-          )}
-        </div>
-      </div>
     </div>
   );
 }
@@ -712,7 +644,6 @@ function ProjectDetailV2PageContent({ project }: { project: ProjectV2 }) {
             <PageShowcaseSection project={project} />
             <EngineeringSection project={project} />
             <ChallengesLearnedSection project={project} />
-            <CTASectionV2 project={project} />
           </motion.div>
 
           {/* Right: compact sticky sidebar */}

@@ -79,7 +79,6 @@ export function ProjectFilter({
             className="h-8 appearance-none rounded-lg border border-border/50 bg-card/60 pr-7 pl-3 font-sans text-xs text-foreground transition-colors duration-200 focus:border-brand-treasure/40 focus:outline-none"
           >
             <option value="latest">Latest</option>
-            <option value="featured">Featured</option>
             <option value="oldest">Oldest</option>
           </select>
           <ChevronDownIcon

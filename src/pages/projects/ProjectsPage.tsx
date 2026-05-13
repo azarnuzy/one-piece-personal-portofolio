@@ -16,7 +16,7 @@ function ProjectsPageInner() {
   const [sort, setSort] = useState("latest");
 
   const filtered = useMemo(() => {
-    let list = getAllCardProjects().filter((p) => {
+    const list = getAllCardProjects().filter((p) => {
       const matchCat = activeFilter === "all" || p.category === activeFilter;
       const q = search.toLowerCase();
       const matchSearch =
@@ -27,8 +27,8 @@ function ProjectsPageInner() {
       return matchCat && matchSearch;
     });
 
-    if (sort === "featured") {
-      list = [...list].sort((a) => (a.badge === "featured" ? -1 : 1));
+    if (sort === "oldest") {
+      return [...list].reverse();
     }
 
     return list;

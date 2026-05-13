@@ -1,12 +1,17 @@
 import {
   SiDocker,
   SiExpress,
+  SiFigma,
   SiGit,
   SiNextdotjs,
+  SiNginx,
   SiNodedotjs,
   SiReact,
+  SiRedis,
+  SiSequelize,
   SiTailwindcss,
   SiTypescript,
+  SiVitest,
   SiVuedotjs,
 } from "@icons-pack/react-simple-icons";
 import { motion } from "framer-motion";
@@ -19,10 +24,16 @@ const TECH = [
   { Icon: SiNextdotjs, label: "Next.js", color: "#FFFFFF" },
   { Icon: SiTypescript, label: "TypeScript", color: "#3178C6" },
   { Icon: SiTailwindcss, label: "Tailwind", color: "#38BDF8" },
+  { Icon: SiVuedotjs, label: "Vue.js", color: "#4FC08D" },
   { Icon: SiNodedotjs, label: "Node.js", color: "#5FA04E" },
   { Icon: SiExpress, label: "Express", color: "#E0E0E0" },
+  { Icon: SiSequelize, label: "Sequelize", color: "#52B0E7" },
+  { Icon: SiRedis, label: "Redis", color: "#FF4438" },
+  { Icon: SiGit, label: "Git", color: "#F05032" },
   { Icon: SiDocker, label: "Docker", color: "#2496ED" },
-  { Icon: SiVuedotjs, label: "Vue.js", color: "#4FC08D" },
+  { Icon: SiNginx, label: "Nginx", color: "#009639" },
+  { Icon: SiVitest, label: "Vitest", color: "#6E9F18" },
+  { Icon: SiFigma, label: "Figma", color: "#F24E1E" },
 ];
 
 export function TechIUse() {

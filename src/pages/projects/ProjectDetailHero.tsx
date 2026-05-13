@@ -1,14 +1,6 @@
-import { SiGithub } from "@icons-pack/react-simple-icons";
 import { useNavigate, useParams } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import {
-  ArrowLeftIcon,
-  CalendarIcon,
-  ClockIcon,
-  ExternalLinkIcon,
-  TagIcon,
-  UsersIcon,
-} from "lucide-react";
+import { ArrowLeftIcon, CalendarIcon, ClockIcon, TagIcon, UsersIcon } from "lucide-react";
 import { memo } from "react";
 
 import { getProjectV2 } from "./data";
@@ -104,36 +96,6 @@ function ProjectDetailHeroContentInner() {
             <TagIcon size={11} />
             {project.projectInfo.category}
           </span>
-
-          {project.liveUrl && (
-            <>
-              <span className="h-3 w-px bg-border" aria-hidden />
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1 transition-colors hover:text-brand-treasure"
-              >
-                <ExternalLinkIcon size={11} />
-                Live Demo
-              </a>
-            </>
-          )}
-
-          {project.githubUrl && (
-            <>
-              <span className="h-3 w-px bg-border" aria-hidden />
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1 transition-colors hover:text-brand-treasure"
-              >
-                <SiGithub size={11} />
-                GitHub
-              </a>
-            </>
-          )}
         </motion.div>
       </div>
     </div>

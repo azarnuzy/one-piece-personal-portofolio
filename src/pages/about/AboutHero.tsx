@@ -47,8 +47,8 @@ function AboutHeroContentInner() {
             className="mb-6 max-w-md font-sans text-base text-foreground/80 md:text-lg"
             style={{ lineHeight: 1.55 }}
           >
-            I'm a frontend developer who loves turning complex problems into simple, beautiful and
-            intuitive solutions.
+            Frontend-first Software Engineer with growing full-stack reach &mdash; turning ambiguous
+            problems into scalable, measurable solutions.
           </motion.p>
 
           <div className="flex flex-wrap gap-2.5">
@@ -56,7 +56,7 @@ function AboutHeroContentInner() {
             <InteractiveBadge icon={CalendarIcon} label="21 Years Old" delay={0.15} tone="info" />
             <InteractiveBadge
               icon={CompassIcon}
-              label="2+ Years Experience"
+              label="3+ Years Building"
               delay={0.3}
               tone="sunset"
             />

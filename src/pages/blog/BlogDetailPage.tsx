@@ -11,7 +11,6 @@ import {
 import { memo } from "react";
 
 import { POSTS } from "./data";
-import { PopularPostsStrip } from "./PopularPostsStrip";
 
 // ─── Article sub-components ───────────────────────────────────────────────────
 
@@ -273,11 +272,6 @@ function BlogDetailPageInner() {
           >
             <ArticleBody />
           </motion.div>
-
-          {/* Read next — popular posts strip at the bottom */}
-          <div className="mx-auto w-full max-w-4xl">
-            <PopularPostsStrip />
-          </div>
         </div>
       </div>
 

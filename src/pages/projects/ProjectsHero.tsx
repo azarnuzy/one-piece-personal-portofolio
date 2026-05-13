@@ -40,10 +40,10 @@ type TextStat = {
 type Stat = NumericStat | TextStat;
 
 const STATS: Stat[] = [
-  { kind: "numeric", target: 6, suffix: "+", label: "Projects Completed", icon: ZapIcon },
-  { kind: "numeric", target: 2, suffix: "+", label: "Years Building", icon: AnchorIcon },
-  { kind: "text", value: "React + TS", label: "Latest Stack", icon: LayersIcon },
-  { kind: "text", value: "Web · SaaS · EdTech", label: "Primary Domain", icon: TargetIcon },
+  { kind: "numeric", target: 14, suffix: "+", label: "Projects Shipped", icon: ZapIcon },
+  { kind: "numeric", target: 3, suffix: "+", label: "Years Building", icon: AnchorIcon },
+  { kind: "text", value: "Next.js + TS", label: "Latest Stack", icon: LayersIcon },
+  { kind: "text", value: "AI · Fintech · EdTech", label: "Primary Domains", icon: TargetIcon },
 ];
 
 function NumericStatItem({ stat, delay }: { stat: NumericStat; delay: number }) {
@@ -127,8 +127,8 @@ function ProjectsHeroContentInner() {
           className="mb-6 max-w-xs font-sans text-sm text-foreground/70 md:max-w-sm md:text-base"
           style={{ lineHeight: 1.6 }}
         >
-          A collection of projects that represent my skills, experience and passion for creating
-          value.
+          From AI orchestration platforms to fintech dashboards and EdTech systems &mdash;
+          production work shipped across enterprise and freelance teams.
         </motion.p>
 
         <motion.div
