@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
-import { AnchorIcon, GaugeIcon, PaletteIcon, RadioIcon, ZapIcon } from "lucide-react";
+import { AnchorIcon, GaugeIcon, ServerIcon, ShieldIcon, ZapIcon } from "lucide-react";
 
 import { CardWatermark } from "@/components/portfolio/CardWatermark";
 
 const FOCUS = [
-  { icon: GaugeIcon, label: "Frontend Development", value: 90 },
-  { icon: PaletteIcon, label: "UI/UX Design", value: 75 },
-  { icon: RadioIcon, label: "Real-time Features", value: 80 },
-  { icon: ZapIcon, label: "Performance Optimization", value: 70 },
+  { icon: GaugeIcon, label: "Frontend Engineering", value: 92 },
+  { icon: ZapIcon, label: "Performance & Testing", value: 85 },
+  { icon: ServerIcon, label: "API & Full-Stack", value: 78 },
+  { icon: ShieldIcon, label: "DevOps & Security", value: 72 },
 ];
 
 export function ThingsIFocusOn() {

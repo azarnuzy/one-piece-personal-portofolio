@@ -2,15 +2,17 @@ import {
   SiDocker,
   SiExpress,
   SiFigma,
-  SiFirebase,
   SiGit,
-  SiMongodb,
   SiNextdotjs,
+  SiNginx,
   SiNodedotjs,
-  SiPostman,
   SiReact,
+  SiRedis,
+  SiSequelize,
   SiTailwindcss,
   SiTypescript,
+  SiVitest,
+  SiVuedotjs,
 } from "@icons-pack/react-simple-icons";
 import { motion } from "framer-motion";
 import { LayersIcon, ServerIcon, WrenchIcon, ZapIcon } from "lucide-react";
@@ -31,26 +33,28 @@ const CORE: Tech[] = [
   { icon: SiNextdotjs, label: "Next.js", color: "text-foreground" },
   { icon: SiTypescript, label: "TypeScript", color: "text-brand-info" },
   { icon: SiTailwindcss, label: "Tailwind", color: "text-brand-success" },
+  { icon: SiVuedotjs, label: "Vue.js", color: "text-brand-success" },
 ];
 
 const BACKEND: Tech[] = [
   { icon: SiNodedotjs, label: "Node.js", color: "text-brand-success" },
   { icon: SiExpress, label: "Express", color: "text-foreground" },
-  { icon: SiMongodb, label: "MongoDB", color: "text-brand-success" },
-  { icon: SiFirebase, label: "Firebase", color: "text-brand-treasure" },
+  { icon: SiSequelize, label: "Sequelize", color: "text-brand-info" },
+  { icon: SiRedis, label: "Redis", color: "text-brand-sunset" },
 ];
 
 const TOOLS: Tech[] = [
   { icon: SiGit, label: "Git", color: "text-brand-sunset" },
-  { icon: SiFigma, label: "Figma", color: "text-brand-sunset" },
   { icon: SiDocker, label: "Docker", color: "text-brand-info" },
-  { icon: SiPostman, label: "Postman", color: "text-brand-sunset" },
+  { icon: SiNginx, label: "Nginx", color: "text-brand-success" },
+  { icon: SiVitest, label: "Vitest", color: "text-brand-success" },
+  { icon: SiFigma, label: "Figma", color: "text-brand-sunset" },
 ];
 
 const PROFICIENCY = [
-  { label: "Frontend Engineering", level: "Advanced", tone: "treasure" as const },
-  { label: "UI/UX Collaboration", level: "Intermediate", tone: "info" as const },
-  { label: "Backend Integration", level: "Intermediate", tone: "sunset" as const },
+  { label: "Frontend Engineering", level: "Expert", tone: "treasure" as const },
+  { label: "API & Full-Stack", level: "Advanced", tone: "info" as const },
+  { label: "DevOps & Performance", level: "Intermediate", tone: "sunset" as const },
 ];
 
 const PROF_TONE = {

@@ -16,17 +16,17 @@ import { SectionHeader } from "@/components/portfolio/SectionHeader";
 const POINTS = [
   {
     icon: BriefcaseIcon,
-    label: "Product-focused frontend / full-stack role",
+    label: "Frontend-heavy or full-stack role with production ownership",
     tone: "treasure" as const,
   },
   {
     icon: UsersIcon,
-    label: "Collaborative environment where craft is respected",
+    label: "Cross-functional team where engineering craft is respected",
     tone: "sunset" as const,
   },
   {
     icon: RocketIcon,
-    label: "Real-world impact — shipping work that users actually use",
+    label: "Scalable systems that deliver measurable business value",
     tone: "info" as const,
   },
 ];

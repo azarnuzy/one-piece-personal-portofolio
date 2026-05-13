@@ -6,10 +6,17 @@ import { GoldPanelCard } from "@/components/portfolio/GoldPanelCard";
 import { SectionHeader } from "@/components/portfolio/SectionHeader";
 
 const CERTIFICATIONS = [
-  { title: "Frontend Developer Bootcamp", platform: "Hacktiv8", year: "2023" },
-  { title: "React Expert Path", platform: "Dicoding", year: "2024" },
-  { title: "JavaScript Algorithms", platform: "freeCodeCamp", year: "2024" },
-  { title: "Responsive Web Design", platform: "freeCodeCamp", year: "2023" },
+  { title: "Front-End JavaScript React", platform: "Binar Academy", year: "Jul 2022 — Jan 2023" },
+  {
+    title: "Front-End Web Developer Expert",
+    platform: "Dicoding Indonesia",
+    year: "Dec 2021 — Jan 2022",
+  },
+  {
+    title: "Junior Web Developer",
+    platform: "BNSP (Badan Nasional Sertifikasi & Profesi)",
+    year: "Sept — Oct 2021",
+  },
 ];
 
 export function Certifications() {

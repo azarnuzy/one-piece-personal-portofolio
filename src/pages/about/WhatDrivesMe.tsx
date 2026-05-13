@@ -9,25 +9,29 @@ const CARDS = [
   {
     icon: PuzzleIcon,
     title: "Problem Solver",
-    description: "Breaking down complex problems into elegant solutions.",
+    description:
+      "Turning ambiguous client needs into dynamic, configurable systems — like cutting Sygma's POC delivery from a week to hours.",
     tone: "treasure" as const,
   },
   {
     icon: UsersIcon,
-    title: "User Focused",
-    description: "Building experiences that are intuitive and human-friendly.",
+    title: "Cross-Functional",
+    description:
+      "Presenting product demos to enterprise prospects and collaborating across engineering, design, and sales.",
     tone: "sunset" as const,
   },
   {
     icon: BookOpenIcon,
     title: "Always Learning",
-    description: "Tech evolves fast — I love staying sharp and curious.",
+    description:
+      "From legacy Vue→React refactors to AI sub-agents that automate full migrations — staying sharp across the stack.",
     tone: "info" as const,
   },
   {
     icon: GaugeIcon,
     title: "Performance Mindset",
-    description: "Shipping interfaces that stay fast and responsive at scale.",
+    description:
+      "Lighthouse >85 across 100 LMS pages, k6 stress testing, and a 20% perf lift on Next.js v12→v13 migration.",
     tone: "success" as const,
   },
 ];
@@ -95,8 +99,8 @@ export function WhatDrivesMe() {
           <span className="font-display text-2xs font-bold tracking-wider text-foreground/85 uppercase">
             Philosophy ·
           </span>{" "}
-          Code is a compass — clean engineering meets empathetic design, where every line serves a
-          real human need.
+          Building scalable, maintainable systems that deliver measurable business value — where
+          every architectural decision serves a real user outcome.
         </p>
       </motion.div>
     </GoldPanelCard>

@@ -18,20 +18,21 @@ const EDUCATION: Array<{
 }> = [
   {
     icon: GraduationCapIcon,
-    range: "2021 — 2025",
-    title: "B.Sc. Informatics Engineering",
-    institution: "Brawijaya University",
-    major: "Software Engineering · GPA 3.78",
-    highlight: "Member of Programming Lab · Frontend Mentor",
+    range: "Sept 2020 — Present",
+    title: "B.Sc. Computer Science",
+    institution: "Universitas Pendidikan Indonesia",
+    major: "Current GPA: 3.81 / 4.0",
+    highlight:
+      "GDSC UPI · BEM Kemakom · Competitive Programming Club · Generasi Baru Indonesia (GenBI)",
     tone: "treasure",
   },
   {
     icon: SchoolIcon,
-    range: "2018 — 2021",
+    range: "Jul 2017 — Jul 2020",
     title: "Senior High School — Science",
-    institution: "SMAN 1 Malang",
+    institution: "SMAN Cahaya Madani Banten Boarding School",
     major: "Mathematics & Natural Sciences",
-    highlight: "OSIS Tech Division · School Web Lead",
+    highlight: "Built landing page for a school-held competition event",
     tone: "info",
   },
 ];

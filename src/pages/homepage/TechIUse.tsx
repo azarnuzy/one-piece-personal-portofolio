@@ -1,12 +1,13 @@
 import {
+  SiDocker,
   SiExpress,
   SiGit,
-  SiMongodb,
   SiNextdotjs,
+  SiNodedotjs,
   SiReact,
-  SiSocketdotio,
   SiTailwindcss,
   SiTypescript,
+  SiVuedotjs,
 } from "@icons-pack/react-simple-icons";
 import { motion } from "framer-motion";
 import { CpuIcon } from "lucide-react";
@@ -18,10 +19,10 @@ const TECH = [
   { Icon: SiNextdotjs, label: "Next.js", color: "#FFFFFF" },
   { Icon: SiTypescript, label: "TypeScript", color: "#3178C6" },
   { Icon: SiTailwindcss, label: "Tailwind", color: "#38BDF8" },
-  { Icon: SiSocketdotio, label: "Socket.io", color: "#94A3B8" },
-  { Icon: SiMongodb, label: "MongoDB", color: "#47A248" },
-  { Icon: SiGit, label: "Git", color: "#F05032" },
+  { Icon: SiNodedotjs, label: "Node.js", color: "#5FA04E" },
   { Icon: SiExpress, label: "Express", color: "#E0E0E0" },
+  { Icon: SiDocker, label: "Docker", color: "#2496ED" },
+  { Icon: SiVuedotjs, label: "Vue.js", color: "#4FC08D" },
 ];
 
 export function TechIUse() {

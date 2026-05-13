@@ -17,17 +17,17 @@ const TIMELINE = [
   {
     icon: RocketIcon,
     title: "Started the Adventure",
-    year: "2021",
+    year: "2020",
     description:
-      "My journey began with curiosity about how websites work. I started learning HTML, CSS, and JavaScript — building my first pages from scratch.",
+      "Began Computer Science at Universitas Pendidikan Indonesia — building my foundation in algorithms, data structures, and the web stack.",
     tone: "treasure" as const,
   },
   {
     icon: TrendingUpIcon,
-    title: "Level Up",
+    title: "Freelance & First Client Work",
     year: "2022",
     description:
-      "Dove deeper into frontend development, mastering frameworks like React, and started building real-world projects with proper component architecture.",
+      "Started freelancing as a full-stack developer, shipping production sites and learning to balance code quality with real client deadlines.",
     tone: "info" as const,
   },
   {
@@ -35,23 +35,23 @@ const TIMELINE = [
     title: "First Real Impact",
     year: "2023",
     description:
-      "Got my first opportunity to work on real projects, collaborating with teams, solving meaningful problems, and shipping features that users actually use.",
+      "Frontend intern at Sagara Technology and M Knows Consulting — led a 5-person team to deliver kampusgratis.id (100-page LMS, >85 Lighthouse).",
     tone: "sunset" as const,
   },
   {
     icon: SailboatIcon,
-    title: "Keep Sailing",
+    title: "Software Engineer at Cakra AI",
     year: "2024",
     description:
-      "Continuously learning, improving and sharing knowledge — diving into TypeScript, Tailwind, and modern tooling to build cleaner, faster UIs.",
+      "Joined Cakra AI to spearhead Sygma — an AI automation platform now used by multiple enterprise clients, cutting POC delivery from ~1 week to hours.",
     tone: "success" as const,
   },
   {
     icon: FlameIcon,
     title: "Charting New Waters",
-    year: "2025",
+    year: "2026",
     description:
-      "Deepening expertise in full-stack patterns, UI/UX craft, and building this portfolio to set sail on the next big adventure. The best is yet to come.",
+      "Deepening full-stack reach across API architecture, DevOps, and performance engineering — building scalable systems that deliver measurable value.",
     tone: "treasure" as const,
   },
 ];
@@ -64,9 +64,9 @@ const TONE_CLASSES = {
 };
 
 const STATS = [
-  { value: "5+", label: "Projects" },
-  { value: "2+", label: "Years" },
-  { value: "15+", label: "Tech" },
+  { value: "13+", label: "Projects" },
+  { value: "3+", label: "Years" },
+  { value: "20+", label: "Tech" },
 ];
 
 export function MyJourney() {
@@ -163,8 +163,8 @@ export function MyJourney() {
             </span>
           </div>
           <p className="font-sans text-2xs leading-snug text-muted-foreground">
-            Scalable frontend architecture and crafting interfaces that feel as good as they
-            perform.
+            Leading frontend on Sygma — Cakra AI's flagship AI automation platform — and deepening
+            full-stack reach across API design, DevOps, and performance.
           </p>
         </div>
       </motion.div>
