@@ -95,3 +95,40 @@
     transform: translate3d(5%, 0, 0);
   }
 }
+
+/* App loader — three-dot pulse (CSS-only, no JS interval).
+   Stagger via animation-delay on each dot for the wave effect. */
+@keyframes loader-dot-pulse {
+  0%,
+  80%,
+  100% {
+    opacity: 0.25;
+    transform: translateY(0);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(-3px);
+  }
+}
+
+/* App loader — subtle logo breathing glow (very low amplitude). */
+@keyframes loader-logo-breathe {
+  0%,
+  100% {
+    opacity: 0.92;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* App loader — radial ocean glow shimmer behind the logo column. */
+@keyframes loader-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}

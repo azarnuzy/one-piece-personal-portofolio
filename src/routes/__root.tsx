@@ -6,6 +6,7 @@ import { createRootRouteWithContext, HeadContent, Scripts } from "@tanstack/reac
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 
 import { AppLayout } from "@/components/portfolio/AppLayout";
+import { AppLoader } from "@/components/portfolio/AppLoader";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
@@ -48,6 +49,10 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
       { rel: "preload", as: "image", href: "/background-light.png" },
       { rel: "preload", as: "image", href: "/background-night.png" },
       { rel: "preload", as: "image", href: "/person.png" },
+      // Preload loader assets so the loading screen is fully decoded
+      // before first paint (no flash of unstyled loader).
+      { rel: "preload", as: "image", href: "/logo-mugiwara.png" },
+      { rel: "preload", as: "image", href: "/svg/captains_wheel.svg" },
     ],
   }),
   shellComponent: RootDocument,
@@ -68,6 +73,7 @@ function RootDocument({ children }: { readonly children: React.ReactNode }) {
       <body>
         <ThemeProvider>
           {children}
+          <AppLoader />
           <Toaster richColors />
         </ThemeProvider>
 
