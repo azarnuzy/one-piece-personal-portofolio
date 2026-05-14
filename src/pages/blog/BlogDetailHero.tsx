@@ -61,7 +61,7 @@ function BlogDetailHeroContentInner() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.24 }}
-          className="mb-5 max-w-lg font-sans text-sm leading-relaxed text-foreground/65 md:text-base"
+          className="mb-5 max-w-lg font-sans text-sm leading-relaxed text-secondary-foreground md:text-base"
         >
           {post.description}
         </motion.p>

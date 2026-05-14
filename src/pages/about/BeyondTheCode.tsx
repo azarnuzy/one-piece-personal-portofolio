@@ -101,7 +101,7 @@ export function BeyondTheCode() {
             </div>
             <div className="flex flex-col gap-1 rounded-lg border border-brand-treasure/20 bg-brand-treasure/5 p-2 ring-1 ring-brand-treasure/10">
               <span className="font-display text-xs font-bold text-brand-treasure">
-                Malang, Indonesia
+                Tangerang, Indonesia
               </span>
               <span className="font-sans text-[10px] text-muted-foreground/80">WIB (UTC+7)</span>
             </div>

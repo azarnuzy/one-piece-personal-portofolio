@@ -29,7 +29,7 @@ export function FinalCTA() {
         <h2 className="mb-3 heading-display text-2xl text-foreground md:text-4xl">
           Let's Build Something <span className="text-highlight-sunset">Amazing Together!</span>
         </h2>
-        <p className="mx-auto mb-6 max-w-lg font-sans text-sm text-foreground/75 md:text-base">
+        <p className="mx-auto mb-6 max-w-lg font-sans text-sm text-secondary-foreground md:text-base">
           Whether it's a wild idea or a real product, I'd love to set sail on the next adventure
           with you.
         </p>

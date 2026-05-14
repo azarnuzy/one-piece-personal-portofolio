@@ -21,12 +21,12 @@ import { CardWatermark } from "@/components/portfolio/CardWatermark";
 
 const TECH = [
   { Icon: SiReact, label: "React", color: "#61DAFB" },
-  { Icon: SiNextdotjs, label: "Next.js", color: "#FFFFFF" },
+  { Icon: SiNextdotjs, label: "Next.js", color: "currentColor" },
   { Icon: SiTypescript, label: "TypeScript", color: "#3178C6" },
   { Icon: SiTailwindcss, label: "Tailwind", color: "#38BDF8" },
   { Icon: SiVuedotjs, label: "Vue.js", color: "#4FC08D" },
   { Icon: SiNodedotjs, label: "Node.js", color: "#5FA04E" },
-  { Icon: SiExpress, label: "Express", color: "#E0E0E0" },
+  { Icon: SiExpress, label: "Express", color: "currentColor" },
   { Icon: SiSequelize, label: "Sequelize", color: "#52B0E7" },
   { Icon: SiRedis, label: "Redis", color: "#FF4438" },
   { Icon: SiGit, label: "Git", color: "#F05032" },
@@ -61,7 +61,7 @@ export function TechIUse() {
             viewport={{ once: true, amount: 0.4 }}
             transition={{ duration: 0.4, delay: idx * 0.05 }}
             whileHover={{ y: -3, scale: 1.04 }}
-            className="group flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-border/40 bg-background/40 p-2.5 transition-colors hover:border-brand-treasure/50 hover:bg-brand-treasure/5"
+            className="group flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-border/40 bg-muted/60 p-2.5 transition-colors hover:border-brand-treasure/50 hover:bg-brand-treasure/5"
           >
             <Icon size={20} style={{ color }} className="transition-transform" />
             <span className="font-sans text-2xs text-muted-foreground group-hover:text-card-foreground">

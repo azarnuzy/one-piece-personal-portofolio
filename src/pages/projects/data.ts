@@ -289,7 +289,7 @@ export const PROJECTS_V2: ProjectV2[] = [
       {
         name: "Universal ICR Document Extractor",
         description:
-          "Sistem ekstraksi data cerdas yang mampu memproses tipe dokumen apapun (KTP, Invoice, KK, dll) melalui arsitektur skema rekursif yang memungkinkan definisi field dinamis sesuai kebutuhan bisnis.",
+          "Sistem ekstraksi data cerdas yang mampu memproses tipe dokumen apapun melalui arsitektur skema rekursif yang memungkinkan definisi field dinamis sesuai kebutuhan bisnis.",
       },
       {
         name: "Omnichannel WhatsApp Integration",

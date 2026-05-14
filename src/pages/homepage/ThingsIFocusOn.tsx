@@ -31,7 +31,7 @@ export function ThingsIFocusOn() {
           <div key={label} className="group">
             <div className="mb-1.5 flex items-center justify-between">
               <span className="flex items-center gap-2 font-sans text-xs font-medium text-card-foreground">
-                <Icon size={12} className="text-brand-treasure" />
+                <Icon size={12} className="text-accent-soft" />
                 {label}
               </span>
               <span className="font-mono text-2xs text-muted-foreground tabular-nums">
@@ -44,7 +44,7 @@ export function ThingsIFocusOn() {
                 whileInView={{ width: `${value}%` }}
                 viewport={{ once: true, amount: 0.6 }}
                 transition={{ duration: 1.1, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className="relative h-full rounded-full bg-gradient-to-r from-brand-sunset via-brand-sun to-brand-treasure"
+                className="relative h-full rounded-full bg-accent-soft dark:bg-gradient-to-r dark:from-brand-sunset dark:via-brand-sun dark:to-brand-treasure"
               >
                 <span className="absolute inset-0 animate-pulse rounded-full bg-white/10" />
               </motion.div>

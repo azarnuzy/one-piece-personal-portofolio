@@ -80,7 +80,7 @@ function BlogHeroContentInner() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.32 }}
-          className="mb-5 max-w-sm font-sans text-sm text-foreground/70 md:max-w-md md:text-base"
+          className="mb-5 max-w-sm font-sans text-sm text-secondary-foreground md:max-w-md md:text-base"
           style={{ lineHeight: 1.6 }}
         >
           Sharing my journey, tutorials, insights, and experiences in the world of frontend

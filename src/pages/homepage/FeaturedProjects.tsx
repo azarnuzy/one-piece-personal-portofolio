@@ -1,13 +1,6 @@
 import { motion } from "framer-motion";
-import {
-  ArrowRightIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  ExternalLinkIcon,
-  FileTextIcon,
-  LayersIcon,
-} from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { ArrowRightIcon, ChevronLeftIcon, ChevronRightIcon, LayersIcon } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import { CardWatermark } from "@/components/portfolio/CardWatermark";
 import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
@@ -18,58 +11,17 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
+import { getAllCardProjects } from "@/pages/projects/data";
+import { ProjectCard } from "@/pages/projects/ProjectCard";
 
-const PROJECTS = [
-  {
-    image: "/thumbnail-project/project-sygma-studio.png",
-    title: "Sygma Studio",
-    description:
-      "Cakra AI's flagship AI orchestration platform — omnichannel agents, RAG workflows, ICR document extraction, and voice intelligence.",
-    tags: ["Next.js", "TypeScript", "TanStack Query"],
-    liveUrl: "/projects/sygma-studio",
-    caseUrl: "/projects/sygma-studio",
-    badge: "FEATURED",
-  },
-  {
-    image: "/thumbnail-project/project-lind.png",
-    title: "Lind Society",
-    description:
-      "Premium property marketplace and tourism platform with hardened API proxy, JWT rotation, Redis rate limiting, and SSR i18n.",
-    tags: ["Next.js 15", "React 19", "Redis"],
-    liveUrl: "/projects/lind-society",
-    caseUrl: "/projects/lind-society",
-    badge: null,
-  },
-  {
-    image: "/thumbnail-project/project-smart-search.png",
-    title: "Cakra Smart Search",
-    description:
-      "AI-powered banking interface turning complex financial workflows into voice-activated, conversational interactions.",
-    tags: ["React 19", "Vite", "LLM"],
-    liveUrl: "/projects/cakra-smart-search",
-    caseUrl: "/projects/cakra-smart-search",
-    badge: null,
-  },
-  {
-    image: "/thumbnail-project/project-kampus-gratis.png",
-    title: "Kampus Gratis",
-    description:
-      "100-page gamified LMS led with a 5-person team — achieving Lighthouse >85 across all pages and a 20% perf lift via Next.js v12→v13 migration.",
-    tags: ["Next.js", "Nx Monorepo", "Tailwind"],
-    liveUrl: "/projects/kampus-gratis",
-    caseUrl: "/projects/kampus-gratis",
-    badge: null,
-  },
-  {
-    image: "/thumbnail-project/project-hiazee.png",
-    title: "Hiazee",
-    description:
-      "AI-powered plant marketplace combining image recognition with a modern e-commerce flow — Bangkit Academy capstone.",
-    tags: ["Next.js", "Recoil", "TanStack Query"],
-    liveUrl: "/projects/hiazee",
-    caseUrl: "/projects/hiazee",
-    badge: null,
-  },
+// Curated subset (in display order) — reuses the canonical project records
+// so the Featured carousel and the Projects page stay in lockstep.
+const FEATURED_IDS = [
+  "sygma-studio",
+  "lind-society",
+  "cakra-smart-search",
+  "kampus-gratis",
+  "hiazee",
 ];
 
 export function FeaturedProjects() {
@@ -80,6 +32,13 @@ export function FeaturedProjects() {
   const [canScrollNext, setCanScrollNext] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const featured = useMemo(() => {
+    const all = getAllCardProjects();
+    return FEATURED_IDS.map((id) => all.find((p) => p.id === id)).filter(
+      (p): p is NonNullable<typeof p> => p !== undefined,
+    );
+  }, []);
+
   useEffect(() => {
     const container = containerRef.current;
     if (!container || !api) return;
@@ -87,7 +46,6 @@ export function FeaturedProjects() {
     let isCooling = false;
 
     const onWheel = (e: WheelEvent) => {
-      // only handle predominantly-horizontal scroll; let vertical pass through
       if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
       e.preventDefault();
       if (isCooling) return;
@@ -142,6 +100,7 @@ export function FeaturedProjects() {
         <PirateCTAButton
           variant="secondary"
           icon={<ArrowRightIcon size={13} />}
+          to="/projects"
           className="h-8 px-3 text-xs"
         >
           View All
@@ -157,7 +116,7 @@ export function FeaturedProjects() {
             onClick={() => api?.scrollPrev()}
             disabled={!canScrollPrev}
             aria-label="Previous projects"
-            className="absolute top-1/2 -left-2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-brand-treasure/40 bg-background/80 text-brand-treasure shadow-md backdrop-blur-md transition-all hover:scale-105 hover:bg-brand-treasure/15 disabled:opacity-30 disabled:hover:scale-100"
+            className="absolute top-1/2 -left-2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card/90 text-secondary-foreground shadow-sm backdrop-blur-md transition-all hover:scale-105 hover:bg-muted hover:text-foreground disabled:opacity-30 disabled:hover:scale-100 dark:border-brand-treasure/40 dark:bg-background/80 dark:text-brand-treasure dark:shadow-md dark:hover:bg-brand-treasure/15"
           >
             <ChevronLeftIcon size={16} />
           </button>
@@ -166,65 +125,9 @@ export function FeaturedProjects() {
             className="-ml-3"
             containerClassName="cursor-grab active:cursor-grabbing select-none"
           >
-            {PROJECTS.map((project) => (
-              <CarouselItem
-                key={project.title}
-                className="basis-full pl-3 sm:basis-1/2 lg:basis-1/3"
-              >
-                <article className="group h-full">
-                  <div className="flex h-full flex-col overflow-hidden rounded-xl border border-brand-treasure/25 bg-background/40 transition-all duration-300 hover:-translate-y-1 hover:border-brand-treasure/50 hover:shadow-[0_8px_24px_-8px_rgba(234,179,8,0.25)]">
-                    {/* Thumbnail */}
-                    <div className="relative aspect-[16/10] shrink-0 overflow-hidden">
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.05]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
-                      {project.badge && (
-                        <span className="absolute top-2 left-2 rounded-md bg-brand-treasure/90 px-1.5 py-0.5 font-display text-2xs font-bold tracking-wide text-brand-ink">
-                          {project.badge}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Body */}
-                    <div className="flex flex-1 flex-col p-3">
-                      <h3 className="mb-1 font-display text-sm font-bold text-foreground">
-                        {project.title}
-                      </h3>
-                      <p className="mb-2 line-clamp-2 font-sans text-2xs leading-relaxed text-muted-foreground">
-                        {project.description}
-                      </p>
-                      <div className="mb-2 flex flex-wrap gap-1">
-                        {project.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="rounded bg-muted/60 px-1.5 py-0.5 font-sans text-2xs text-muted-foreground"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                      <div className="mt-auto flex gap-3 pt-1">
-                        <a
-                          href={project.liveUrl}
-                          className="flex items-center gap-1 font-sans text-2xs text-brand-treasure transition-colors hover:text-brand-sun"
-                        >
-                          <ExternalLinkIcon size={10} />
-                          Live Demo
-                        </a>
-                        <a
-                          href={project.caseUrl}
-                          className="flex items-center gap-1 font-sans text-2xs text-muted-foreground transition-colors hover:text-foreground"
-                        >
-                          <FileTextIcon size={10} />
-                          Case Study
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </article>
+            {featured.map((project, i) => (
+              <CarouselItem key={project.id} className="basis-full pl-3 sm:basis-1/2 lg:basis-1/3">
+                <ProjectCard project={project} index={i} featured={i === 0} />
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -235,7 +138,7 @@ export function FeaturedProjects() {
             onClick={() => api?.scrollNext()}
             disabled={!canScrollNext}
             aria-label="Next projects"
-            className="absolute top-1/2 -right-2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-brand-treasure/40 bg-background/80 text-brand-treasure shadow-md backdrop-blur-md transition-all hover:scale-105 hover:bg-brand-treasure/15 disabled:opacity-30 disabled:hover:scale-100"
+            className="absolute top-1/2 -right-2 z-20 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-card/90 text-secondary-foreground shadow-sm backdrop-blur-md transition-all hover:scale-105 hover:bg-muted hover:text-foreground disabled:opacity-30 disabled:hover:scale-100 dark:border-brand-treasure/40 dark:bg-background/80 dark:text-brand-treasure dark:shadow-md dark:hover:bg-brand-treasure/15"
           >
             <ChevronRightIcon size={16} />
           </button>
@@ -253,7 +156,7 @@ export function FeaturedProjects() {
             className={cn(
               "h-1.5 rounded-full transition-all duration-300",
               i === current
-                ? "w-5 bg-brand-treasure"
+                ? "w-5 bg-accent-soft"
                 : "w-1.5 bg-muted-foreground/40 hover:bg-muted-foreground/70",
             )}
           />

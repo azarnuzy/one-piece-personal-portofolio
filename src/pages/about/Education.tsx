@@ -93,7 +93,9 @@ export function Education() {
                 <p className="font-sans text-2xs leading-snug text-muted-foreground">
                   {edu.institution}
                 </p>
-                <p className="font-sans text-[10px] leading-snug text-foreground/70">{edu.major}</p>
+                <p className="font-sans text-[10px] leading-snug text-secondary-foreground">
+                  {edu.major}
+                </p>
                 <p className="font-sans text-[10px] leading-snug text-muted-foreground/85">
                   {edu.highlight}
                 </p>

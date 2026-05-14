@@ -36,7 +36,7 @@ function isItemActive(pathname: string, href: string) {
 
 const SOCIAL_LINKS = [
   { icon: SiGithub, href: "https://github.com/azarnuzy", label: "GitHub" },
-  { icon: LinkedInIcon, href: "https://linkedin.com/in/azarnuzy", label: "LinkedIn" },
+  { icon: LinkedInIcon, href: "https://www.linkedin.com/in/muhammadazarnuzy/", label: "LinkedIn" },
   { icon: SiX, href: "https://x.com/azarnuzy", label: "X" },
   { icon: SiDribbble, href: "https://dribbble.com/azarnuzy", label: "Dribbble" },
 ];
@@ -70,12 +70,25 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
       >
         {/* Logo */}
         <div className="flex shrink-0 items-center gap-3 border-b border-sidebar-border px-4 py-4">
-          <img src="/skull-logo.png" alt="Azar Portfolio" className="h-9 w-9 object-contain" />
+          <div className="relative h-9 w-9 shrink-0">
+            <img
+              src="/logo-light.png"
+              alt="Azar Portfolio"
+              className="absolute inset-0 h-9 w-9 object-contain dark:hidden"
+            />
+            <img
+              src="/logo-dark.png"
+              alt="Azar Portfolio"
+              className="absolute inset-0 hidden h-9 w-9 object-contain dark:block"
+            />
+          </div>
           <div className="flex-1">
             <p className="font-display text-base leading-tight font-bold text-sidebar-foreground">
               Azar
             </p>
-            <p className="font-sans text-2xs tracking-wide text-muted-foreground">Frontend Dev</p>
+            <p className="font-sans text-2xs tracking-wide text-muted-foreground">
+              Software Engineer
+            </p>
           </div>
           {/* Close button — mobile only */}
           <button
@@ -118,17 +131,20 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
 
         {/* Bottom section */}
         <div className="shrink-0">
-          <div className="px-4 pt-2 pb-3">
-            {/* Quote */}
+          {/* Subtle divider — separates nav from footer info */}
+          <div className="mx-4 mb-3 h-px bg-sidebar-border/70" aria-hidden />
+
+          <div className="px-4 pb-3">
+            {/* Quote — solid color, no opacity tricks */}
             <div className="mb-3 text-center">
-              <p className="font-display text-2xs leading-relaxed text-brand-rope/70 italic dark:text-muted-foreground">
+              <p className="font-display text-2xs leading-relaxed text-brand-rope italic dark:text-muted-foreground">
                 "I'm gonna become the King of the Pirates!"
               </p>
               <p className="mt-0.5 font-sans text-2xs text-muted-foreground">— Monkey D. Luffy</p>
             </div>
 
             {/* Location */}
-            <div className="mb-3 flex items-center justify-center gap-1.5 text-muted-foreground">
+            <div className="mb-3 flex items-center justify-center gap-1.5 text-secondary-foreground dark:text-muted-foreground">
               <MapPinIcon size={11} />
               <span className="font-sans text-xs">Based in Indonesia</span>
             </div>
@@ -142,7 +158,7 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="text-muted-foreground transition-colors duration-[var(--duration-base)] hover:text-brand-treasure"
+                  className="text-secondary-foreground transition-colors duration-[var(--duration-base)] hover:text-brand-treasure dark:text-muted-foreground"
                 >
                   <Icon size={15} />
                 </a>

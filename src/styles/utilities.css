@@ -35,41 +35,59 @@
   box-shadow: var(--shadow-card);
 }
 
-/* Pirate treasure card — thin gold border + soft inner highlight + ambient glow.
-   Used for portfolio bento cards to evoke the "ship plank with brass trim" feel. */
+/* Bento card surface — clean slate border in light, gold trim in dark.
+   The "treasure" name is preserved for backwards compatibility but the
+   gold-trim feel is now dark-mode only. */
 @utility surface-card-treasure {
   position: relative;
   background-color: var(--card);
   color: var(--card-foreground);
-  border: 1px solid oklch(from var(--brand-treasure) l c h / 0.35);
+  border: 1px solid var(--border);
   border-radius: var(--radius-xl);
-  box-shadow:
-    inset 0 1px 0 0 oklch(from var(--brand-treasure) l c h / 0.12),
-    0 1px 2px 0 oklch(0 0 0 / 0.04),
-    0 8px 24px -8px oklch(0 0 0 / 0.18),
-    0 0 0 1px oklch(from var(--brand-treasure) l c h / 0.06);
+  box-shadow: var(--shadow-card);
   transition:
     border-color var(--duration-base) var(--ease-out-soft),
     box-shadow var(--duration-base) var(--ease-out-soft),
     transform var(--duration-base) var(--ease-out-soft);
 
   &:hover {
+    border-color: oklch(from var(--accent-soft) l c h / 0.35);
+    box-shadow: var(--shadow-card-lg);
+    transform: translateY(-2px);
+  }
+
+  /* Dark mode reinstates the pirate gold trim + inner highlight + ambient glow. */
+  .dark & {
+    border-color: oklch(from var(--brand-treasure) l c h / 0.35);
+    box-shadow:
+      inset 0 1px 0 0 oklch(from var(--brand-treasure) l c h / 0.12),
+      0 1px 2px 0 oklch(0 0 0 / 0.04),
+      0 8px 24px -8px oklch(0 0 0 / 0.18),
+      0 0 0 1px oklch(from var(--brand-treasure) l c h / 0.06);
+  }
+
+  .dark &:hover {
     border-color: oklch(from var(--brand-treasure) l c h / 0.55);
     box-shadow:
       inset 0 1px 0 0 oklch(from var(--brand-treasure) l c h / 0.18),
       0 4px 8px 0 oklch(0 0 0 / 0.08),
       0 16px 40px -10px oklch(0 0 0 / 0.25),
       0 0 24px -4px oklch(from var(--brand-treasure) l c h / 0.25);
-    transform: translateY(-2px);
   }
 }
 
-/* Sidebar active item glow (used by sidebar nav) */
+/* Sidebar active item — neutral slate fill in light, amber glow in dark. */
 @utility nav-active-glow {
-  background-color: oklch(from var(--brand-sun) l c h / 0.24);
-  color: var(--brand-sun);
+  background-color: oklch(from var(--accent-soft) l c h / 0.1);
+  color: var(--accent-soft);
   font-weight: var(--weight-semibold);
-  box-shadow: inset 0 0 0 1px oklch(from var(--brand-sun) l c h / 0.55);
+  box-shadow: inset 0 0 0 1px oklch(from var(--accent-soft) l c h / 0.18);
+
+  .dark & {
+    background-color: oklch(from var(--brand-sun) l c h / 0.24);
+    color: var(--brand-sun);
+    box-shadow: inset 0 0 0 1px oklch(from var(--brand-sun) l c h / 0.55);
+  }
 }
 
 /* Decorative starry-night layer for dark hero sections. */

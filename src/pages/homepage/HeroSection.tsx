@@ -75,10 +75,14 @@ function HomeHeroContentInner() {
         </div>
 
         <div className="flex flex-wrap gap-3">
-          <PirateCTAButton icon={<WheelIcon size={16} />} variant="primary">
+          <PirateCTAButton icon={<WheelIcon size={16} />} variant="primary" to="/projects">
             See Featured Work
           </PirateCTAButton>
-          <PirateCTAButton icon={<CompassIcon size={16} strokeWidth={2} />} variant="secondary">
+          <PirateCTAButton
+            icon={<CompassIcon size={16} strokeWidth={2} />}
+            variant="secondary"
+            to="/about"
+          >
             About Me
           </PirateCTAButton>
         </div>

@@ -139,7 +139,7 @@ function GallerySlider({ images, compact = false }: { images: string[]; compact?
         <button
           type="button"
           onClick={prev}
-          className="absolute top-1/2 left-3 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-border/60 bg-card/80 text-foreground/70 backdrop-blur-sm transition-all duration-200 hover:border-brand-treasure/50 hover:text-brand-treasure hover:shadow-[0_0_12px_-2px_var(--brand-treasure)]"
+          className="absolute top-1/2 left-3 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-border/60 bg-card/80 text-secondary-foreground backdrop-blur-sm transition-all duration-200 hover:border-brand-treasure/50 hover:text-brand-treasure hover:shadow-[0_0_12px_-2px_var(--brand-treasure)]"
           aria-label="Previous image"
         >
           <ChevronLeftIcon size={16} />
@@ -147,7 +147,7 @@ function GallerySlider({ images, compact = false }: { images: string[]; compact?
         <button
           type="button"
           onClick={next}
-          className="absolute top-1/2 right-3 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-border/60 bg-card/80 text-foreground/70 backdrop-blur-sm transition-all duration-200 hover:border-brand-treasure/50 hover:text-brand-treasure hover:shadow-[0_0_12px_-2px_var(--brand-treasure)]"
+          className="absolute top-1/2 right-3 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-border/60 bg-card/80 text-secondary-foreground backdrop-blur-sm transition-all duration-200 hover:border-brand-treasure/50 hover:text-brand-treasure hover:shadow-[0_0_12px_-2px_var(--brand-treasure)]"
           aria-label="Next image"
         >
           <ChevronRightIcon size={16} />
@@ -239,7 +239,7 @@ function OverviewSection({ project }: { project: ProjectV2 }) {
           {project.hero.subtitle}
         </p>
       </div>
-      <p className="mb-4 font-sans text-sm leading-7 text-foreground/75">
+      <p className="mb-4 font-sans text-sm leading-7 text-secondary-foreground">
         {project.projectOverview.explanation}
       </p>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
@@ -298,7 +298,7 @@ function SnapshotSection({ project }: { project: ProjectV2 }) {
         {project.highlights.map((h) => (
           <div key={h} className="flex items-center gap-1.5">
             <CheckCircle2Icon size={11} className="shrink-0 text-brand-success" />
-            <span className="font-sans text-xs text-foreground/75">{h}</span>
+            <span className="font-sans text-xs text-secondary-foreground">{h}</span>
           </div>
         ))}
       </div>
@@ -613,7 +613,7 @@ function SidebarV2({ project }: { project: ProjectV2 }) {
           {project.highlights.map((h) => (
             <li key={h} className="flex items-start gap-1.5">
               <CheckCircle2Icon size={10} className="mt-0.5 shrink-0 text-brand-success" />
-              <span className="font-sans text-2xs leading-snug text-foreground/75">{h}</span>
+              <span className="font-sans text-2xs leading-snug text-secondary-foreground">{h}</span>
             </li>
           ))}
         </ul>

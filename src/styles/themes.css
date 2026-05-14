@@ -18,48 +18,57 @@
   /* ------- Brand (shared across themes) ------- */
   --brand-sun: oklch(0.83 0.16 80); /* #f3b94a-ish */
   --brand-sun-hover: oklch(0.78 0.17 75);
-  --brand-sunset: oklch(0.7 0.19 35); /* coral-orange */
-  --brand-sunset-hover: oklch(0.65 0.2 32);
+  --brand-sunset: oklch(0.66 0.2 32); /* coral-orange, slightly deeper for light-mode contrast */
+  --brand-sunset-hover: oklch(0.6 0.21 30);
   --brand-treasure: oklch(0.88 0.14 95); /* warm gold */
   --brand-ink: oklch(0.18 0.04 250); /* deep navy ink */
   --brand-parchment: oklch(0.97 0.022 85); /* cream */
-  --brand-rope: oklch(0.55 0.08 60); /* rope brown */
+  --brand-rope: oklch(0.42 0.06 55); /* rope brown — deepened for light readability */
   --brand-success: oklch(0.7 0.17 150);
   --brand-danger: oklch(0.62 0.23 27);
-  --brand-info: oklch(0.7 0.13 230);
+  --brand-info: oklch(0.55 0.14 240); /* deepened from 0.7 for light-mode contrast */
   --brand-warn: oklch(0.78 0.16 75);
 
   /* One Piece Badge — wood plank (Day Sea / light) */
   --badge-plank-base: oklch(0.78 0.1 70); /* warm teak mid-tone */
   --badge-plank-highlight: oklch(0.91 0.06 80); /* near-parchment light grain */
-  --badge-plank-shadow: oklch(0.5 0.1 60); /* dark grain / burnt edge */
+  --badge-plank-shadow: oklch(
+    0.38 0.11 50
+  ); /* deep burnt edge — deepened for stronger text contrast */
 
-  /* ------- Light surface (Day Sea) ------- */
-  --background: oklch(0.95 0.04 230); /* sky blue wash */
-  --foreground: oklch(0.2 0.04 250); /* deep navy ink */
+  /* ------- Light surface (Day Sea) — clean white, slate accents -------
+     Strategy:
+     - Background: near-white (the hero bg image provides the ocean color)
+     - Cards & sidebar: pure white, defined by border + soft shadow
+     - Foreground: deep slate-900
+     - Hierarchy: foreground (900) > secondary-foreground (700) > muted-foreground (500)
+     - No gold/amber tinted surfaces in light mode
+  */
+  --background: oklch(0.985 0.003 240); /* near-white with hint of cool tint */
+  --foreground: oklch(0.22 0.04 252); /* slate-900 / deep navy ink */
 
-  --card: oklch(0.98 0.018 85); /* parchment */
-  --card-foreground: oklch(0.2 0.04 250);
+  --card: oklch(1 0 0); /* pure white — grounded by border, not tint */
+  --card-foreground: oklch(0.22 0.04 252);
 
-  --popover: oklch(0.99 0.012 85);
-  --popover-foreground: oklch(0.2 0.04 250);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.22 0.04 252);
 
   --primary: var(--brand-sun);
   --primary-foreground: oklch(0.18 0.04 250);
 
-  --secondary: oklch(0.92 0.04 230);
-  --secondary-foreground: oklch(0.22 0.05 250);
+  --secondary: oklch(0.96 0.008 240); /* slate-50 — subtle tinted surface */
+  --secondary-foreground: oklch(0.34 0.04 250); /* slate-700 */
 
-  --muted: oklch(0.94 0.02 230);
-  --muted-foreground: oklch(0.45 0.035 250);
+  --muted: oklch(0.96 0.008 240); /* slate-50/100 */
+  --muted-foreground: oklch(0.48 0.025 250); /* slate-500 */
 
   --accent: var(--brand-sunset);
   --accent-foreground: oklch(0.99 0.01 85);
 
   --destructive: var(--brand-danger);
 
-  --border: oklch(0.85 0.025 230);
-  --input: oklch(0.9 0.02 230);
+  --border: oklch(0.92 0.008 240); /* slate-200 — clean separator */
+  --input: oklch(0.93 0.008 240);
   --ring: var(--brand-sun);
 
   --chart-1: var(--brand-sun);
@@ -68,22 +77,39 @@
   --chart-4: var(--brand-success);
   --chart-5: var(--brand-treasure);
 
-  --sidebar: oklch(0.97 0.02 85); /* parchment */
-  --sidebar-foreground: oklch(0.22 0.04 250);
+  /* Sidebar — clean white, subtle slate borders. No parchment cream tint. */
+  --sidebar: oklch(1 0 0); /* pure white */
+  --sidebar-foreground: oklch(0.24 0.04 250);
   --sidebar-primary: var(--brand-sun);
   --sidebar-primary-foreground: oklch(0.18 0.04 250);
-  --sidebar-accent: oklch(0.86 0.07 72);
-  --sidebar-accent-foreground: oklch(0.18 0.04 250);
-  --sidebar-border: oklch(0.85 0.03 80);
+  --sidebar-accent: oklch(0.94 0.014 240); /* slate-100 — subtle hover */
+  --sidebar-accent-foreground: oklch(0.24 0.04 250);
+  --sidebar-border: oklch(0.92 0.008 240); /* slate-200 */
   --sidebar-ring: var(--brand-sun);
 
-  /* Decorative gradients (used via bg-[image:var(--gradient-*)]) */
+  /* Decorative gradients (used via bg-[image:var(--gradient-*)])
+     Softer sky-to-sea gradient with subtle warm tint at the top — reduces
+     flat-blue feel and unifies palette with parchment sidebar. */
   --gradient-sky: linear-gradient(
     180deg,
-    oklch(0.92 0.06 230) 0%,
-    oklch(0.86 0.08 235) 60%,
-    oklch(0.78 0.1 240) 100%
+    oklch(0.93 0.04 225) 0%,
+    oklch(0.88 0.055 232) 55%,
+    oklch(0.8 0.075 240) 100%
   );
+
+  /* Project thumbnail "well" — light variant: soft cool gradient for light mode.
+     Dark mode overrides this in `.dark` block to the navy/teal gradient. */
+  --gradient-thumbnail-well: linear-gradient(
+    135deg,
+    oklch(0.97 0.012 235) 0%,
+    oklch(0.94 0.02 230) 50%,
+    oklch(0.91 0.028 225) 100%
+  );
+
+  /* Light-mode "accent" replacement for gold — used wherever brand-treasure
+     would feel out of place on a white surface (sidebar active, card trims,
+     progress fills, etc.). Resolves to brand-info-deep in light. */
+  --accent-soft: oklch(0.6 0.13 240); /* deep slate-blue */
   --gradient-sea-night: linear-gradient(
     180deg,
     oklch(0.22 0.05 255) 0%,
@@ -122,7 +148,7 @@
   --primary-foreground: oklch(0.16 0.045 255);
 
   --secondary: oklch(0.26 0.05 255);
-  --secondary-foreground: oklch(0.96 0.02 85);
+  --secondary-foreground: oklch(0.84 0.025 85); /* soft cream — body text tier */
 
   --muted: oklch(0.24 0.045 255);
   --muted-foreground: oklch(0.72 0.03 85);
@@ -167,4 +193,15 @@
   --badge-plank-base: oklch(0.24 0.06 40); /* dark mahogany */
   --badge-plank-highlight: oklch(0.31 0.07 45); /* lighter grain */
   --badge-plank-shadow: oklch(0.15 0.04 35); /* very dark grain / knot */
+
+  /* Project thumbnail well — dark navy/teal for device-mockup contrast. */
+  --gradient-thumbnail-well: linear-gradient(
+    135deg,
+    oklch(0.15 0.05 230) 0%,
+    oklch(0.18 0.07 210) 50%,
+    oklch(0.22 0.04 190) 100%
+  );
+
+  /* Dark-mode accent — keeps pirate gold for thematic warmth. */
+  --accent-soft: var(--brand-treasure);
 }

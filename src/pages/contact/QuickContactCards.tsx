@@ -1,4 +1,4 @@
-import { SiGithub, SiTelegram, SiWhatsapp } from "@icons-pack/react-simple-icons";
+import { SiGithub, SiTelegram } from "@icons-pack/react-simple-icons";
 import { motion } from "framer-motion";
 import { MailIcon, type LucideIcon } from "lucide-react";
 import { memo, type ComponentType } from "react";
@@ -41,8 +41,8 @@ const CONTACTS: ContactCard[] = [
   {
     icon: LinkedInIcon,
     label: "LinkedIn",
-    value: "in/azarnuzy",
-    href: "https://linkedin.com/in/azarnuzy",
+    value: "in/muhammadazarnuzy",
+    href: "https://www.linkedin.com/in/muhammadazarnuzy/",
     color: "text-[#0077B5]",
     bgColor: "bg-[#0077B5]/10 group-hover:bg-[#0077B5]/20",
   },
@@ -53,14 +53,6 @@ const CONTACTS: ContactCard[] = [
     href: "https://github.com/azarnuzy",
     color: "text-foreground",
     bgColor: "bg-foreground/10 group-hover:bg-foreground/15",
-  },
-  {
-    icon: SiWhatsapp,
-    label: "WhatsApp",
-    value: "Quick chat",
-    href: "https://wa.me/6285156789456",
-    color: "text-[#25D366]",
-    bgColor: "bg-[#25D366]/10 group-hover:bg-[#25D366]/20",
   },
   {
     icon: SiTelegram,
@@ -120,7 +112,7 @@ function QuickContactCardsInner() {
         <MailIcon size={13} className="text-brand-sunset" />
         <h2 className="heading-section text-sm text-foreground">Quick Contact</h2>
       </div>
-      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
         {CONTACTS.map((card, i) => (
           <ContactCardItem key={card.label} card={card} index={i} />
         ))}

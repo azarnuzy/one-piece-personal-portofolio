@@ -57,10 +57,12 @@ function NumericStatItem({ stat, delay }: { stat: NumericStat; delay: number }) 
       ref={ref}
       className="flex flex-1 flex-col items-center gap-1 px-3 py-3 transition-colors duration-200 hover:bg-card/60"
     >
-      <Icon size={13} className="text-brand-treasure/60" />
+      <Icon size={13} className="text-accent-soft/70 dark:text-brand-treasure/60" />
       <div className="flex items-baseline gap-0.5">
-        <span className="heading-display text-xl leading-none text-brand-treasure">{count}</span>
-        <span className="font-display text-sm leading-none font-bold text-brand-sun">
+        <span className="heading-display text-xl leading-none text-accent-soft dark:text-brand-treasure">
+          {count}
+        </span>
+        <span className="font-display text-sm leading-none font-bold text-accent-soft/70 dark:text-brand-sun">
           {stat.suffix}
         </span>
       </div>
@@ -75,8 +77,8 @@ function TextStatItem({ stat }: { stat: TextStat }) {
   const Icon = stat.icon;
   return (
     <div className="flex flex-1 flex-col items-center gap-1 px-3 py-3 transition-colors duration-200 hover:bg-card/60">
-      <Icon size={13} className="text-brand-treasure/60" />
-      <span className="text-center font-display text-sm leading-tight font-bold text-brand-treasure">
+      <Icon size={13} className="text-accent-soft/70 dark:text-brand-treasure/60" />
+      <span className="text-center font-display text-sm leading-tight font-bold text-accent-soft dark:text-brand-treasure">
         {stat.value}
       </span>
       <span className="text-center font-sans text-2xs leading-tight text-muted-foreground">
@@ -104,7 +106,7 @@ function HeadingLine({ children }: { children: React.ReactNode }) {
 function ProjectsHeroContentInner() {
   return (
     <div className="relative flex flex-1 items-center">
-      <div className="z-10 max-w-[520px] flex-1 px-4 pb-8 md:px-8 md:pb-10">
+      <div className="z-10 max-w-[620px] flex-1 px-4 pb-8 md:px-8 md:pb-10">
         <motion.h1
           initial="hidden"
           animate="show"
@@ -124,7 +126,7 @@ function ProjectsHeroContentInner() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.42 }}
-          className="mb-6 max-w-xs font-sans text-sm text-foreground/70 md:max-w-sm md:text-base"
+          className="mb-6 max-w-xs font-sans text-sm text-secondary-foreground md:max-w-sm md:text-base"
           style={{ lineHeight: 1.6 }}
         >
           From AI orchestration platforms to fintech dashboards and EdTech systems &mdash;

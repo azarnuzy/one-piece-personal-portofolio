@@ -20,7 +20,7 @@ export function LetsConnect() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6"
+      className="surface-card-treasure relative flex flex-col overflow-hidden p-5 md:p-6"
     >
       <CardWatermark asset="sunny" position="top-right" size={140} opacity={0.06} rotate={10} />
 
@@ -38,6 +38,7 @@ export function LetsConnect() {
         <PirateCTAButton
           variant="primary"
           icon={<SendIcon size={13} />}
+          to="/contact"
           className="w-full justify-center shadow-lg"
         >
           Send Message
@@ -45,32 +46,37 @@ export function LetsConnect() {
       </div>
 
       {/* Social grid — 2×2 compact buttons */}
-      <div className="relative mt-auto grid grid-cols-2 gap-2">
+      <div className="relative grid grid-cols-2 gap-2">
         <PirateCTAButton
           variant="secondary"
           icon={<MailIcon size={14} />}
-          className="w-full justify-center bg-transparent shadow-none hover:bg-white/5"
+          href="mailto:azarnuzy@gmail.com"
+          target="_self"
+          className="w-full justify-center dark:bg-transparent dark:shadow-none dark:hover:bg-white/5"
         >
           Email Me
         </PirateCTAButton>
         <PirateCTAButton
           variant="secondary"
           icon={<LinkedInIcon size={14} />}
-          className="w-full justify-center bg-transparent shadow-none hover:bg-white/5"
+          href="https://www.linkedin.com/in/muhammadazarnuzy/"
+          className="w-full justify-center dark:bg-transparent dark:shadow-none dark:hover:bg-white/5"
         >
           LinkedIn
         </PirateCTAButton>
         <PirateCTAButton
           variant="secondary"
           icon={<SiGithub size={14} />}
-          className="w-full justify-center bg-transparent shadow-none hover:bg-white/5"
+          href="https://github.com/azarnuzy"
+          className="w-full justify-center dark:bg-transparent dark:shadow-none dark:hover:bg-white/5"
         >
           GitHub
         </PirateCTAButton>
         <PirateCTAButton
           variant="secondary"
           icon={<SiDribbble size={14} />}
-          className="w-full justify-center bg-transparent shadow-none hover:bg-white/5"
+          href="https://dribbble.com/azarnuzy"
+          className="w-full justify-center dark:bg-transparent dark:shadow-none dark:hover:bg-white/5"
         >
           Dribbble
         </PirateCTAButton>

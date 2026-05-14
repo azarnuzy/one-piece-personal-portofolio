@@ -10,6 +10,7 @@ export type ThumbnailKey = "journey" | "react" | "websocket" | "javascript";
 
 export interface BlogPost {
   id: string;
+  slug: string;
   title: string;
   description: string;
   date: string;
@@ -21,17 +22,15 @@ export interface BlogPost {
 }
 
 export const CATEGORIES: { value: BlogCategory; label: string; count?: number }[] = [
-  { value: "all", label: "All Posts" },
-  { value: "tutorials", label: "Tutorials", count: 12 },
-  { value: "web-development", label: "Web Development", count: 18 },
-  { value: "tips-tricks", label: "Tips & Tricks", count: 10 },
-  { value: "career", label: "Career", count: 6 },
-  { value: "personal", label: "Personal", count: 5 },
+  { value: "all", label: "All Posts", count: 3 },
+  { value: "web-development", label: "Web Development", count: 1 },
+  { value: "tutorials", label: "Tutorials", count: 1 },
+  { value: "career", label: "Career", count: 1 },
 ];
 
 export const CATEGORY_LABEL: Record<Exclude<BlogCategory, "all">, string> = {
   tutorials: "Tutorial",
-  "web-development": "React",
+  "web-development": "Web Development",
   "tips-tricks": "Tips & Tricks",
   career: "Career",
   personal: "Personal",
@@ -40,102 +39,40 @@ export const CATEGORY_LABEL: Record<Exclude<BlogCategory, "all">, string> = {
 export const POSTS: BlogPost[] = [
   {
     id: "1",
-    title: "My Journey as a Frontend Developer",
+    slug: "building-sygma-studio-ai-orchestration",
+    title: "Building Sygma Studio: Lessons from Shipping an Enterprise AI Orchestration Platform",
     description:
-      "A real dive into my path from curiosity to creating real-world web applications. The challenges, the victories, and milestones along the way.",
-    date: "Apr 10, 2024",
-    readTime: 4,
-    category: "career",
-    likes: 42,
+      "How we designed an embeddable, omnichannel AI platform with voice-to-voice simulation, RAG ingestion, and a zero-dependency widget — and what it taught me about scaling frontend architecture.",
+    date: "Mar 18, 2026",
+    readTime: 9,
+    category: "web-development",
+    likes: 64,
     featured: true,
-    thumbnailKey: "journey",
+    thumbnailKey: "react",
   },
   {
     id: "2",
-    title: "Optimizing React Performance in Production",
+    slug: "cakra-smart-search-voice-banking",
+    title: "Voice-First Banking with Cakra Smart Search: Replacing Menus with Intent",
     description:
-      "Practical techniques to improve performance, reduce re-renders, and deliver a smoother user experience.",
-    date: "Apr 26, 2024",
-    readTime: 6,
-    category: "web-development",
-    likes: 37,
-    thumbnailKey: "react",
+      "A deep-dive into how I rebuilt a mobile banking interface around the Web Speech API, intent-based navigation, and context-aware form hydration — and why menu-diving is a UX anti-pattern.",
+    date: "Feb 24, 2026",
+    readTime: 7,
+    category: "tutorials",
+    likes: 48,
+    thumbnailKey: "websocket",
   },
   {
     id: "3",
-    title: "How I Built Real-time Chat with WebSocket",
+    slug: "from-capstone-to-shipping-hiazee",
+    title: "From Capstone to Production: What Building Hiazee Taught Me About Real Software",
     description:
-      "A step-by-step guide on building a scalable real-time chat application using WebSocket, Node.js, and React.",
-    date: "May 12, 2024",
-    readTime: 5,
-    category: "tutorials",
-    likes: 52,
-    thumbnailKey: "websocket",
-  },
-  {
-    id: "4",
-    title: "10 JavaScript Tips You Should Know",
-    description: "Handy JavaScript tips and modern features that will level up your coding game.",
-    date: "Jun 02, 2024",
-    readTime: 7,
-    category: "tips-tricks",
-    likes: 28,
-    thumbnailKey: "javascript",
-  },
-  {
-    id: "5",
-    title: "TypeScript Advanced Patterns You Need in 2024",
-    description:
-      "Explore utility types, conditional types, template literals, and other powerful TypeScript patterns that make large codebases maintainable.",
-    date: "Jun 18, 2024",
-    readTime: 8,
-    category: "web-development",
-    likes: 61,
-    thumbnailKey: "react",
-  },
-  {
-    id: "6",
-    title: "Mastering CSS Grid for Complex Layouts",
-    description:
-      "A comprehensive guide to CSS Grid — from basic tracks to advanced placement, auto-fill, and responsive magazine-style layouts.",
-    date: "Jul 03, 2024",
+      "Hiazee started as a Bangkit Academy capstone — an AI plant marketplace. The classroom version worked. The production rewrite did not. Here's what I unlearned and what finally stuck.",
+    date: "Jan 30, 2026",
     readTime: 6,
-    category: "tutorials",
-    likes: 45,
-    thumbnailKey: "javascript",
-  },
-  {
-    id: "7",
-    title: "Node.js Best Practices for Scalable APIs",
-    description:
-      "How to structure, secure, and scale a Node.js REST API — covering project architecture, error handling, and performance patterns.",
-    date: "Jul 20, 2024",
-    readTime: 9,
-    category: "web-development",
-    likes: 34,
-    thumbnailKey: "websocket",
-  },
-  {
-    id: "8",
-    title: "Freelancing as a Developer: Lessons Learned",
-    description:
-      "Honest reflections on transitioning to freelance work — finding clients, pricing projects, and avoiding common rookie mistakes.",
-    date: "Aug 05, 2024",
-    readTime: 5,
     category: "career",
-    likes: 57,
+    likes: 52,
     thumbnailKey: "journey",
-  },
-  {
-    id: "9",
-    title: "State Management Without the Headache",
-    description:
-      "Comparing Zustand, Jotai, and React Query — when to use each, and how to pick the right tool for your project's complexity.",
-    date: "Aug 22, 2024",
-    readTime: 7,
-    category: "web-development",
-    likes: 48,
-    thumbnailKey: "react",
   },
 ];
 

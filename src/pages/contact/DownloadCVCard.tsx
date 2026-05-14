@@ -33,10 +33,10 @@ function DownloadCVCardInner() {
 
         <div className="flex min-w-0 flex-1 flex-col">
           <span className="line-clamp-1 font-sans text-xs font-semibold text-foreground">
-            Azar's Resume.pdf
+            Muhammad_Azar_Nuzy_CV_2026.pdf
           </span>
           <span className="font-sans text-2xs text-muted-foreground">
-            Frontend Developer · ~256 KB
+            Software Engineer · ~288 KB
           </span>
         </div>
       </div>
@@ -45,8 +45,9 @@ function DownloadCVCardInner() {
       <PirateCTAButton
         variant="primary"
         icon={<DownloadIcon size={13} />}
+        href="/Muhammad_Azar_Nuzy_CV_2026.pdf"
+        download
         className="w-full justify-center shadow-md"
-        onClick={() => window.open("/cv/azar-resume.pdf", "_blank")}
       >
         Download CV
       </PirateCTAButton>

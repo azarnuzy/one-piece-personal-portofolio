@@ -133,7 +133,7 @@ export function MyJourney() {
               <span className="font-display text-sm font-bold text-brand-treasure">
                 {stat.value}
               </span>{" "}
-              <span className="text-foreground/75">{stat.label}</span>
+              <span className="text-secondary-foreground">{stat.label}</span>
             </span>
             {i < STATS.length - 1 && <span className="text-border">•</span>}
           </span>
