@@ -1364,7 +1364,7 @@ export const PROJECTS_V2: ProjectV2[] = [
   {
     id: "asia-money",
     category: "web",
-    thumbnailImage: "/thumbnail-project/project-honey-bonney.png",
+    thumbnailImage: "/thumbnail-project/project-asia-money.png",
     titleHighlight: "Financial Ecosystem",
     hero: {
       title: "Asia Money Portal",
@@ -2372,6 +2372,187 @@ export const PROJECTS_V2: ProjectV2[] = [
     ctaContent: {
       livePreview: "Explore the high-performance architecture in action.",
       sourceCode: "Examine the modern stack and modular engineering on GitHub.",
+    },
+  },
+  {
+    id: "cakra-ai",
+    category: "web",
+    thumbnailImage: "/thumbnail-project/project-landing-page-cakra.png",
+    titleHighlight: "AI Pioneer Corporate Platform",
+    hero: {
+      title: "Cakra AI: The Digital Brand of an Indonesian AI Pioneer",
+      description:
+        "A premium, enterprise-grade company profile and technology ecosystem designed to showcase Cakra AI's leadership in specialized artificial intelligence.",
+      subtitle:
+        "Architecting a high-performance corporate platform that bridges the gap between deep-tech innovation and cultural relevance in the Indonesian market.",
+    },
+    projectOverview: {
+      explanation:
+        "This platform serves as the comprehensive digital identity for Cakra AI, an AI technology firm founded in 2016. Built with Next.js 14, it integrates complex product demonstrations (Rocky.AI, Sygma, Meetha) with robust corporate modules including a dynamic career portal, a multi-category news engine, and an interactive company history timeline.",
+      coreValue:
+        "The architecture emphasizes 'Scalable Storytelling' through a modular directory structure. It utilizes the Next.js App Router to manage distinct corporate tracks—About, Career, Technology, and News—while maintaining a unified design language and a high-performance global state managed via Recoil.",
+      interestPoints:
+        "Focused on 'Brand-Driven Engineering,' where performance optimization and accessible UI components (Radix UI) are leveraged to reflect the company's commitment to accessibility and innovation in the Indonesian tech landscape.",
+    },
+    keyFeatures: [
+      {
+        name: "Corporate Identity & History Engine",
+        description:
+          "An interactive 'About Us' module featuring milestone timelines, vision/mission narratives, and a dynamic team showcase that narrates the company's growth since 2016.",
+      },
+      {
+        name: "Dynamic Technology Detail Suite",
+        description:
+          "In-depth, page-based technical deep-dives for core AI products, featuring specialized layout patterns for Rocky.AI, Sygma, and Meetha.",
+      },
+      {
+        name: "Enterprise Career Portal",
+        description:
+          "A full-featured recruitment interface designed to attract top-tier AI talent, integrated with the company's 'Join With Us' vision.",
+      },
+      {
+        name: "News & Insights Ecosystem",
+        description:
+          "A robust blog and news module supporting markdown-driven content, categories, and detail views to keep the community updated on AI innovations.",
+      },
+      {
+        name: "Localized AI Demonstration Hub",
+        description:
+          "Live, interactive modules showcasing AI solutions specifically tuned for Indonesian dialects, accents, and cultural nuances.",
+      },
+    ],
+    techStack: [
+      {
+        name: "Next.js 14 (App Router)",
+        description:
+          "Full-stack framework for SSR, routing, and optimized asset delivery across all corporate modules.",
+      },
+      {
+        name: "TypeScript",
+        description: "End-to-end type safety from API integration to UI components.",
+      },
+      {
+        name: "Tailwind CSS",
+        description:
+          "Centralized token system for cohesive corporate branding across distinct product sub-pages.",
+      },
+      {
+        name: "Framer Motion",
+        description:
+          "Physics-based animations for milestone timelines and corporate storytelling interactions.",
+      },
+      {
+        name: "Recoil",
+        description: "High-performance global state management for complex UI interactions.",
+      },
+      {
+        name: "Radix UI & CVA",
+        description:
+          "Accessible, composable UI primitives with variant-driven component architecture.",
+      },
+      {
+        name: "Markdown-to-JSX & Remark GFM",
+        description: "Flexible markdown content engine for the news and blog modules.",
+      },
+      {
+        name: "Upstash Redis & Vercel",
+        description: "Edge analytics and CDN deployment for high-performance global delivery.",
+      },
+    ],
+    engineeringHighlights: [
+      {
+        point: "Unified Corporate Design System",
+        description:
+          "Engineered a centralized token system in Tailwind CSS that allows for distinct product branding (e.g., Meetha's unique palette) while maintaining a cohesive corporate identity.",
+      },
+      {
+        point: "SEO-First Architecture",
+        description:
+          "Implemented a comprehensive SEO strategy using next-sitemap and semantic HTML5, ensuring high visibility for corporate news and career opportunities.",
+      },
+      {
+        point: "Hybrid Content Management",
+        description:
+          "Developed a flexible system that combines static landing sections for brand storytelling with dynamic data fetching for career and news modules.",
+      },
+      {
+        point: "Performance-Optimized Media",
+        description:
+          "Optimized a media-heavy site containing team galleries and product videos through aggressive image lazy-loading, PDF worker pre-loading, and route-based code splitting.",
+      },
+    ],
+    challenges: [
+      {
+        title: "Multi-Product Brand Consistency",
+        description:
+          "Maintaining brand consistency across multiple distinct product sub-pages by creating 'Layout Components' and 'Module Containers' that standardized padding, typography, and animation patterns while allowing page-specific brand colors.",
+      },
+      {
+        title: "Indonesian Internationalization",
+        description:
+          "Handling internationalization and cultural nuances by designing the typography system to support Raleway and Nunito fonts effectively across both English and Indonesian content.",
+      },
+      {
+        title: "Complex About Us Interactions",
+        description:
+          "Orchestrating milestone, team, and vision interactions by leveraging Framer Motion and Radix Accordion components for a non-linear storytelling experience that remains performant on mobile.",
+      },
+    ],
+    whatILearned: [
+      {
+        topic: "Corporate Brand Engineering",
+        description:
+          "Learned how to translate a company's 8-year history and mission into a high-performance digital experience.",
+      },
+      {
+        topic: "Scalable Next.js Patterns",
+        description:
+          "Mastered the use of Next.js modules to manage a large-scale corporate site without code bloat.",
+      },
+      {
+        topic: "Localized UX Strategy",
+        description:
+          "Deepened understanding of tailoring UI/UX to Indonesian cultural contexts through design and content structure.",
+      },
+    ],
+    projectInfo: {
+      category: "Corporate Portfolio / Tech Brand",
+      role: "Lead Frontend Engineer",
+      duration: "6 Months",
+      status: "Production",
+    },
+    highlights: [
+      "Comprehensive Corporate Storytelling",
+      "Interactive History & Milestone Tracking",
+      "Enterprise Talent & News Portal",
+      "Advanced Next.js 14 Architecture",
+      "Culturally-Tuned AI Product Demos",
+      "Premium Branding & Micro-animations",
+    ],
+    galleryCaptions: [
+      {
+        screen: "Corporate Homepage",
+        caption: "The primary entry point showcasing Cakra AI's 'Smart Up Your Biz' vision.",
+      },
+      {
+        screen: "Our Journey (About Us)",
+        caption: "A detailed narrative of Cakra AI's evolution from 2016 to the present.",
+      },
+      {
+        screen: "Technology & Innovation",
+        caption:
+          "Deep-dive pages detailing the Indonesian-centric AI models developed by the firm.",
+      },
+      {
+        screen: "Careers at Cakra AI",
+        caption: "The portal for the next generation of Indonesian AI talent.",
+      },
+    ],
+    ctaContent: {
+      livePreview:
+        "Visit the official Cakra AI company profile to explore our mission and technology.",
+      sourceCode:
+        "Review the enterprise-grade engineering and architectural standards of the Cakra AI platform.",
     },
   },
 ];

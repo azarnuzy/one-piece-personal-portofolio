@@ -45,7 +45,7 @@ function ProjectDetailHeroContentInner() {
           initial={{ opacity: 0, y: 14, filter: "blur(5px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
           transition={{ duration: 0.55, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-3 heading-display text-3xl leading-tight text-foreground md:text-4xl xl:text-5xl"
+          className="mb-3 line-clamp-3 heading-display text-3xl leading-tight text-foreground md:text-4xl xl:text-5xl"
         >
           <TitleWithHighlight title={project.hero.title} highlight={project.titleHighlight ?? ""} />
         </motion.h1>

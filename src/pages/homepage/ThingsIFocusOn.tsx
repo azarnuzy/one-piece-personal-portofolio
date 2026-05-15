@@ -17,7 +17,7 @@ export function ThingsIFocusOn() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6"
+      className="surface-card-treasure relative flex flex-col overflow-hidden p-5 md:p-6"
     >
       <CardWatermark asset="skull" position="bottom-right" size={180} opacity={0.05} rotate={-10} />
 

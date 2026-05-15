@@ -18,7 +18,7 @@ import { ProjectCard } from "@/pages/projects/ProjectCard";
 // so the Featured carousel and the Projects page stay in lockstep.
 const FEATURED_IDS = [
   "sygma-studio",
-  "lind-society",
+  "maxmar-evolution",
   "cakra-smart-search",
   "kampus-gratis",
   "hiazee",

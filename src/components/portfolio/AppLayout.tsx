@@ -26,6 +26,7 @@ const BADGE_MAP: Record<string, string> = {
 };
 
 const STANDARD_HEIGHT = "min-h-[420px] xl:min-h-[500px]";
+const DETAIL_HEIGHT = "min-h-[520px] xl:min-h-[620px]";
 
 function getHeroContent(pathname: string, isBlogDetail: boolean, isProjectDetail: boolean) {
   if (pathname === "/") return <HomeHeroContent />;
@@ -97,7 +98,7 @@ export function AppLayout() {
           <HeroShell
             badgeText={badge}
             onOpenSidebar={() => setSidebarOpen(true)}
-            minHeight={STANDARD_HEIGHT}
+            minHeight={isBlogDetail || isProjectDetail ? DETAIL_HEIGHT : STANDARD_HEIGHT}
             illustration={illustration}
           >
             {/* Hero text crossfade — old & new render simultaneously (overlap),
