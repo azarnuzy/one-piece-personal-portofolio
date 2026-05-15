@@ -1,78 +1,50 @@
+import { useMutation } from "@tanstack/react-query";
+import { useServerFn } from "@tanstack/react-start";
 import { motion, AnimatePresence } from "framer-motion";
 import { CheckCircleIcon, MailIcon, SendIcon } from "lucide-react";
 import { memo, useState, useRef } from "react";
+import { toast } from "sonner";
 
 import { CardWatermark } from "@/components/portfolio/CardWatermark";
 import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { $sendContactEmail } from "@/lib/email/send-contact";
 import { cn } from "@/lib/utils";
-
-const PROJECT_TYPES = [
-  "Select project type",
-  "Web Application",
-  "Landing Page",
-  "E-Commerce",
-  "Dashboard / Admin",
-  "API / Backend",
-  "Mobile App (React Native)",
-  "Open Source",
-  "Other",
-];
-
-const BUDGET_RANGES = [
-  "Select budget range",
-  "< $500",
-  "$500 – $1,500",
-  "$1,500 – $5,000",
-  "$5,000 – $10,000",
-  "$10,000+",
-  "Let's discuss",
-];
-
-function NativeSelect({
-  options,
-  className,
-  ...props
-}: React.SelectHTMLAttributes<HTMLSelectElement> & { options: string[] }) {
-  return (
-    <select
-      className={cn(
-        "h-9 w-full min-w-0 appearance-none rounded-3xl border border-transparent bg-input/50 px-3 py-1 font-sans text-sm text-foreground transition-[border-color,box-shadow] outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 disabled:opacity-50",
-        "[&>option]:bg-[var(--card)] [&>option:first-child]:text-muted-foreground",
-        className,
-      )}
-      {...props}
-    >
-      {options.map((opt, i) => (
-        <option key={opt} value={i === 0 ? "" : opt}>
-          {opt}
-        </option>
-      ))}
-    </select>
-  );
-}
 
 const MAX_CHARS = 500;
 
 function ContactFormCardInner() {
-  const [charCount, setCharCount] = useState(0);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
+
+  const sendEmail = useServerFn($sendContactEmail);
+
+  const mutation = useMutation({
+    mutationFn: (data: { name: string; email: string; message: string }) => sendEmail({ data }),
+    onSuccess: () => {
+      setSubmitted(true);
+      toast.success("Message sent! I'll get back to you within 24 hours.");
+    },
+    onError: (error) => {
+      toast.error(error instanceof Error ? error.message : "Failed to send message.");
+    },
+  });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      setSubmitted(true);
-    }, 1600);
+    mutation.mutate({ name, email, message });
   };
 
   const handleReset = () => {
     setSubmitted(false);
-    setCharCount(0);
+    setName("");
+    setEmail("");
+    setMessage("");
+    mutation.reset();
     formRef.current?.reset();
   };
 
@@ -142,6 +114,9 @@ function ContactFormCardInner() {
                   type="text"
                   placeholder="Your name"
                   required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  disabled={mutation.isPending}
                   className="h-9 border-border/50 bg-background/50 font-sans text-xs focus-visible:ring-brand-sunset/30"
                 />
               </div>
@@ -153,29 +128,10 @@ function ContactFormCardInner() {
                   type="email"
                   placeholder="you@example.com"
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  disabled={mutation.isPending}
                   className="h-9 border-border/50 bg-background/50 font-sans text-xs focus-visible:ring-brand-sunset/30"
-                />
-              </div>
-            </div>
-
-            {/* Row 2: Project Type + Budget */}
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              <div className="flex flex-col gap-1">
-                <label className="font-sans text-2xs font-medium tracking-wide text-muted-foreground uppercase">
-                  Project Type
-                </label>
-                <NativeSelect
-                  options={PROJECT_TYPES}
-                  className="border-border/50 bg-background/50 text-xs focus-visible:ring-brand-sunset/30"
-                />
-              </div>
-              <div className="flex flex-col gap-1">
-                <label className="font-sans text-2xs font-medium tracking-wide text-muted-foreground uppercase">
-                  Budget Range
-                </label>
-                <NativeSelect
-                  options={BUDGET_RANGES}
-                  className="border-border/50 bg-background/50 text-xs focus-visible:ring-brand-sunset/30"
                 />
               </div>
             </div>
@@ -189,17 +145,22 @@ function ContactFormCardInner() {
                 <span
                   className={cn(
                     "font-sans text-2xs",
-                    charCount > MAX_CHARS * 0.9 ? "text-brand-sunset" : "text-muted-foreground/50",
+                    message.length > MAX_CHARS * 0.9
+                      ? "text-brand-sunset"
+                      : "text-muted-foreground/50",
                   )}
                 >
-                  {charCount}/{MAX_CHARS}
+                  {message.length}/{MAX_CHARS}
                 </span>
               </div>
               <Textarea
                 placeholder="Tell me about your project, timeline, and goals..."
                 required
                 maxLength={MAX_CHARS}
-                onChange={(e) => setCharCount(e.target.value.length)}
+                minLength={10}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                disabled={mutation.isPending}
                 className="min-h-[90px] flex-1 resize-none border-border/50 bg-background/50 font-sans text-xs focus-visible:ring-brand-sunset/30"
               />
             </div>
@@ -209,11 +170,11 @@ function ContactFormCardInner() {
               <PirateCTAButton
                 type="submit"
                 variant="primary"
-                icon={submitting ? undefined : <SendIcon size={13} />}
+                icon={mutation.isPending ? undefined : <SendIcon size={13} />}
                 className="w-full justify-center shadow-lg"
-                disabled={submitting}
+                disabled={mutation.isPending}
               >
-                {submitting ? "Sending..." : "Send Message"}
+                {mutation.isPending ? "Sending..." : "Send Message"}
               </PirateCTAButton>
             </div>
           </motion.form>
