@@ -17,8 +17,12 @@ function HomePageInner() {
             <FeaturedProjects />
           </div>
           <div className="flex flex-col gap-4 md:gap-5 lg:col-span-4">
-            <ThingsIFocusOn />
-            <LatestInsights />
+            <div className="flex-1">
+              <ThingsIFocusOn />
+            </div>
+            <div className="flex-1">
+              <LatestInsights />
+            </div>
           </div>
         </div>
 

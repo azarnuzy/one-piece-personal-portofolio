@@ -17,7 +17,7 @@ export function ThingsIFocusOn() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      className="surface-card-treasure relative flex flex-col overflow-hidden p-5 md:p-6"
+      className="surface-card-treasure relative flex h-full flex-col overflow-hidden p-5 md:p-6"
     >
       <CardWatermark asset="skull" position="bottom-right" size={180} opacity={0.05} rotate={-10} />
 
@@ -26,7 +26,7 @@ export function ThingsIFocusOn() {
         <h2 className="heading-section text-lg text-foreground">Things I Focus On</h2>
       </div>
 
-      <div className="relative flex flex-col gap-3.5">
+      <div className="relative flex flex-1 flex-col justify-center gap-3.5">
         {FOCUS.map(({ icon: Icon, label, value }, idx) => (
           <div key={label} className="group">
             <div className="mb-1.5 flex items-center justify-between">

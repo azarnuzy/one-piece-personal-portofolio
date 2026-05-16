@@ -36,7 +36,7 @@ export function LatestInsights() {
       </div>
 
       {/* Compact list — title + read time only */}
-      <div className="relative flex flex-col divide-y divide-border/40">
+      <div className="relative flex flex-1 flex-col justify-center divide-y divide-border/40">
         {items.map((post, index) => (
           <motion.div
             key={post.id}

@@ -28,11 +28,12 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "Azar — Frontend Developer",
+        title: "Azar — Software Engineer",
       },
       {
         name: "description",
-        content: "Frontend Developer crafting fast, scalable & interactive web experiences.",
+        content:
+          "Software Engineer building AI-powered platforms — full-stack frontend with a performance-first mindset.",
       },
     ],
     links: [
