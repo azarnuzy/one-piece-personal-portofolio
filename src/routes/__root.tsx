@@ -35,6 +35,7 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
         content:
           "Software Engineer building AI-powered platforms — full-stack frontend with a performance-first mindset.",
       },
+      { property: "og:site_name", content: "Azar Nuzy" },
     ],
     links: [
       { rel: "icon", type: "image/x-icon", href: "/favicon/favicon.ico" },
@@ -68,6 +69,13 @@ function RootDocument({ children }: { readonly children: React.ReactNode }) {
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(){try{var t=localStorage.getItem('theme'),d=document.documentElement;d.classList.remove('light','dark');if(t==='dark'||((!t||t==='system')&&window.matchMedia('(prefers-color-scheme: dark)').matches)){d.classList.add('dark')}else{d.classList.add('light')}}catch(e){}})()`,
+          }}
+        />
+        {/* Google Analytics 4 — replace G-LHKBH27KMQ with your Measurement ID */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-LHKBH27KMQ" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-LHKBH27KMQ');`,
           }}
         />
       </head>
