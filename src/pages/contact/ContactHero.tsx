@@ -69,7 +69,7 @@ function ContactHeroContentInner() {
         aria-hidden
         animate={{ opacity: [0.3, 0.8, 0.3], scale: [1, 1.15, 1] }}
         transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none absolute bottom-6 left-6 hidden text-brand-treasure/40 md:block"
+        className="pointer-events-none absolute bottom-6 left-6 hidden text-accent-soft/40 md:block"
       >
         <SparklesIcon size={18} />
       </motion.div>

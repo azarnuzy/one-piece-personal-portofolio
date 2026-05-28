@@ -35,7 +35,7 @@ function ProjectDetailHeroContentInner() {
           initial={{ opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-4 flex items-center gap-1.5 font-sans text-xs text-muted-foreground transition-colors hover:text-brand-treasure"
+          className="mb-4 flex items-center gap-1.5 font-sans text-xs text-secondary-foreground transition-colors hover:text-accent-soft dark:text-muted-foreground dark:hover:text-brand-treasure"
         >
           <ArrowLeftIcon size={13} />
           Back to Projects
@@ -76,24 +76,24 @@ function ProjectDetailHeroContentInner() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.4 }}
-          className="flex flex-wrap items-center gap-x-3 gap-y-2 font-sans text-xs text-muted-foreground"
+          className="flex flex-wrap items-center gap-x-3 gap-y-2 font-sans text-xs text-secondary-foreground dark:text-muted-foreground"
         >
           <span className="flex items-center gap-1">
-            <UsersIcon size={11} />
+            <UsersIcon size={11} className="text-accent-soft" />
             {project.projectInfo.role}
           </span>
 
           <span className="h-3 w-px bg-border" aria-hidden />
 
           <span className="flex items-center gap-1">
-            <ClockIcon size={11} />
+            <ClockIcon size={11} className="text-accent-soft" />
             {project.projectInfo.duration}
           </span>
 
           <span className="h-3 w-px bg-border" aria-hidden />
 
           <span className="flex items-center gap-1">
-            <TagIcon size={11} />
+            <TagIcon size={11} className="text-accent-soft" />
             {project.projectInfo.category}
           </span>
         </motion.div>

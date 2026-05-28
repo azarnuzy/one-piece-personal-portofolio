@@ -29,7 +29,7 @@ function Pagination({
         onClick={() => onChange(Math.max(1, current - 1))}
         disabled={current === 1}
         aria-label="Previous page"
-        className="flex h-7 w-7 items-center justify-center rounded-lg border border-border/60 bg-card/60 text-muted-foreground transition-all duration-150 hover:-translate-y-0.5 hover:border-brand-treasure/30 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
+        className="flex h-7 w-7 items-center justify-center rounded-lg border border-border/60 bg-card/60 text-muted-foreground transition-all duration-150 hover:-translate-y-0.5 hover:border-accent-soft/30 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
       >
         <ChevronLeftIcon size={13} />
       </button>
@@ -43,7 +43,7 @@ function Pagination({
             "flex h-7 w-7 items-center justify-center rounded-lg font-sans text-xs font-medium transition-all duration-150 hover:-translate-y-0.5",
             page === current
               ? "bg-brand-sun/90 text-primary-foreground shadow-sm"
-              : "border border-border/60 bg-card/60 text-muted-foreground hover:border-brand-treasure/30 hover:text-foreground",
+              : "border border-border/60 bg-card/60 text-muted-foreground hover:border-accent-soft/30 hover:text-foreground",
           )}
         >
           {page}
@@ -55,7 +55,7 @@ function Pagination({
         onClick={() => onChange(Math.min(total, current + 1))}
         disabled={current === total}
         aria-label="Next page"
-        className="flex h-7 w-7 items-center justify-center rounded-lg border border-border/60 bg-card/60 text-muted-foreground transition-all duration-150 hover:-translate-y-0.5 hover:border-brand-treasure/30 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
+        className="flex h-7 w-7 items-center justify-center rounded-lg border border-border/60 bg-card/60 text-muted-foreground transition-all duration-150 hover:-translate-y-0.5 hover:border-accent-soft/30 hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40"
       >
         <ChevronRightIcon size={13} />
       </button>
@@ -153,7 +153,7 @@ function BlogPageInner() {
           <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
         </span>
         <span className="flex items-center gap-1.5">
-          <AnchorIcon size={11} className="text-brand-treasure" />
+          <AnchorIcon size={11} className="text-accent-soft" />
           Sailing the React seas
         </span>
       </footer>

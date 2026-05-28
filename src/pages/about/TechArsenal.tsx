@@ -58,7 +58,7 @@ const PROFICIENCY = [
 ];
 
 const PROF_TONE = {
-  treasure: "text-brand-treasure border-brand-treasure/40 bg-brand-treasure/10",
+  treasure: "text-accent-soft border-accent-soft/40 bg-accent-soft/10",
   info: "text-brand-info border-brand-info/40 bg-brand-info/10",
   sunset: "text-brand-sunset border-brand-sunset/40 bg-brand-sunset/10",
 };
@@ -82,7 +82,7 @@ function TechPill({ tech, delay }: { tech: Tech; delay: number }) {
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.3, delay, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -1.5 }}
-      className="inline-flex cursor-default items-center gap-1 rounded-pill border border-border/60 bg-card/50 px-2 py-0.5 backdrop-blur-md transition-colors hover:border-brand-treasure/40"
+      className="inline-flex cursor-default items-center gap-1 rounded-pill border border-border/60 bg-card/50 px-2 py-0.5 backdrop-blur-md transition-colors hover:border-accent-soft/40"
     >
       <Icon size={10} className={tech.color} />
       <span className="font-sans text-2xs font-medium text-foreground/85">{tech.label}</span>
@@ -103,7 +103,7 @@ export function TechArsenal() {
           return (
             <div key={group.label}>
               <div className="mb-1 flex items-center gap-1.5">
-                <GroupIcon size={11} className="text-brand-treasure" />
+                <GroupIcon size={11} className="text-accent-soft" />
                 <h3 className="font-display text-2xs font-bold tracking-wider text-foreground/80 uppercase">
                   {group.label}
                 </h3>

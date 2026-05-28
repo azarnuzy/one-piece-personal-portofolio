@@ -32,7 +32,7 @@ const POINTS = [
 ];
 
 const TONE = {
-  treasure: { bg: "bg-brand-treasure/15", text: "text-brand-treasure" },
+  treasure: { bg: "bg-accent-soft/15", text: "text-accent-soft" },
   sunset: { bg: "bg-brand-sunset/15", text: "text-brand-sunset" },
   info: { bg: "bg-brand-info/15", text: "text-brand-info" },
 };
@@ -84,7 +84,7 @@ export function WhatImLookingFor() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="flex flex-col justify-between gap-2 rounded-xl border border-brand-treasure/50 bg-brand-treasure/15 p-3 lg:col-span-5"
+          className="flex flex-col justify-between gap-2 rounded-xl border border-accent-soft/50 bg-accent-soft/15 p-3 lg:col-span-5"
         >
           <div className="flex flex-col gap-1.5">
             <span className="inline-flex w-fit items-center gap-1.5 rounded-pill border border-brand-success/40 bg-brand-success/15 px-2 py-0.5 font-sans text-2xs font-semibold text-brand-success">
@@ -102,7 +102,7 @@ export function WhatImLookingFor() {
 
           <a
             href="/contact"
-            className="inline-flex items-center justify-center gap-1.5 rounded-pill border border-brand-treasure bg-brand-treasure/20 px-3 py-1.5 font-sans text-2xs font-semibold text-brand-treasure transition-colors duration-200 hover:bg-brand-treasure/30"
+            className="inline-flex items-center justify-center gap-1.5 rounded-pill border border-accent-soft bg-accent-soft/20 px-3 py-1.5 font-sans text-2xs font-semibold text-accent-soft transition-colors duration-200 hover:bg-accent-soft/30"
           >
             <CompassIcon size={12} />
             Get In Touch

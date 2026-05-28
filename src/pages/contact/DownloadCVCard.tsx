@@ -24,9 +24,9 @@ function DownloadCVCardInner() {
 
       {/* CV Preview row — compact, no highlights list */}
       <div className="relative mb-3 flex items-center gap-3 rounded-xl border border-border/40 bg-background/40 p-2.5">
-        <div className="flex h-10 w-9 shrink-0 flex-col items-center justify-center rounded-lg border border-brand-treasure/30 bg-brand-treasure/10">
-          <FileTextIcon size={15} className="text-brand-treasure" />
-          <span className="mt-0 font-sans text-[9px] font-bold tracking-wide text-brand-treasure/80 uppercase">
+        <div className="flex h-10 w-9 shrink-0 flex-col items-center justify-center rounded-lg border border-accent-soft/30 bg-accent-soft/10">
+          <FileTextIcon size={15} className="text-accent-soft" />
+          <span className="mt-0 font-sans text-[9px] font-bold tracking-wide text-accent-soft/85 uppercase">
             pdf
           </span>
         </div>

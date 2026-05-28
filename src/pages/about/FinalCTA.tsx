@@ -72,7 +72,7 @@ function FloatingSparkles() {
       {stars.map((s, i) => (
         <motion.span
           key={i}
-          className="absolute text-brand-treasure"
+          className="absolute text-accent-soft"
           style={{ left: `${s.x}%`, top: `${s.y}%` }}
           animate={{ opacity: [0.2, 0.9, 0.2], scale: [0.8, 1.15, 0.8] }}
           transition={{ duration: 2.6 + s.delay, delay: s.delay, repeat: Infinity }}

@@ -90,7 +90,7 @@ function ContactFormCardInner() {
             </div>
             <button
               onClick={handleReset}
-              className="mt-2 rounded-full border border-border/50 px-4 py-1.5 font-sans text-xs text-muted-foreground transition-colors hover:border-brand-treasure/40 hover:text-foreground"
+              className="mt-2 rounded-full border border-border/50 px-4 py-1.5 font-sans text-xs text-muted-foreground transition-colors hover:border-accent-soft/40 hover:text-foreground"
             >
               Send another message
             </button>

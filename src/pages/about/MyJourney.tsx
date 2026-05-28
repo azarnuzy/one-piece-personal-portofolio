@@ -57,7 +57,7 @@ const TIMELINE = [
 ];
 
 const TONE_CLASSES = {
-  treasure: { bg: "bg-brand-treasure/15", text: "text-brand-treasure" },
+  treasure: { bg: "bg-accent-soft/15", text: "text-accent-soft" },
   info: { bg: "bg-brand-info/15", text: "text-brand-info" },
   sunset: { bg: "bg-brand-sunset/15", text: "text-brand-sunset" },
   success: { bg: "bg-brand-success/15", text: "text-brand-success" },
@@ -83,7 +83,7 @@ export function MyJourney() {
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0 origin-top bg-gradient-to-b from-brand-treasure via-brand-sunset to-brand-treasure/30"
+            className="absolute inset-0 origin-top bg-gradient-to-b from-accent-soft via-brand-sunset to-accent-soft/30"
           />
         </div>
 
@@ -130,9 +130,7 @@ export function MyJourney() {
         {STATS.map((stat, i) => (
           <span key={stat.label} className="inline-flex items-center gap-2">
             <span>
-              <span className="font-display text-sm font-bold text-brand-treasure">
-                {stat.value}
-              </span>{" "}
+              <span className="font-display text-sm font-bold text-accent-soft">{stat.value}</span>{" "}
               <span className="text-secondary-foreground">{stat.label}</span>
             </span>
             {i < STATS.length - 1 && <span className="text-border">•</span>}

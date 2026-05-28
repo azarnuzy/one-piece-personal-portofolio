@@ -38,7 +38,7 @@ const EDUCATION: Array<{
 ];
 
 const EDU_TONE: Record<Tone, { bg: string; text: string }> = {
-  treasure: { bg: "bg-brand-treasure/15", text: "text-brand-treasure" },
+  treasure: { bg: "bg-accent-soft/15", text: "text-accent-soft" },
   info: { bg: "bg-brand-info/15", text: "text-brand-info" },
   sunset: { bg: "bg-brand-sunset/15", text: "text-brand-sunset" },
   success: { bg: "bg-brand-success/15", text: "text-brand-success" },
@@ -57,7 +57,7 @@ export function Education() {
             whileInView={{ scaleY: 1 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0 origin-top bg-gradient-to-b from-brand-treasure to-brand-info/40"
+            className="absolute inset-0 origin-top bg-gradient-to-b from-accent-soft to-brand-info/40"
           />
         </div>
 

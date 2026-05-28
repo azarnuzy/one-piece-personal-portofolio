@@ -14,7 +14,7 @@ const THUMBNAIL_META: Record<ThumbnailKey, { bg: string; accent: string; icon: R
   {
     journey: {
       bg: "from-[oklch(from_var(--brand-ink)_calc(l+0.04)_c_h)] to-[oklch(from_var(--brand-info)_calc(l-0.25)_calc(c*0.6)_h)]",
-      accent: "oklch(from var(--brand-treasure) l c h / 0.9)",
+      accent: "oklch(from var(--accent-soft) l c h / 0.9)",
       icon: (
         <svg viewBox="0 0 48 48" className="h-full w-full" fill="none">
           <circle cx="24" cy="24" r="10" stroke="currentColor" strokeWidth="1.5" opacity="0.7" />
@@ -268,7 +268,7 @@ function FeaturedCard({ post, index }: { post: BlogPost; index: number }) {
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-        className="group relative flex gap-4 overflow-hidden rounded-2xl border border-border/60 bg-card/70 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-treasure/35 hover:shadow-[var(--shadow-card-lg)] md:p-5"
+        className="group relative flex gap-4 overflow-hidden rounded-2xl border border-border/60 bg-card/70 p-4 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent-soft/35 hover:shadow-[var(--shadow-card-lg)] md:p-5"
       >
         {/* Subtle inner gradient */}
         <div
@@ -276,7 +276,7 @@ function FeaturedCard({ post, index }: { post: BlogPost; index: number }) {
           className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-300 group-hover:opacity-100"
           style={{
             background:
-              "radial-gradient(ellipse 60% 50% at 0% 50%, oklch(from var(--brand-treasure) l c h / 0.04), transparent)",
+              "radial-gradient(ellipse 60% 50% at 0% 50%, oklch(from var(--accent-soft) l c h / 0.04), transparent)",
           }}
         />
 
@@ -297,13 +297,13 @@ function FeaturedCard({ post, index }: { post: BlogPost; index: number }) {
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           {/* Category badge */}
           <div className="flex items-center gap-2 pt-1">
-            <span className="inline-flex items-center rounded-full bg-brand-treasure/12 px-2.5 py-0.5 font-sans text-2xs font-semibold tracking-wide text-brand-treasure">
+            <span className="inline-flex items-center rounded-full bg-accent-soft/15 px-2.5 py-0.5 font-sans text-2xs font-semibold tracking-wide text-accent-soft">
               {CATEGORY_LABEL[post.category]}
             </span>
           </div>
 
           {/* Title */}
-          <h3 className="line-clamp-2 heading-section text-sm leading-snug text-foreground transition-colors group-hover:text-brand-treasure md:text-base">
+          <h3 className="line-clamp-2 heading-section text-sm leading-snug text-foreground transition-colors group-hover:text-accent-soft md:text-base">
             {post.title}
           </h3>
 
@@ -326,7 +326,7 @@ function FeaturedCard({ post, index }: { post: BlogPost; index: number }) {
               </span>
             </div>
 
-            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border/60 text-muted-foreground transition-all duration-200 group-hover:translate-x-0.5 group-hover:border-brand-treasure/50 group-hover:bg-brand-treasure/10 group-hover:text-brand-treasure">
+            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border/60 text-muted-foreground transition-all duration-200 group-hover:translate-x-0.5 group-hover:border-accent-soft/50 group-hover:bg-accent-soft/10 group-hover:text-accent-soft">
               <ArrowRightIcon size={11} />
             </div>
           </div>
@@ -345,7 +345,7 @@ function CompactCard({ post, index }: { post: BlogPost; index: number }) {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.35, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
-        className="group relative flex h-full gap-3 overflow-hidden rounded-xl border border-border/50 bg-card/50 p-3 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-treasure/25 hover:bg-card/70 hover:shadow-[var(--shadow-card)]"
+        className="group relative flex h-full gap-3 overflow-hidden rounded-xl border border-border/50 bg-card/50 p-3 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-accent-soft/25 hover:bg-card/70 hover:shadow-[var(--shadow-card)]"
       >
         {/* Thumbnail */}
         <BlogThumbnail thumbnailKey={post.thumbnailKey} size="sm" />
@@ -354,10 +354,10 @@ function CompactCard({ post, index }: { post: BlogPost; index: number }) {
         <div className="flex min-w-0 flex-1 flex-col justify-between gap-1">
           {/* Category + title */}
           <div>
-            <span className="mb-1 inline-block rounded-full bg-brand-treasure/10 px-2 py-px font-sans text-2xs font-medium text-brand-treasure">
+            <span className="mb-1 inline-block rounded-full bg-accent-soft/10 px-2 py-px font-sans text-2xs font-medium text-accent-soft">
               {CATEGORY_LABEL[post.category]}
             </span>
-            <h3 className="line-clamp-2 heading-section text-xs leading-snug text-foreground transition-colors group-hover:text-brand-treasure sm:text-sm">
+            <h3 className="line-clamp-2 heading-section text-xs leading-snug text-foreground transition-colors group-hover:text-accent-soft sm:text-sm">
               {post.title}
             </h3>
             <p className="mt-0.5 line-clamp-1 font-sans text-2xs leading-relaxed text-muted-foreground">
@@ -377,7 +377,7 @@ function CompactCard({ post, index }: { post: BlogPost; index: number }) {
                 {post.readTime}m
               </span>
             </div>
-            <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-all duration-200 group-hover:border-brand-treasure/40 group-hover:text-brand-treasure">
+            <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-border/50 text-muted-foreground transition-all duration-200 group-hover:border-accent-soft/40 group-hover:text-accent-soft">
               <ArrowRightIcon size={9} />
             </div>
           </div>

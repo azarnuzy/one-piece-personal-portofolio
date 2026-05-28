@@ -93,7 +93,7 @@ function AvailabilityStatusCardInner() {
 
       {/* Merged CTA — short connect tagline */}
       <div className="relative mt-4 flex flex-col items-center gap-1.5 border-t border-border/40 pt-3">
-        <div className="flex items-center gap-1.5 text-brand-treasure/60">
+        <div className="flex items-center gap-1.5 text-accent-soft/75">
           <AnchorIcon size={11} />
           <span className="font-sans text-2xs font-semibold tracking-wider uppercase">
             Let's Connect

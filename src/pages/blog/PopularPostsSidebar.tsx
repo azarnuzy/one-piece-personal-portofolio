@@ -15,7 +15,7 @@ const THUMB_ACCENT: Record<ThumbnailKey, string> = {
   javascript: "bg-brand-sun/10 text-brand-sun border-brand-sun/20",
 };
 
-const RANK_TONE = ["text-brand-treasure", "text-brand-sunset/80", "text-brand-info/70"];
+const RANK_TONE = ["text-accent-soft", "text-brand-sunset/80", "text-brand-info/70"];
 
 export function PopularPostsSidebar() {
   return (
@@ -24,7 +24,7 @@ export function PopularPostsSidebar() {
 
       <div className="mb-4 flex items-center justify-between border-b border-border/40 pb-2">
         <div className="flex items-center gap-2">
-          <TrophyIcon size={14} className="text-brand-treasure" />
+          <TrophyIcon size={14} className="text-accent-soft" />
           <h2 className="heading-section text-xs font-bold text-foreground">Popular Posts</h2>
         </div>
         <FlameIcon size={12} className="animate-pulse text-brand-sunset" />
@@ -65,24 +65,24 @@ export function PopularPostsSidebar() {
 
               <div className="min-w-0 flex-1 py-0.5">
                 <div className="mb-1 flex items-center gap-2">
-                  <span className="font-sans text-[9px] font-bold tracking-wider text-brand-treasure/80 uppercase">
+                  <span className="font-sans text-[9px] font-bold tracking-wider text-accent-soft/85 uppercase">
                     {CATEGORY_LABEL[post.category]}
                   </span>
                 </div>
-                <h3 className="line-clamp-2 font-sans text-[11px] leading-tight font-semibold text-foreground/90 transition-colors group-hover:text-brand-treasure">
+                <h3 className="line-clamp-2 font-sans text-[11px] leading-tight font-semibold text-foreground/90 transition-colors group-hover:text-accent-soft">
                   {post.title}
                 </h3>
               </div>
 
               <div className="flex items-center self-center pl-1 opacity-0 transition-all duration-200 group-hover:translate-x-0.5 group-hover:opacity-100">
-                <ArrowRightIcon size={11} className="text-brand-treasure" />
+                <ArrowRightIcon size={11} className="text-accent-soft" />
               </div>
             </Link>
           </motion.li>
         ))}
       </ul>
 
-      <div className="mt-6 rounded-xl border border-brand-treasure/20 bg-brand-treasure/5 p-3 ring-1 ring-brand-treasure/10">
+      <div className="mt-6 rounded-xl border border-accent-soft/20 bg-accent-soft/5 p-3 ring-1 ring-accent-soft/10">
         <p className="font-display text-[11px] font-bold text-foreground">Sailing further?</p>
         <p className="mt-1 font-sans text-[10px] leading-relaxed text-muted-foreground/80">
           Check out my latest technical deep-dives and tutorials.

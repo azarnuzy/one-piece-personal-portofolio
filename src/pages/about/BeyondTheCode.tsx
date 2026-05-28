@@ -25,7 +25,7 @@ const LANGUAGES = [
 ];
 
 const TONE_CLASSES = {
-  treasure: { bg: "bg-brand-treasure/15", text: "text-brand-treasure" },
+  treasure: { bg: "bg-accent-soft/15", text: "text-accent-soft" },
   sunset: { bg: "bg-brand-sunset/15", text: "text-brand-sunset" },
   info: { bg: "bg-brand-info/15", text: "text-brand-info" },
   success: { bg: "bg-brand-success/15", text: "text-brand-success" },
@@ -99,8 +99,8 @@ export function BeyondTheCode() {
                 Base
               </span>
             </div>
-            <div className="flex flex-col gap-1 rounded-lg border border-brand-treasure/20 bg-brand-treasure/5 p-2 ring-1 ring-brand-treasure/10">
-              <span className="font-display text-xs font-bold text-brand-treasure">
+            <div className="flex flex-col gap-1 rounded-lg border border-accent-soft/20 bg-accent-soft/5 p-2 ring-1 ring-accent-soft/10">
+              <span className="font-display text-xs font-bold text-accent-soft">
                 Tangerang, Indonesia
               </span>
               <span className="font-sans text-[10px] text-muted-foreground/80">WIB (UTC+7)</span>

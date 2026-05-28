@@ -33,9 +33,9 @@ export function Certifications() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.35, delay: i * 0.06 }}
-            className="group flex items-start gap-2 rounded-lg border border-border/50 bg-card/40 px-2.5 py-1.5 backdrop-blur-md transition-colors hover:border-brand-treasure/40"
+            className="group flex items-start gap-2 rounded-lg border border-border/50 bg-card/40 px-2.5 py-1.5 backdrop-blur-md transition-colors hover:border-accent-soft/40"
           >
-            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-brand-treasure/15 text-brand-treasure">
+            <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-accent-soft/15 text-accent-soft">
               <AwardIcon size={11} />
             </div>
             <div className="min-w-0 flex-1">

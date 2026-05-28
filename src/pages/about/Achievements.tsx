@@ -52,7 +52,7 @@ const ACHIEVEMENTS: Array<{
 ];
 
 const TONE: Record<Tone, { bg: string; text: string }> = {
-  treasure: { bg: "bg-brand-treasure/15", text: "text-brand-treasure" },
+  treasure: { bg: "bg-accent-soft/15", text: "text-accent-soft" },
   info: { bg: "bg-brand-info/15", text: "text-brand-info" },
   sunset: { bg: "bg-brand-sunset/15", text: "text-brand-sunset" },
   success: { bg: "bg-brand-success/15", text: "text-brand-success" },
@@ -75,7 +75,7 @@ export function Achievements() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.35, delay: i * 0.06 }}
-              className="group flex items-start gap-2 rounded-lg border border-border/50 bg-card/40 px-2.5 py-1.5 backdrop-blur-md transition-colors hover:border-brand-treasure/40"
+              className="group flex items-start gap-2 rounded-lg border border-border/50 bg-card/40 px-2.5 py-1.5 backdrop-blur-md transition-colors hover:border-accent-soft/40"
             >
               <div
                 className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md ${tone.bg} ${tone.text}`}

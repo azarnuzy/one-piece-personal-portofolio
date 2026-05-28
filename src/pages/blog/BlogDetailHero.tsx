@@ -22,7 +22,7 @@ function BlogDetailHeroContentInner() {
           initial={{ opacity: 0, x: -12 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-4 flex items-center gap-1.5 font-sans text-xs text-muted-foreground transition-colors hover:text-brand-treasure"
+          className="mb-4 flex items-center gap-1.5 font-sans text-xs text-secondary-foreground transition-colors hover:text-accent-soft dark:text-muted-foreground dark:hover:text-brand-treasure"
         >
           <ArrowLeftIcon size={13} />
           Back to Blog
@@ -41,7 +41,7 @@ function BlogDetailHeroContentInner() {
               Featured Post
             </span>
           )}
-          <span className="inline-flex items-center rounded-full bg-brand-treasure/15 px-2.5 py-1 font-sans text-2xs font-semibold tracking-wide text-brand-treasure">
+          <span className="inline-flex items-center rounded-full bg-accent-soft/15 px-2.5 py-1 font-sans text-2xs font-semibold tracking-wide text-accent-soft">
             {CATEGORY_LABEL[post.category]}
           </span>
         </motion.div>
@@ -71,10 +71,10 @@ function BlogDetailHeroContentInner() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, delay: 0.34 }}
-          className="flex flex-wrap items-center gap-x-4 gap-y-2 font-sans text-xs text-muted-foreground"
+          className="flex flex-wrap items-center gap-x-4 gap-y-2 font-sans text-xs text-secondary-foreground dark:text-muted-foreground"
         >
           <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-treasure/20 font-display text-xs font-bold text-brand-treasure">
+            <div className="flex h-7 w-7 items-center justify-center rounded-full bg-accent-soft/20 font-display text-xs font-bold text-accent-soft">
               A
             </div>
             <span className="font-medium text-foreground/80">Azar</span>
@@ -83,14 +83,14 @@ function BlogDetailHeroContentInner() {
           <span className="h-3 w-px bg-border" aria-hidden />
 
           <span className="flex items-center gap-1">
-            <CalendarIcon size={11} />
+            <CalendarIcon size={11} className="text-accent-soft" />
             {post.date}
           </span>
 
           <span className="h-3 w-px bg-border" aria-hidden />
 
           <span className="flex items-center gap-1">
-            <ClockIcon size={11} />
+            <ClockIcon size={11} className="text-accent-soft" />
             {post.readTime} min read
           </span>
 

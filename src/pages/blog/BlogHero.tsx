@@ -25,7 +25,7 @@ function CategoryPill({
         "relative inline-flex items-center rounded-full px-3.5 py-1.5 font-sans text-xs font-medium transition-all duration-200",
         active
           ? "bg-brand-sun/90 text-primary-foreground shadow-sm"
-          : "border border-border/60 bg-card/50 text-muted-foreground backdrop-blur-sm hover:border-brand-treasure/40 hover:text-foreground",
+          : "border border-border/60 bg-card/50 text-muted-foreground backdrop-blur-sm hover:border-accent-soft/40 hover:text-foreground",
       )}
     >
       {label}

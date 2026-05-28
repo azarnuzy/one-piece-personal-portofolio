@@ -216,7 +216,7 @@ function LearningCardGrid({ learnings }: { learnings: ProjectLearning[] }) {
 function SectionLabel({ icon: IconComponent, text }: { icon: React.ElementType; text: string }) {
   return (
     <div className="mb-3 flex items-center gap-2">
-      <IconComponent size={13} className="shrink-0 text-brand-treasure" />
+      <IconComponent size={13} className="shrink-0 text-accent-soft" />
       <span className="font-display text-sm font-bold text-foreground">{text}</span>
       <div className="h-px flex-1 bg-border/30" />
     </div>
@@ -234,8 +234,8 @@ function OverviewSection({ project }: { project: ProjectV2 }) {
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="rounded-2xl border border-border/50 bg-card/50 p-4 backdrop-blur-sm md:p-5"
     >
-      <div className="mb-4 rounded-xl border border-brand-treasure/20 bg-brand-treasure/5 px-3.5 py-2.5">
-        <p className="font-sans text-xs leading-relaxed text-brand-treasure/90">
+      <div className="mb-4 rounded-xl border border-accent-soft/20 bg-accent-soft/5 px-3.5 py-2.5">
+        <p className="font-sans text-xs leading-relaxed text-accent-soft/90">
           {project.hero.subtitle}
         </p>
       </div>
@@ -287,7 +287,7 @@ function SnapshotSection({ project }: { project: ProjectV2 }) {
             key={label}
             className="flex items-center gap-1.5 rounded-lg border border-border/50 bg-muted/30 px-2.5 py-1.5"
           >
-            <Icon size={10} className="shrink-0 text-brand-treasure/70" />
+            <Icon size={10} className="shrink-0 text-accent-soft/80" />
             <span className="font-sans text-2xs text-muted-foreground">{label}</span>
             <span className="h-3 w-px bg-border" aria-hidden />
             <span className="font-display text-2xs font-semibold text-foreground">{value}</span>
@@ -325,10 +325,10 @@ function FeaturesSection({ project }: { project: ProjectV2 }) {
           return (
             <div
               key={feature.name}
-              className="flex gap-3 rounded-xl border border-border/40 bg-card/30 p-3 transition-colors duration-200 hover:border-brand-treasure/30 hover:bg-card/60"
+              className="flex gap-3 rounded-xl border border-border/40 bg-card/30 p-3 transition-colors duration-200 hover:border-accent-soft/30 hover:bg-card/60"
             >
-              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-brand-treasure/15">
-                <Icon size={13} className="text-brand-treasure" />
+              <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-accent-soft/15">
+                <Icon size={13} className="text-accent-soft" />
               </div>
               <div className="min-w-0">
                 <p className="mb-0.5 font-display text-xs font-bold text-foreground">
@@ -361,18 +361,18 @@ function ShowcaseSection({ project }: { project: ProjectV2 }) {
           className="pointer-events-none absolute inset-0 opacity-[0.06]"
           style={{
             backgroundImage:
-              "radial-gradient(circle, oklch(from var(--brand-treasure) l c h / 1) 1px, transparent 1px)",
+              "radial-gradient(circle, oklch(from var(--accent-soft) l c h / 1) 1px, transparent 1px)",
             backgroundSize: "20px 20px",
           }}
         />
-        <div className="pointer-events-none absolute top-0 right-0 h-40 w-40 rounded-full bg-brand-treasure/10 blur-3xl" />
+        <div className="pointer-events-none absolute top-0 right-0 h-40 w-40 rounded-full bg-accent-soft/10 blur-3xl" />
         <div className="pointer-events-none absolute bottom-0 left-0 h-32 w-32 rounded-full bg-brand-info/12 blur-3xl" />
 
         <div className="relative flex items-center justify-center px-6 py-6 md:px-10 md:py-8">
           <img
             src={project.thumbnailImage}
             alt={project.hero.title}
-            className="relative z-10 max-h-[300px] w-full object-contain drop-shadow-[0_20px_60px_oklch(from_var(--brand-treasure)_l_c_h_/_0.4)] md:max-h-[360px]"
+            className="relative z-10 max-h-[300px] w-full object-contain drop-shadow-[0_20px_60px_oklch(from_var(--accent-soft)_l_c_h_/_0.4)] md:max-h-[360px]"
           />
         </div>
 
@@ -432,9 +432,9 @@ function TechSection({ project }: { project: ProjectV2 }) {
           return (
             <div
               key={tech.name}
-              className="flex items-center gap-1.5 rounded-lg border border-border/50 bg-muted/30 px-2.5 py-1.5 transition-colors duration-200 hover:border-brand-treasure/30 hover:bg-card/60"
+              className="flex items-center gap-1.5 rounded-lg border border-border/50 bg-muted/30 px-2.5 py-1.5 transition-colors duration-200 hover:border-accent-soft/30 hover:bg-card/60"
             >
-              <Icon size={12} className="text-brand-treasure" />
+              <Icon size={12} className="text-accent-soft" />
               <span className="font-display text-xs font-semibold text-foreground">
                 {tech.name}
               </span>
@@ -463,10 +463,10 @@ function PageShowcaseSection({ project }: { project: ProjectV2 }) {
         {project.galleryCaptions.map((item, i) => (
           <div
             key={item.screen}
-            className="rounded-xl border border-border/40 bg-card/30 p-3.5 transition-colors duration-200 hover:border-brand-treasure/25 hover:bg-card/50"
+            className="rounded-xl border border-border/40 bg-card/30 p-3.5 transition-colors duration-200 hover:border-accent-soft/25 hover:bg-card/50"
           >
             <div className="mb-2.5 flex items-center justify-between">
-              <span className="rounded-md bg-brand-treasure/10 px-1.5 py-0.5 font-mono text-2xs font-bold text-brand-treasure/80">
+              <span className="rounded-md bg-accent-soft/10 px-1.5 py-0.5 font-mono text-2xs font-bold text-accent-soft/85">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <MonitorIcon size={11} className="text-muted-foreground/30" />
@@ -496,10 +496,10 @@ function EngineeringSection({ project }: { project: ProjectV2 }) {
         {project.engineeringHighlights.map((h) => (
           <div
             key={h.point}
-            className="rounded-xl border border-brand-treasure/15 bg-brand-treasure/5 p-3"
+            className="rounded-xl border border-accent-soft/15 bg-accent-soft/5 p-3"
           >
             <div className="mb-1.5 flex items-start gap-2">
-              <ZapIcon size={11} className="mt-0.5 shrink-0 text-brand-treasure" />
+              <ZapIcon size={11} className="mt-0.5 shrink-0 text-accent-soft" />
               <p className="font-display text-xs font-bold text-foreground">{h.point}</p>
             </div>
             <p className="pl-[19px] font-sans text-2xs leading-relaxed text-muted-foreground">
@@ -551,8 +551,8 @@ function ChallengesLearnedSection({ project }: { project: ProjectV2 }) {
                   key={item.topic}
                   className="flex gap-2.5 rounded-xl border border-border/40 bg-card/30 p-3"
                 >
-                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-brand-treasure/15">
-                    <Icon size={11} className="text-brand-treasure" />
+                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-accent-soft/15">
+                    <Icon size={11} className="text-accent-soft" />
                   </div>
                   <div>
                     <p className="mb-0.5 font-display text-xs font-bold text-foreground">
@@ -586,7 +586,7 @@ function SidebarV2({ project }: { project: ProjectV2 }) {
     <div className="flex flex-col gap-3">
       <div className="surface-card p-3.5">
         <div className="mb-2.5 flex items-center gap-2">
-          <InfoIcon size={12} className="text-brand-treasure" />
+          <InfoIcon size={12} className="text-accent-soft" />
           <h3 className="font-display text-xs font-bold text-foreground">Project Info</h3>
         </div>
         <div className="flex flex-col divide-y divide-border/30">
@@ -606,7 +606,7 @@ function SidebarV2({ project }: { project: ProjectV2 }) {
 
       <div className="surface-card p-3.5">
         <div className="mb-2.5 flex items-center gap-2">
-          <StarIcon size={12} className="text-brand-treasure" />
+          <StarIcon size={12} className="text-accent-soft" />
           <h3 className="font-display text-xs font-bold text-foreground">Highlights</h3>
         </div>
         <ul className="flex flex-col gap-1.5">
@@ -663,7 +663,7 @@ function ProjectDetailV2PageContent({ project }: { project: ProjectV2 }) {
           <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
         </span>
         <span className="flex items-center gap-1.5">
-          <AnchorIcon size={11} className="text-brand-treasure" />
+          <AnchorIcon size={11} className="text-accent-soft" />
           Sailing the React seas
         </span>
       </footer>

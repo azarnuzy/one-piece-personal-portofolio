@@ -17,7 +17,7 @@ import { POSTS } from "./data";
 function ArticleHeading({ children }: { children: React.ReactNode }) {
   return (
     <h2 className="mt-8 mb-3 flex items-center gap-2 heading-section text-base text-foreground md:text-lg">
-      <span className="h-5 w-0.5 shrink-0 rounded-full bg-brand-treasure" aria-hidden />
+      <span className="h-5 w-0.5 shrink-0 rounded-full bg-accent-soft" aria-hidden />
       {children}
     </h2>
   );
@@ -41,7 +41,7 @@ function ArticleCallout({
   children: React.ReactNode;
 }) {
   const styles = {
-    treasure: "border-brand-treasure/30 bg-brand-treasure/5 text-brand-treasure",
+    treasure: "border-accent-soft/30 bg-accent-soft/5 text-accent-soft",
     sunset: "border-brand-sunset/30 bg-brand-sunset/5 text-brand-sunset",
     info: "border-brand-info/30 bg-brand-info/5 text-brand-info",
   }[tone];
@@ -56,8 +56,8 @@ function ArticleCallout({
 
 function ArticleBlockquote({ children }: { children: React.ReactNode }) {
   return (
-    <blockquote className="my-5 flex gap-3 rounded-xl border border-brand-treasure/20 bg-brand-treasure/5 p-4 md:p-5">
-      <QuoteIcon size={18} className="mt-0.5 shrink-0 text-brand-treasure/60" />
+    <blockquote className="my-5 flex gap-3 rounded-xl border border-accent-soft/20 bg-accent-soft/5 p-4 md:p-5">
+      <QuoteIcon size={18} className="mt-0.5 shrink-0 text-accent-soft/60" />
       <p className="font-display text-sm leading-relaxed text-foreground/80 italic md:text-base">
         {children}
       </p>
@@ -75,7 +75,7 @@ function ArticleCode({
   return (
     <div className="my-5 overflow-hidden rounded-xl border border-border/50 bg-card/80 shadow-[var(--shadow-card)]">
       <div className="flex items-center gap-2 border-b border-border/40 bg-muted/40 px-4 py-2.5">
-        <CodeIcon size={12} className="text-brand-treasure/70" />
+        <CodeIcon size={12} className="text-accent-soft/75" />
         <span className="font-mono text-2xs text-muted-foreground">{language}</span>
         <div className="ml-auto flex gap-1.5">
           <span className="h-2 w-2 rounded-full bg-brand-sunset/60" />
@@ -92,7 +92,7 @@ function ArticleCode({
 
 function ArticleLead({ children }: { children: React.ReactNode }) {
   return (
-    <p className="mb-5 font-sans text-sm leading-7 text-secondary-foreground md:text-base md:leading-8 [&:first-letter]:float-left [&:first-letter]:mr-2 [&:first-letter]:font-display [&:first-letter]:text-5xl [&:first-letter]:leading-none [&:first-letter]:font-bold [&:first-letter]:text-brand-treasure">
+    <p className="mb-5 font-sans text-sm leading-7 text-secondary-foreground md:text-base md:leading-8 [&:first-letter]:float-left [&:first-letter]:mr-2 [&:first-letter]:font-display [&:first-letter]:text-5xl [&:first-letter]:leading-none [&:first-letter]:font-bold [&:first-letter]:text-accent-soft">
       {children}
     </p>
   );
@@ -493,7 +493,7 @@ function BlogDetailPageInner() {
           <AnchorIcon size={11} />© 2026 Azar. All rights reserved.
         </span>
         <span className="flex items-center gap-1.5">
-          <AnchorIcon size={11} className="text-brand-treasure" />
+          <AnchorIcon size={11} className="text-accent-soft" />
           Sailing the React seas
         </span>
       </footer>
