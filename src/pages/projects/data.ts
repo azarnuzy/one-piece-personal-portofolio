@@ -1,4 +1,4 @@
-﻿export type ProjectCategory = "all" | "web" | "realtime" | "ecommerce" | "tools";
+﻿export type ProjectCategory = "all" | "web" | "realtime" | "ecommerce" | "tools" | "mobile";
 export type ProjectStatus = "Completed" | "In Progress";
 export type LearningIcon =
   | "zap"
@@ -121,6 +121,270 @@ export interface CardProject {
 // â”€â”€â”€ V2 project data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export const PROJECTS_V2: ProjectV2[] = [
+  {
+    id: "wordlelearn",
+    category: "mobile",
+    thumbnailImage: "/thumbnail-project/project-wordle.png",
+    titleHighlight: "AI-Assisted Vocabulary Learning Android App",
+    hero: {
+      title: "WordleLearn: Gamified English Vocabulary Learning",
+      description:
+        "A native Android vocabulary learning app that blends Wordle-style gameplay with structured English learning, daily challenges, themed practice modes, and an offline-first experience backed by a custom TypeScript service.",
+      subtitle:
+        "A full-stack mobile product built with a documentation-first AI workflow, native Kotlin + Jetpack Compose on the client, and a Hono.js + PostgreSQL backend powering progress, streaks, and themed vocabulary.",
+    },
+    projectOverview: {
+      explanation:
+        "WordleLearn is a learning-focused take on the classic Wordle format, designed as a complete Android product with onboarding, placement test, daily challenges, themed practice modes, a personal vocabulary bank, streak tracking, and XP-based progression. Every guess becomes a learning moment, and every completed game contributes to long-term vocabulary growth.",
+      coreValue:
+        "The product solves a real learning gap: most word games entertain but rarely teach. WordleLearn turns the gameplay loop into a structured learning journey by adding placement-aware difficulty, themed vocabulary categories, post-game word learning cards, a vocabulary bank, and streak-driven habit formation, all while staying playable offline.",
+      interestPoints:
+        "What makes this project stand out is the AI-assisted production workflow behind it. As a frontend web developer stepping into native Android and a TypeScript backend stack for the first time, I leaned on AI as a thinking partner to design the entire product foundation. All visual mockups and asset references were generated using ChatGPT Image 2.0, while every specification document, from PRD to UX Spec and API contract, was iteratively discussed and refined with AI before a single line of code was written.",
+    },
+    keyFeatures: [
+      {
+        name: "Wordle-Style Vocabulary Gameplay",
+        description:
+          "A core word-guessing experience designed specifically for English learning, with post-game word learning cards that turn every round into a vocabulary expansion moment.",
+      },
+      {
+        name: "Daily Challenge & Quick Play Modes",
+        description:
+          "Two distinct play modes on the home screen — a daily challenge for habit-driven players and a quick play loop for casual sessions, both contributing to streaks and XP.",
+      },
+      {
+        name: "Themed Practice with Interest-Based Word Selection",
+        description:
+          "A dedicated Play tab where users pick from 8 interest categories and difficulty levels, with the backend serving themed words tagged and filtered to match the chosen context.",
+      },
+      {
+        name: "Adaptive Onboarding & Placement Test",
+        description:
+          "A guided onboarding flow with a placement test and interest selection that personalizes content difficulty and themed recommendations from the very first session.",
+      },
+      {
+        name: "Streak System with Celebration Screen",
+        description:
+          "First-game-of-day streak detection on the backend, paired with a celebratory overlay on the result screen that visualizes weekly progress and tomorrow's bonus XP.",
+      },
+      {
+        name: "Personal Vocabulary Bank & Word Learning Card",
+        description:
+          "Each completed game surfaces a Word Learning Card with definition, example, and a PRO-locked audio and word-family section, all savable to a personal vocabulary bank.",
+      },
+      {
+        name: "Offline-First Hybrid Game Flow",
+        description:
+          "Gameplay works offline with local state, while completed sessions are synced to the backend as the authoritative source of XP and progress through a background sync worker.",
+      },
+      {
+        name: "Documentation-First AI Workflow",
+        description:
+          "A production-style specification suite — PRD, User Stories, UX Spec, Design System, API Spec, ERD, and more — discussed and shaped with AI before implementation began.",
+      },
+    ],
+    techStack: [
+      {
+        name: "Kotlin",
+        description:
+          "The primary language for the native Android client, used across the entire mobile codebase.",
+      },
+      {
+        name: "Jetpack Compose",
+        description:
+          "Powers the declarative UI for every screen — home, game, result, onboarding, themed play, vocabulary, progress, and profile.",
+      },
+      {
+        name: "Material 3",
+        description:
+          "Provides the visual foundation for components, typography, and theming, customized with the project's design tokens.",
+      },
+      {
+        name: "DataStore",
+        description:
+          "Handles local persistence for onboarding flags, auth state, user preferences, and per-step routing guards.",
+      },
+      {
+        name: "WorkManager",
+        description:
+          "Drives the offline-first sync pipeline, replaying queued game sessions to the backend when connectivity returns.",
+      },
+      {
+        name: "Hono.js",
+        description:
+          "A lightweight TypeScript web framework used to build the backend service, exposing endpoints for auth, game sessions, words, streaks, and themed content.",
+      },
+      {
+        name: "TypeScript",
+        description:
+          "Adds type safety across the backend, shared API contracts, and data models for words, sessions, and user progress.",
+      },
+      {
+        name: "Drizzle ORM",
+        description:
+          "Type-safe schema definition, migrations, and queries against the PostgreSQL database powering the service.",
+      },
+      {
+        name: "PostgreSQL",
+        description:
+          "The primary database storing users, words, themed tags, game sessions, XP history, streaks, and vocabulary bank entries.",
+      },
+      {
+        name: "Better Auth",
+        description:
+          "Handles authentication, session management, and user sync with extensions for placement test and settings on top of the auth layer.",
+      },
+    ],
+    engineeringHighlights: [
+      {
+        point: "Hybrid Online/Offline Game Data Flow",
+        description:
+          "Designed a clear contract where the backend acts as the source of truth for XP and progress, the device runs the live gameplay loop, and a background sync worker reconciles offline sessions idempotently.",
+      },
+      {
+        point: "Themed Word Selection Pipeline",
+        description:
+          "Built a backend flow that maps user-selected interests to internal word tags and applies difficulty filters, returning a stable themed seed so each user gets contextually relevant gameplay.",
+      },
+      {
+        point: "Placement-Aware Onboarding",
+        description:
+          "Engineered an onboarding sequence with a placement test, interest selection, and per-step DataStore flags that drive routing guards, so users always resume at the right point.",
+      },
+      {
+        point: "Streak Logic Across Client and Server",
+        description:
+          "Implemented first-game-of-day detection, week mask construction, and tomorrow's bonus XP on the backend, paired with a polished celebration overlay on the client triggered only for the right session.",
+      },
+      {
+        point: "Shared Visual Language Across Screens",
+        description:
+          "Built a shared top bar and visual identity used across Vocabulary, Progress, and Profile tabs, with a unified celebration style reused on the streak detail screen.",
+      },
+      {
+        point: "Documentation-First Specification Suite",
+        description:
+          "Prepared a complete production-style spec set — PRD, User Stories with acceptance criteria, UX Spec, Compose-ready Design System, API Spec, ERD, environment config, database migration plan, and background job design — before implementation, used as the single source of truth for AI-assisted execution.",
+      },
+    ],
+    challenges: [
+      {
+        title: "Building Native Android as a Web Developer",
+        description:
+          "Coming from a frontend web background, the entire Kotlin and Jetpack Compose ecosystem — including state, navigation, lifecycle, and persistence — had to be learned and applied at production quality.",
+      },
+      {
+        title: "Designing an Offline-First Sync Contract",
+        description:
+          "Making gameplay feel instant offline while keeping the backend authoritative for XP and progress required carefully designed idempotent session endpoints and a reliable retry strategy.",
+      },
+      {
+        title: "Keeping Mobile and Backend in Sync",
+        description:
+          "Coordinating data models, API contracts, and feature behavior across an Android client and a TypeScript backend demanded strict adherence to the upfront API and ERD specifications.",
+      },
+      {
+        title: "Translating AI Mockups into a Real UI",
+        description:
+          "Visual references generated with ChatGPT Image 2.0 had to be translated into a coherent Compose UI with consistent spacing, typography, motion, and interaction states across every screen.",
+      },
+      {
+        title: "Staying Disciplined with Documentation-First Workflow",
+        description:
+          "Resisting the urge to jump straight into code and instead committing to upfront PRD, UX Spec, API contracts, and design system work was a discipline that paid off heavily during implementation.",
+      },
+    ],
+    whatILearned: [
+      {
+        topic: "AI as a Thinking Partner",
+        description:
+          "Learned to use AI not as a code generator but as a collaborator for pressure-testing product decisions, refining specs, and shaping architecture before writing code.",
+      },
+      {
+        topic: "Native Android Development with Kotlin and Compose",
+        description:
+          "Gained hands-on experience designing screens, state, navigation, and persistence in a fully Compose-based native Android app.",
+      },
+      {
+        topic: "Full-Stack Mobile Architecture",
+        description:
+          "Practiced designing a product end to end — mobile client, backend service, database, and sync layer — with a clear separation of responsibilities.",
+      },
+      {
+        topic: "Offline-First Product Design",
+        description:
+          "Explored how to model gameplay so users get instant feedback offline while a backend remains the source of truth for progress and rewards.",
+      },
+      {
+        topic: "Documentation-First AI Workflow",
+        description:
+          "Built confidence that the quality of AI-assisted output is largely determined by the quality of the upfront specifications, mockups, and references provided.",
+      },
+      {
+        topic: "AI-Generated Asset Pipeline with ChatGPT Image 2.0",
+        description:
+          "Practiced generating mockups and visual references with ChatGPT Image 2.0 and translating them into a consistent, branded mobile interface.",
+      },
+    ],
+    projectInfo: {
+      category: "Mobile App / Vocabulary Learning",
+      role: "Full-Stack Builder & AI-Assisted Product Engineer",
+      duration: "Personal Project",
+      status: "Portfolio Ready",
+    },
+    highlights: [
+      "AI-Assisted Documentation-First Workflow",
+      "Native Android with Kotlin and Jetpack Compose",
+      "Custom TypeScript Backend with Hono.js and PostgreSQL",
+      "Offline-First Gameplay with Backend-Authoritative XP",
+      "Themed Vocabulary Practice with 8 Interest Categories",
+      "Streak Celebration and Daily Challenge System",
+      "Mockups and Visuals Generated with ChatGPT Image 2.0",
+    ],
+    galleryCaptions: [
+      {
+        screen: "Onboarding & Placement",
+        caption:
+          "A guided onboarding flow with interest selection and a placement test that personalizes difficulty and themed content from the first session.",
+      },
+      {
+        screen: "Home Screen",
+        caption:
+          "A home experience with Quick Play, Daily Challenge, and online/offline-aware entry points into the core gameplay loop.",
+      },
+      {
+        screen: "Active Game",
+        caption:
+          "The Wordle-inspired gameplay screen designed around English learning, with themed words and difficulty awareness.",
+      },
+      {
+        screen: "Game Result & Word Learning Card",
+        caption:
+          "A post-game result screen with a Word Learning Card that turns every round into a vocabulary moment, savable into a personal vocabulary bank.",
+      },
+      {
+        screen: "Streak Celebration",
+        caption:
+          "A celebratory overlay shown on the first game of the day, visualizing the weekly streak and tomorrow's bonus XP.",
+      },
+      {
+        screen: "Themed Play",
+        caption:
+          "A dedicated Play tab where users pick from 8 interest categories and difficulty levels for context-aware vocabulary practice.",
+      },
+      {
+        screen: "Vocabulary, Progress & Profile",
+        caption:
+          "Shared top bar and visual identity across the Vocabulary bank, Progress tracking, and Profile screens for a consistent experience.",
+      },
+    ],
+    ctaContent: {
+      livePreview:
+        "Explore the WordleLearn Android app concept and its AI-assisted, documentation-first build process.",
+      sourceCode:
+        "Review the Kotlin + Jetpack Compose client and the Hono.js + PostgreSQL backend powering gameplay, streaks, and themed vocabulary.",
+    },
+  },
   {
     id: "cetakkita",
     category: "web",
