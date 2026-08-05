@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { ArrowLeftIcon, CalendarIcon, ClockIcon, TagIcon, UsersIcon } from "lucide-react";
+import { ArrowLeftIcon, ClockIcon, TagIcon, UsersIcon } from "lucide-react";
 import { memo } from "react";
 
 import { getProjectV2 } from "./data";
