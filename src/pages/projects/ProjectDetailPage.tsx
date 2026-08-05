@@ -12,7 +12,6 @@ import {
   CpuIcon,
   DatabaseIcon,
   DownloadIcon,
-  FileTextIcon,
   GlobeIcon,
   ImageIcon,
   InfoIcon,
@@ -32,6 +31,7 @@ import {
 } from "lucide-react";
 import { memo, useState } from "react";
 
+import { PdfOverviewViewer } from "@/components/portfolio/PdfOverviewViewer";
 import { cn } from "@/lib/utils";
 
 import { getProjectV2, type LearningIcon, type ProjectLearning, type ProjectV2 } from "./data";
@@ -394,6 +394,23 @@ function ShowcaseSection({ project }: { project: ProjectV2 }) {
   );
 }
 
+// ─── V2 Section: PDF Project Overview (LinkedIn-style slideshow) ────────────
+
+function PdfOverviewSection({ project }: { project: ProjectV2 }) {
+  if (!project.overviewPdf) return null;
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.45, delay: 0.04, ease: [0.22, 1, 0.36, 1] }}
+      className="rounded-2xl border border-border/50 bg-card/50 p-4 backdrop-blur-sm md:p-5"
+    >
+      <PdfOverviewViewer url={project.overviewPdf.url} fileName={project.overviewPdf.fileName} />
+    </motion.section>
+  );
+}
+
 // ─── V2 Section: Tech Stack ───────────────────────────────────────────────────
 
 function TechSection({ project }: { project: ProjectV2 }) {
@@ -639,7 +656,11 @@ function ProjectDetailV2PageContent({ project }: { project: ProjectV2 }) {
             <OverviewSection project={project} />
             <SnapshotSection project={project} />
             <FeaturesSection project={project} />
-            <ShowcaseSection project={project} />
+            {project.overviewPdf ? (
+              <PdfOverviewSection project={project} />
+            ) : (
+              <ShowcaseSection project={project} />
+            )}
             <TechSection project={project} />
             <PageShowcaseSection project={project} />
             <EngineeringSection project={project} />

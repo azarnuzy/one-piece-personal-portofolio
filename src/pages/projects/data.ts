@@ -83,6 +83,11 @@ export interface CTAContent {
   sourceCode: string;
 }
 
+export interface ProjectOverviewPdf {
+  url: string;
+  fileName: string;
+}
+
 export interface ProjectV2 {
   // Portfolio metadata (not in content JSON)
   id: string;
@@ -90,6 +95,7 @@ export interface ProjectV2 {
   thumbnailImage: string;
   titleHighlight?: string;
   downloadUrl?: string;
+  overviewPdf?: ProjectOverviewPdf;
   // Content fields (match JSON structure)
   hero: ProjectHero;
   projectOverview: ProjectOverview;
@@ -126,6 +132,10 @@ export const PROJECTS_V2: ProjectV2[] = [
     category: "mobile",
     thumbnailImage: "/thumbnail-project/project-wordle.png",
     titleHighlight: "AI-Assisted Vocabulary Learning Android App",
+    overviewPdf: {
+      url: "/project-overview-pdf/word-learn-project.pdf",
+      fileName: "WordleLearn - Project Overview.pdf",
+    },
     hero: {
       title: "WordleLearn: Gamified English Vocabulary Learning",
       description:
