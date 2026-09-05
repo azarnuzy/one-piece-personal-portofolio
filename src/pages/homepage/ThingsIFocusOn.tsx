@@ -1,13 +1,29 @@
 import { motion } from "framer-motion";
-import { AnchorIcon, GaugeIcon, ServerIcon, ShieldIcon, ZapIcon } from "lucide-react";
+import { AnchorIcon, LayersIcon, RocketIcon, ServerIcon, ShieldCheckIcon } from "lucide-react";
 
 import { CardWatermark } from "@/components/portfolio/CardWatermark";
 
 const FOCUS = [
-  { icon: GaugeIcon, label: "Frontend Engineering", value: 92 },
-  { icon: ZapIcon, label: "Performance & Testing", value: 85 },
-  { icon: ServerIcon, label: "API & Full-Stack", value: 78 },
-  { icon: ShieldIcon, label: "DevOps & Security", value: 72 },
+  {
+    icon: LayersIcon,
+    label: "Full-Stack Product Engineering",
+    description: "React/Next.js frontends backed by Node.js & API design.",
+  },
+  {
+    icon: RocketIcon,
+    label: "AI-Powered Platforms",
+    description: "Shipping Sygma at Cakra AI — automation used by enterprise clients.",
+  },
+  {
+    icon: ServerIcon,
+    label: "Performance & DevOps",
+    description: "CI/CD, Docker, and Lighthouse-driven optimization.",
+  },
+  {
+    icon: ShieldCheckIcon,
+    label: "Reliable, Maintainable Code",
+    description: "TypeScript-first, test-covered, built to scale with the team.",
+  },
 ];
 
 export function ThingsIFocusOn() {
@@ -27,29 +43,23 @@ export function ThingsIFocusOn() {
       </div>
 
       <div className="relative flex flex-1 flex-col justify-center gap-3.5">
-        {FOCUS.map(({ icon: Icon, label, value }, idx) => (
-          <div key={label} className="group">
-            <div className="mb-1.5 flex items-center justify-between">
-              <span className="flex items-center gap-2 font-sans text-xs font-medium text-card-foreground">
-                <Icon size={12} className="text-accent-soft" />
-                {label}
-              </span>
-              <span className="font-mono text-2xs text-muted-foreground tabular-nums">
-                {value}%
-              </span>
+        {FOCUS.map(({ icon: Icon, label, description }, idx) => (
+          <motion.div
+            key={label}
+            initial={{ opacity: 0, x: -8 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.6 }}
+            transition={{ duration: 0.5, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="group flex items-start gap-2.5"
+          >
+            <span className="mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full bg-accent-soft/10 text-accent-soft">
+              <Icon size={13} />
+            </span>
+            <div className="min-w-0">
+              <p className="font-sans text-xs font-medium text-card-foreground">{label}</p>
+              <p className="truncate font-sans text-2xs text-muted-foreground">{description}</p>
             </div>
-            <div className="relative h-1.5 overflow-hidden rounded-full bg-muted/50">
-              <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: `${value}%` }}
-                viewport={{ once: true, amount: 0.6 }}
-                transition={{ duration: 1.1, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                className="relative h-full rounded-full bg-accent-soft dark:bg-gradient-to-r dark:from-brand-sunset dark:via-brand-sun dark:to-brand-treasure"
-              >
-                <span className="absolute inset-0 animate-pulse rounded-full bg-white/10" />
-              </motion.div>
-            </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </motion.section>

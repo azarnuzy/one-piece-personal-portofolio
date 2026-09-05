@@ -181,7 +181,7 @@ function SubtitleRow() {
         className="text-2xs font-medium uppercase md:text-xs"
         style={{ letterSpacing: "0.42em" }}
       >
-        Frontend Developer
+        Software Engineer
       </span>
       <AnchorIcon />
     </div>

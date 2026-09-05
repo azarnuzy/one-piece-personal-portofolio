@@ -22,7 +22,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Get to know the developer behind the code. Frontend developer who loves turning complex problems into simple, beautiful and intuitive solutions.",
+          "Get to know the developer behind the code. Software Engineer who loves turning complex problems into simple, beautiful and intuitive solutions.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${BASE_URL}/about` },
@@ -30,7 +30,7 @@ export const Route = createFileRoute("/about")({
       {
         property: "og:description",
         content:
-          "Get to know the developer behind the code. Frontend developer crafting cinematic, interactive web experiences.",
+          "Get to know the developer behind the code. Software Engineer crafting cinematic, interactive web experiences.",
       },
       { property: "og:image", content: `${BASE_URL}/preview-homepage.png` },
       { name: "twitter:card", content: "summary_large_image" },

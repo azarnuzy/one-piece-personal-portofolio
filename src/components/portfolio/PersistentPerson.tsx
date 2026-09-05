@@ -38,7 +38,7 @@ function PersistentPersonInner() {
             re-decode flicker. Browser caches /person.png after first load. */}
         <img
           src="/person.png"
-          alt="Azar — Frontend Developer"
+          alt="Azar — Software Engineer"
           className={`w-auto object-contain object-bottom ${SIZE_CLASS}`}
           draggable={false}
         />

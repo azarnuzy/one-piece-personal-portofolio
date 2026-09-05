@@ -18,14 +18,14 @@ export const Route = createFileRoute("/projects/")({
       { property: "og:title", content: "Projects — Azar" },
       {
         property: "og:description",
-        content: "A collection of projects built with passion by Azar, a Frontend Developer.",
+        content: "A collection of projects built with passion by Azar, a Software Engineer.",
       },
       { property: "og:image", content: `${BASE_URL}/preview-homepage.png` },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Projects — Azar" },
       {
         name: "twitter:description",
-        content: "A collection of projects built with passion by Azar, a Frontend Developer.",
+        content: "A collection of projects built with passion by Azar, a Software Engineer.",
       },
       { name: "twitter:image", content: `${BASE_URL}/preview-homepage.png` },
     ],

@@ -11,7 +11,7 @@ export const Route = createFileRoute("/projects/$projectId")({
     const title = project ? `${project.hero.title} — Azar` : "Project Detail — Azar";
     const description =
       project?.hero.description ??
-      "An in-depth case study of a project built by Azar, frontend developer.";
+      "An in-depth case study of a project built by Azar, software engineer.";
     const url = `${BASE_URL}/projects/${params.projectId}`;
     const image = project?.thumbnailImage
       ? `${BASE_URL}${project.thumbnailImage}`

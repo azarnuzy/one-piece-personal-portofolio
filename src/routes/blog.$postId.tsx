@@ -10,7 +10,7 @@ export const Route = createFileRoute("/blog/$postId")({
     const post = POSTS.find((p) => p.slug === params.postId);
     const title = post ? `${post.title} — Azar` : "Blog Post — Azar";
     const description =
-      post?.description ?? "Frontend developer insights, tutorials, and experiences by Azar.";
+      post?.description ?? "Software Engineer insights, tutorials, and experiences by Azar.";
     const url = `${BASE_URL}/blog/${params.postId}`;
 
     const articleJsonLd = post
