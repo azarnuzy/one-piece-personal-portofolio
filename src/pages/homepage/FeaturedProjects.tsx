@@ -17,6 +17,7 @@ import { ProjectCard } from "@/pages/projects/ProjectCard";
 // Curated subset (in display order) — reuses the canonical project records
 // so the Featured carousel and the Projects page stay in lockstep.
 const FEATURED_IDS = [
+  "supportops",
   "sygma-studio",
   "maxmar-evolution",
   "cakra-smart-search",

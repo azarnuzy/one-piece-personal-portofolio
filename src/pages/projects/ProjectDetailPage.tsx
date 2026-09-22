@@ -10,6 +10,7 @@ import {
   CodeIcon,
   CompassIcon,
   CpuIcon,
+  ExternalLinkIcon,
   DatabaseIcon,
   GlobeIcon,
   ImageIcon,
@@ -30,6 +31,7 @@ import {
 import { memo, useState } from "react";
 
 import { PdfOverviewViewer } from "@/components/portfolio/PdfOverviewViewer";
+import { PirateCTAButton } from "@/components/portfolio/PirateCTAButton";
 import { cn } from "@/lib/utils";
 
 import { getProjectV2, type LearningIcon, type ProjectLearning, type ProjectV2 } from "./data";
@@ -599,6 +601,12 @@ function SidebarV2({ project }: { project: ProjectV2 }) {
 
   return (
     <div className="flex flex-col gap-3">
+      {project.liveUrl && (
+        <PirateCTAButton href={project.liveUrl} icon={<ExternalLinkIcon size={13} />}>
+          Visit Live Site
+        </PirateCTAButton>
+      )}
+
       <div className="surface-card p-3.5">
         <div className="mb-2.5 flex items-center gap-2">
           <InfoIcon size={12} className="text-accent-soft" />
