@@ -56,6 +56,8 @@ const ICONS8 = [
   { id: "pUf6Ty49x4KC", label: "MCP" },
 ];
 
+const ANVIA_URL = "https://anvia.dev";
+
 export function TechIUse() {
   return (
     <motion.section
@@ -111,6 +113,29 @@ export function TechIUse() {
             </span>
           </motion.div>
         ))}
+        <motion.a
+          href={ANVIA_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.4, delay: (TECH.length + ICONS8.length) * 0.05 }}
+          whileHover={{ y: -3, scale: 1.04 }}
+          className="group flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-border/40 bg-muted/60 p-2.5 transition-colors hover:border-brand-treasure/50 hover:bg-brand-treasure/5"
+        >
+          <img
+            src="/tech/anvia-mark.png"
+            alt=""
+            width={20}
+            height={20}
+            loading="lazy"
+            className="rounded-[4px]"
+          />
+          <span className="font-sans text-2xs text-muted-foreground group-hover:text-card-foreground">
+            Anvia
+          </span>
+        </motion.a>
       </div>
 
       <p className="relative mt-3 text-right font-sans text-2xs text-muted-foreground">

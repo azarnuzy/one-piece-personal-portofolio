@@ -242,6 +242,11 @@ export const PROJECTS_V2: ProjectV2[] = [
           "Queues and delayed jobs for knowledge ingestion, attachment processing, WhatsApp reasoning, follow-ups, auto-resolution, and idle closure.",
       },
       {
+        name: "Anvia",
+        description:
+          "The open TypeScript agent stack (anvia.dev) powering the AI Agent runtime — typed agents with Zod-validated outputSchema for REPLY / ESCALATE / RESOLVE decisions, createTool for HTTP and MCP tools, OpenAI-compatible providers, and OpenTelemetry tracing.",
+      },
+      {
         name: "OpenRouter & MCP",
         description:
           "An OpenAI-compatible completion gateway serving separate Fast, Main, and Embedding models, plus Model Context Protocol servers for tool discovery.",
@@ -261,7 +266,7 @@ export const PROJECTS_V2: ProjectV2[] = [
       {
         point: "Channel-Agnostic AI Agent Boundary",
         description:
-          "The AI Agent receives normalized conversation input and returns normalized decisions without knowing how messages are delivered. Web replies stream directly over SSE, while WhatsApp flows through a webhook, a queue, and the worker before being sent back via Meta — both backed by the same reasoning runtime.",
+          "Built on the Anvia agent SDK, the AI Agent receives normalized conversation input and returns schema-validated decisions without knowing how messages are delivered. Web replies stream directly over SSE, while WhatsApp flows through a webhook, a queue, and the worker before being sent back via Meta — both backed by the same reasoning runtime.",
       },
       {
         point: "Multi-Tenancy Enforced by Construction",
@@ -361,6 +366,7 @@ export const PROJECTS_V2: ProjectV2[] = [
       "HTTP & MCP Business Tools with Risk Guardrails",
       "Multi-Tenant Isolation via Prisma Extension",
       "78-Case, 11-Metric AI Evaluation Suite",
+      "AI Agent Runtime Built on Anvia",
       "~Rp113 Model Cost per Session",
       "20 Architecture Decision Records",
       "CI/CD to Docker Containers on a VPS",
