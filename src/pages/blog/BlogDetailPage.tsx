@@ -1,6 +1,7 @@
 import { useParams } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
+  AlertTriangleIcon,
   AnchorIcon,
   CodeIcon,
   HeartIcon,
@@ -95,6 +96,85 @@ function ArticleLead({ children }: { children: React.ReactNode }) {
     <p className="mb-5 font-sans text-sm leading-7 text-secondary-foreground md:text-base md:leading-8 [&:first-letter]:float-left [&:first-letter]:mr-2 [&:first-letter]:font-display [&:first-letter]:text-5xl [&:first-letter]:leading-none [&:first-letter]:font-bold [&:first-letter]:text-accent-soft">
       {children}
     </p>
+  );
+}
+
+function ArticleFigure({ src, alt, caption }: { src: string; alt: string; caption: string }) {
+  return (
+    <figure className="my-6">
+      <a href={src} target="_blank" rel="noopener noreferrer">
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          className="w-full rounded-xl border border-border/50 shadow-[var(--shadow-card)]"
+        />
+      </a>
+      <figcaption className="mt-2 text-center font-sans text-xs text-muted-foreground">
+        {caption}
+      </figcaption>
+    </figure>
+  );
+}
+
+function ArticleTable({ head, rows }: { head: string[]; rows: React.ReactNode[][] }) {
+  return (
+    <div className="my-5 overflow-x-auto rounded-xl border border-border/50">
+      <table className="w-full font-sans text-xs md:text-sm">
+        <thead className="bg-muted/40 text-left text-foreground">
+          <tr>
+            {head.map((h) => (
+              <th key={h} className="px-4 py-2.5 font-semibold">
+                {h}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-border/40 text-secondary-foreground">
+          {rows.map((row, i) => (
+            <tr key={i}>
+              {row.map((cell, j) => (
+                <td key={j} className="px-4 py-2.5 align-top">
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function ArticleList({ ordered, children }: { ordered?: boolean; children: React.ReactNode }) {
+  const List = ordered ? "ol" : "ul";
+  return (
+    <List
+      className={`mb-4 space-y-2 pl-5 font-sans text-sm leading-7 text-secondary-foreground md:text-base md:leading-8 ${ordered ? "list-decimal" : "list-disc"} marker:text-accent-soft`}
+    >
+      {children}
+    </List>
+  );
+}
+
+function C({ children }: { children: React.ReactNode }) {
+  return (
+    <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-[0.85em] text-foreground">
+      {children}
+    </code>
+  );
+}
+
+function A({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-accent-soft underline underline-offset-2 hover:text-brand-sunset"
+    >
+      {children}
+    </a>
   );
 }
 
@@ -457,12 +537,573 @@ function ProductDetail({ id }: { id: string }) {
   );
 }
 
+// ─── Article: SupportOps HTTP/3 stalls ────────────────────────────────────────
+
+const HTTP3_IMG = "/article/supportops-http3";
+
+function SupportOpsHttp3Article() {
+  return (
+    <article className="min-w-0">
+      <ArticleFigure
+        src={`${HTTP3_IMG}/request-path.png`}
+        alt="The same request over HTTP/3 and over HTTP/2"
+        caption="The same request over two transports: before (HTTP/3 · QUIC · UDP 443) and after (HTTP/2 · TCP 443)."
+      />
+
+      <ArticleHeading>It Started with One Slow Ticket</ArticleHeading>
+
+      <ArticleLead>
+        That afternoon I opened the SupportOps Inbox and clicked on a resolved Ticket. It took about
+        ten seconds to load. Another Ticket opened instantly. Then I tried the home page,{" "}
+        <C>support.azarnuzy.com</C>, and got a blank white screen with a spinner that never stopped.
+      </ArticleLead>
+
+      <ArticleFigure
+        src={`${HTTP3_IMG}/08-browser-page-stuck-loading.png`}
+        alt="The SupportOps home page stuck on a blank loading screen"
+        caption="support.azarnuzy.com stuck on a blank page, the spinner still going."
+      />
+
+      <ArticleParagraph>
+        Bugs that are "sometimes fast, sometimes slow" are hard to track down, because the cause
+        could be almost anywhere. My first guess was the obvious one: the server was slow. Maybe a
+        heavy query, maybe the VPS was running out of memory, maybe it needed caching.
+      </ArticleParagraph>
+
+      <ArticleParagraph>
+        None of that turned out to be true. The server was fine the whole time. The problem was the{" "}
+        <strong>transport the browser used to connect to the server</strong>. This post walks
+        through how I got there.
+      </ArticleParagraph>
+
+      <ArticleHeading>
+        First Observation: Small Responses Were Fast, Large Ones Were Slow
+      </ArticleHeading>
+
+      <ArticleParagraph>
+        I opened DevTools, went to the Network tab, filtered by Fetch/XHR, and opened the Ticket
+        again.
+      </ArticleParagraph>
+
+      <ArticleFigure
+        src={`${HTTP3_IMG}/01-network-fetch-xhr-list.png`}
+        alt="DevTools Network tab when opening a Ticket"
+        caption="DevTools Network tab when opening a Ticket."
+      />
+
+      <ArticleParagraph>
+        Almost every request finished in 36–86 ms, except one: the Ticket detail request, which took{" "}
+        <strong>9.54 s</strong>. Looking closer, the larger the response, the longer it took:
+      </ArticleParagraph>
+
+      <ArticleTable
+        head={["Request", "Size", "Time"]}
+        rows={[
+          [<C key="r">session, users, read</C>, "< 1 kB", "36–80 ms"],
+          [<C key="r">tickets (list)</C>, "~3 kB", "394–485 ms"],
+          [<C key="r">tickets/:id (detail)</C>, "~16 kB", <strong key="t">9.54 s</strong>],
+        ]}
+      />
+
+      <ArticleParagraph>
+        The server does about the same amount of work for each of these. What differs is the number
+        of <strong>packets</strong> each response needs. A 16 kB response is split into roughly
+        twelve packets of 1.2–1.5 kB. If even one of them is lost, the whole response has to wait
+        for it to be resent.
+      </ArticleParagraph>
+
+      <ArticleHeading>The Server Had Already Responded in 124 ms</ArticleHeading>
+
+      <ArticleParagraph>I clicked on the slow request and opened the Timing tab.</ArticleParagraph>
+
+      <ArticleFigure
+        src={`${HTTP3_IMG}/04-ticket-detail-timing-download-9s.png`}
+        alt="Timing panel of the slow Ticket request"
+        caption="Timing panel of the slow Ticket request."
+      />
+
+      <ArticleList>
+        <li>
+          <strong>Waiting for server response (TTFB): 124.57 ms</strong>
+        </li>
+        <li>
+          <strong>Content download: 9.42 s</strong>
+        </li>
+      </ArticleList>
+
+      <ArticleParagraph>
+        This is the most important screenshot here. TTFB shows how long the server spent processing
+        the request: queries, the handler, business logic. Content download shows how long it took
+        for the data to reach the browser. The API was done in 124 ms. The remaining 9.4 seconds
+        were spent just getting 16 kB from the proxy to my laptop.
+      </ArticleParagraph>
+
+      <ArticleCallout icon={LightbulbIcon} tone="treasure">
+        So the database and the application code weren't the cause. The problem was somewhere on the
+        path between the server and the laptop.
+      </ArticleCallout>
+
+      <ArticleHeading>Checking the Other Possibilities</ArticleHeading>
+
+      <ArticleParagraph>
+        I looked at the VPS monitoring for the hour of the incident. The server was barely doing
+        anything: CPU averaged <strong>7.7%</strong> (peak 13.9%), memory was at{" "}
+        <strong>40%</strong>, disk utilisation was <strong>0.02%</strong>, and there were only 3 TCP
+        connections on average. A 2-vCPU VPS at 8% CPU doesn't need nine seconds to send 16 kB.
+      </ArticleParagraph>
+
+      <ArticleParagraph>
+        Then I tested with <C>curl</C> from the same laptop on the same network:
+      </ArticleParagraph>
+
+      <ArticleTable
+        head={["Test", "Result"]}
+        rows={[
+          [
+            <span key="t">
+              <C>GET /</C> (HTML shell), 3 runs
+            </span>,
+            "0.18–0.23 s",
+          ],
+          [
+            <span key="t">
+              <C>GET /assets/index-*.js</C> (253 kB), <strong>30 runs</strong>
+            </span>,
+            <span key="r">
+              <strong>median 0.23 s</strong>, slowest 0.53 s
+            </span>,
+          ],
+          [
+            "ICMP ping × 20 to the VPS",
+            <span key="r">
+              <strong>0% loss</strong>, 47 ms RTT
+            </span>,
+          ],
+        ]}
+      />
+
+      <ArticleParagraph>
+        <C>curl</C> was fast on all 30 runs, while the browser on the same laptop kept stalling.
+        Same laptop, same network, same server. So what was different between <C>curl</C> and the
+        browser?
+      </ArticleParagraph>
+
+      <ArticleParagraph>The answer was in the response headers:</ArticleParagraph>
+
+      <ArticleCode language="HTTP">{`alt-svc: h3=":443"; ma=2592000`}</ArticleCode>
+
+      <ArticleHeading>Some Background: What Is alt-svc?</ArticleHeading>
+
+      <ArticleParagraph>
+        To make sense of this header, it helps to know a bit about how HTTP gets from one machine to
+        another.
+      </ArticleParagraph>
+
+      <ArticleParagraph>
+        <strong>TCP and UDP.</strong> Nearly all internet traffic runs on one of these two
+        protocols. <strong>TCP</strong> is like sending a parcel with tracking: there's a handshake
+        up front, every packet is acknowledged, and lost packets are resent automatically by the
+        operating system. <strong>UDP</strong> is much simpler: each packet (a <em>datagram</em>) is
+        sent without any check that it arrived. Routers, NATs and firewalls have handled TCP well
+        for decades. UDP, on the other hand, is often rate-limited, given lower priority, or blocked
+        entirely.
+      </ArticleParagraph>
+
+      <ArticleParagraph>
+        <strong>HTTP/2 and HTTP/3.</strong> HTTP/2 (2015) runs over TCP and lets many requests share
+        a single connection (<em>multiplexing</em>). HTTP/3 (2022,{" "}
+        <A href="https://www.rfc-editor.org/rfc/rfc9114">RFC 9114</A>) runs over{" "}
+        <strong>QUIC</strong>, and QUIC runs over <strong>UDP</strong>. QUIC adds the features you'd
+        normally get from TCP (retransmission, ordering, congestion control, TLS 1.3) on top of UDP.
+        On networks that don't restrict UDP, it works well. The catch is that, as far as the network
+        is concerned, QUIC traffic is <strong>just UDP traffic</strong>.
+      </ArticleParagraph>
+
+      <ArticleParagraph>
+        <strong>Alt-Svc.</strong> A browser never starts with HTTP/3. The first connection always
+        goes over TCP, and the server then tells the browser that it also supports HTTP/3 on UDP
+        port 443. The browser remembers this for 30 days. That's what{" "}
+        <C>alt-svc: h3=":443"; ma=2592000</C> means (
+        <A href="https://www.rfc-editor.org/rfc/rfc7838">RFC 7838</A>). From then on, the browser
+        switches to QUIC.
+      </ArticleParagraph>
+
+      <ArticleCallout icon={AlertTriangleIcon} tone="sunset">
+        Worth noting: I never enabled HTTP/3. Caddy turns it on by default, because the default
+        value of its <C>protocols</C> option is <C>h1 h2 h3</C> (
+        <A href="https://caddyserver.com/docs/caddyfile/options">docs</A>). HTTP/3 had been active
+        since the very first deploy.
+      </ArticleCallout>
+
+      <ArticleParagraph>
+        Now things started to add up. <C>curl</C> was using <strong>HTTP/2 over TCP</strong>, while
+        the browser had received <C>alt-svc</C> and was using{" "}
+        <strong>HTTP/3 over QUIC (UDP)</strong>. And I was on a <strong>phone hotspot</strong> at
+        the time.
+      </ArticleParagraph>
+
+      <ArticleHeading>The Test That Confirmed It</ArticleHeading>
+
+      <ArticleParagraph>
+        To be sure, I needed to test this. I opened <C>brave://flags/#enable-quic</C> and set{" "}
+        <strong>Experimental QUIC protocol</strong> to <em>Disabled</em>.
+      </ArticleParagraph>
+
+      <ArticleFigure
+        src={`${HTTP3_IMG}/09-brave-flags-enable-quic.png`}
+        alt="Brave flags page with the QUIC option"
+        caption="Brave flags page with the QUIC option."
+      />
+
+      <ArticleParagraph>
+        I didn't change anything else: same server, same network, same pages. The app became{" "}
+        <strong>really smooth</strong>. Every Ticket opened right away.
+      </ArticleParagraph>
+
+      <ArticleParagraph>
+        This A/B test was the key piece of evidence. The earlier steps narrowed things down; this
+        one confirmed the cause.
+      </ArticleParagraph>
+
+      <ArticleHeading>Why UDP Struggles on a Phone Hotspot</ArticleHeading>
+
+      <ArticleParagraph>
+        Mobile networks are known to be unfriendly to UDP, for three main reasons:
+      </ArticleParagraph>
+
+      <ArticleList>
+        <li>
+          <strong>Short-lived NAT bindings.</strong> On mobile networks, one public IP is shared by
+          thousands of subscribers through <strong>CGNAT</strong> (Carrier-Grade NAT). A TCP
+          connection has a clear start and end, so the NAT can track it easily. UDP has no such
+          markers, so the NAT only keeps it around for a limited time. According to{" "}
+          <A href="https://www.rfc-editor.org/rfc/rfc9308#section-3.2">RFC 9308 §3.2</A>, a UDP
+          binding <em>"can expire after just thirty seconds of inactivity"</em>.
+        </li>
+        <li>
+          <strong>A smaller MTU.</strong> Tethering and carrier tunnels reduce the maximum packet
+          size (<strong>MTU</strong>). TCP adapts by sending smaller segments. QUIC can't, because
+          its datagrams must be at least 1200 bytes (
+          <A href="https://www.rfc-editor.org/rfc/rfc9000#section-14.1">RFC 9000 §14.1</A>) and{" "}
+          <strong>must not</strong> be fragmented (
+          <A href="https://www.rfc-editor.org/rfc/rfc9000#section-14.2">§14.2</A>). A packet that's
+          too large is simply dropped, with no notice to either side.
+        </li>
+        <li>
+          <strong>UDP shaping.</strong> RFC 9308 §2 notes that{" "}
+          <em>"between 3% and 5% of networks block all UDP traffic"</em>. Other networks don't block
+          UDP but slow it down, which is much harder to spot.
+        </li>
+      </ArticleList>
+
+      <ArticleHeading>The Surprise: The Browser Doesn't Fall Back to TCP</ArticleHeading>
+
+      <ArticleParagraph>
+        It's easy to assume the browser will switch to TCP if QUIC fails. That's true, but only in
+        certain cases. Ian Swett, a QUIC engineer on Chromium,{" "}
+        <A href="https://groups.google.com/a/chromium.org/g/proto-quic/c/cWoQxBMopR0">explains</A>:
+      </ArticleParagraph>
+
+      <ArticleBlockquote>
+        If the handshake fails (i.e. UDP is blackholed), Chrome will mark QUIC as broken, then retry
+        the request over TCP without the user having to reload. […] If a request fails post
+        handshake, there is no auto-retry.
+      </ArticleBlockquote>
+
+      <ArticleParagraph>
+        That's the explanation. If UDP is <strong>completely</strong> blocked, the handshake fails
+        and the browser quietly moves to TCP, so users never notice. But if UDP is only{" "}
+        <strong>partly</strong> broken, the small handshake packets still get through and the
+        connection looks healthy. Then many of the larger packets carrying the response body get
+        lost, and the request hangs.
+      </ArticleParagraph>
+
+      <ArticleParagraph>Put in order, here's what happened:</ArticleParagraph>
+
+      <ArticleList ordered>
+        <li>
+          Caddy sent <C>alt-svc: h3</C>, and the browser switched to QUIC.
+        </li>
+        <li>The QUIC handshake succeeded.</li>
+        <li>The API responded in 124 ms, and the headers reached the browser.</li>
+        <li>
+          Some of the full-size UDP packets carrying the body were lost on the hotspot path. QUIC
+          resent them with growing delays (exponential back-off), so downloads took 9 seconds, or
+          never finished at all.
+        </li>
+        <li>
+          Because the failure happened <strong>after</strong> the handshake, Chromium didn't retry
+          over TCP. It kept trying HTTP/3 on later requests, which is why things were sometimes fast
+          and sometimes slow.
+        </li>
+      </ArticleList>
+
+      <ArticleCallout icon={LightbulbIcon} tone="treasure">
+        So the server was fast all along. The problem was the transport the browser picked, which
+        wasn't reliable on that network.
+      </ArticleCallout>
+
+      <ArticleHeading>Other People Have Hit This Too</ArticleHeading>
+
+      <ArticleParagraph>
+        I searched Caddy's GitHub issues and found the same pattern in several of them:
+      </ArticleParagraph>
+
+      <ArticleList>
+        <li>
+          <A href="https://github.com/caddyserver/caddy/issues/7556">#7556</A>: occasional{" "}
+          <C>ERR_QUIC_PROTOCOL_ERROR</C> in Chrome. One comment describes{" "}
+          <em>"response headers flush, some body bytes arrive, then the stream aborts mid-body"</em>
+          , which matches what I saw: fast headers, stalled body. Setting{" "}
+          <C>QUIC_GO_DISABLE_GSO=true</C> reduced the number of aborts.
+        </li>
+        <li>
+          <A href="https://github.com/caddyserver/caddy/issues/5942">#5942</A>: Firefox requests
+          time out <em>"after several clicks all served successfully over HTTP/3"</em>.
+        </li>
+        <li>
+          <A href="https://github.com/caddyserver/caddy/issues/6537">#6537</A> (still open):{" "}
+          <em>http3 breaks SSE</em>. Relevant because the SupportOps Inbox relies on SSE.
+        </li>
+        <li>
+          <A href="https://github.com/caddyserver/caddy/issues/7885">#7885</A>: HTTP/3 over
+          Tailscale fails because of MTU, a real-world case of the MTU problem above.
+        </li>
+        <li>
+          <A href="https://github.com/caddyserver/caddy/issues/5075">#5075</A>: how to disable
+          HTTP/3. The maintainer's answer is exactly the fix I used.
+        </li>
+      </ArticleList>
+
+      <ArticleParagraph>
+        Most of these issues were closed without a definite root cause. That's because the cause is
+        hard to reproduce: it lives in the network path, in the kernel's UDP offload (GSO), or in
+        the QUIC library (quic-go). The usual recommendation is always the same:{" "}
+        <strong>disable HTTP/3 and stick with TCP.</strong>
+      </ArticleParagraph>
+
+      <ArticleHeading>The Fix Is Three Lines</ArticleHeading>
+
+      <ArticleParagraph>
+        The <C>protocols</C> option in Caddy is <strong>global</strong>, so it belongs in the global
+        options block at the top of the main Caddyfile, not in a site block. Putting it in a site
+        file gives you a syntax error.
+      </ArticleParagraph>
+
+      <ArticleCode language="Caddyfile">{`{
+	email <admin email>
+	servers {
+		protocols h1 h2
+	}
+}
+
+import /etc/caddy/apps/*.caddy`}</ArticleCode>
+
+      <ArticleParagraph>
+        This applies to every site on that Caddy instance, which is what I wanted. Then validate and
+        reload (no downtime):
+      </ArticleParagraph>
+
+      <ArticleCode language="Bash">{`docker exec caddy caddy validate --config /etc/caddy/Caddyfile
+docker exec caddy caddy reload   --config /etc/caddy/Caddyfile`}</ArticleCode>
+
+      <ArticleParagraph>
+        And check that none of the domains send the HTTP/3 header anymore:
+      </ArticleParagraph>
+
+      <ArticleCode language="Bash">{`for h in support api.support widget.support; do
+  echo "$h: $(curl -sI https://$h.azarnuzy.com | grep -i alt-svc || echo 'no alt-svc')"
+done`}</ArticleCode>
+
+      <ArticleParagraph>
+        All three domains printed <C>no alt-svc</C>. Browsers that still have the old <C>alt-svc</C>{" "}
+        cached may keep trying HTTP/3 for a while. To confirm the fix right away, restart the
+        browser or open a private window.
+      </ArticleParagraph>
+
+      <ArticleHeading>What Do We Lose Without HTTP/3?</ArticleHeading>
+
+      <ArticleTable
+        head={["HTTP/3 advantage", "Impact on SupportOps"]}
+        rows={[
+          [
+            "Faster connection setup (1 RTT instead of 2–3)",
+            "Saves about 50–100 ms at a 47 ms RTT, and only on new connections. The dashboard reuses the same connection.",
+          ],
+          [
+            "No head-of-line blocking between streams",
+            "Noticeable with many parallel requests on a lossy network. Our pages only call a few small JSON endpoints.",
+          ],
+          [
+            "Connection migration (Wi-Fi ↔ cellular)",
+            "Useful for phone users. Human Agents mostly work from laptops.",
+          ],
+          [
+            "Better on poor mobile networks",
+            "In theory, yes. In practice, the mobile network was exactly where HTTP/3 broke.",
+          ],
+        ]}
+      />
+
+      <ArticleParagraph>
+        HTTP/2 over TCP isn't outdated. We still get TLS 1.3 and HTTP/2 multiplexing. The cost is at
+        most about 100 ms when opening a new connection. What we gain is no more 9-second stalls
+        that the browser can't recover from. That's clearly worth it.
+      </ArticleParagraph>
+
+      <ArticleParagraph>
+        If we ever want to turn HTTP/3 back on, the first thing to try is{" "}
+        <C>QUIC_GO_DISABLE_GSO=true</C> on the Caddy container. Before that, we should have a way to
+        monitor HTTP/3 performance across different client networks.
+      </ArticleParagraph>
+
+      <ArticleHeading>What We Still Can't Confirm</ArticleHeading>
+
+      <ArticleParagraph>A few things can't be proven from the data I have:</ArticleParagraph>
+
+      <ArticleList>
+        <li>
+          <strong>Where exactly UDP was failing.</strong> The A/B test proves QUIC was the cause,
+          but it doesn't show whether the problem was the carrier's CGNAT, the hotspot's MTU, UDP
+          shaping, or the quic-go/GSO behaviour from #7556. Finding out would take a packet capture
+          or a <C>qlog</C>.
+        </li>
+        <li>
+          <strong>The protocol used by each slow request.</strong> I didn't have the{" "}
+          <strong>Protocol</strong> column enabled in DevTools during the incident, so I can't show
+          directly that the 9.42 s request used <C>h3</C>. That conclusion rests on the A/B test.
+        </li>
+        <li>
+          <strong>Comparison with other networks.</strong> I didn't get to compare with a home or
+          office connection while HTTP/3 was still on. The fix doesn't depend on this, though, since
+          no client uses UDP anymore.
+        </li>
+      </ArticleList>
+
+      <ArticleHeading>Lessons: How to Debug a "Slow Page" Report</ArticleHeading>
+
+      <ArticleParagraph>
+        Start at the lowest layer and work your way up. Each step takes under a minute.
+      </ArticleParagraph>
+
+      <ArticleList ordered>
+        <li>
+          <strong>Check the Timing tab.</strong> If <em>Waiting for server response</em> is high,
+          the problem is server processing, so jump to step 6. If <em>Content download</em> is high
+          while waiting is low, the problem is delivery, so move on to the next step.
+        </li>
+        <li>
+          <strong>Enable the Protocol column</strong> in DevTools → Network. If the slow requests
+          use <C>h3</C>, suspect the transport first.
+        </li>
+        <li>
+          <strong>Check whether the server advertises HTTP/3:</strong>{" "}
+          <C>curl -sI https://support.azarnuzy.com | grep -i alt-svc</C>.
+        </li>
+        <li>
+          <strong>Compare with TCP.</strong> Hit the same URL several times with <C>curl</C>. If{" "}
+          <C>curl</C> is always fast but the browser isn't, the problem is below the HTTP layer.
+        </li>
+        <li>
+          <strong>Run an A/B test.</strong> Disable QUIC (<C>chrome://flags/#enable-quic</C> or{" "}
+          <C>brave://flags/#enable-quic</C>), or try a different network. If the problem goes away,
+          the transport is the cause.
+        </li>
+        <li>
+          <strong>Check the server:</strong> VPS monitoring, then the API logs and{" "}
+          <C>docker logs caddy</C>.
+        </li>
+        <li>
+          <strong>Only then profile the code:</strong> queries, N+1, and payload size.
+        </li>
+      </ArticleList>
+
+      <ArticleCallout icon={TrendingUpIcon} tone="info">
+        The biggest lesson for me: the DevTools timing panel made it look like the server was slow
+        to send data. The natural reaction is to optimise the API, add caching, or upgrade the VPS.
+        None of those would have fixed anything. Find out where the time actually goes before you
+        start fixing.
+      </ArticleCallout>
+
+      <ArticleHeading>References</ArticleHeading>
+
+      <ArticleParagraph>
+        <strong>Specifications</strong>
+      </ArticleParagraph>
+      <ArticleList>
+        <li>
+          <A href="https://www.rfc-editor.org/rfc/rfc9000">RFC 9000: QUIC</A>: §14.1 (1200-byte
+          minimum), §14.2 (no IP fragmentation)
+        </li>
+        <li>
+          <A href="https://www.rfc-editor.org/rfc/rfc9114">RFC 9114: HTTP/3</A>: §3.1.1 (discovery
+          through Alt-Svc)
+        </li>
+        <li>
+          <A href="https://www.rfc-editor.org/rfc/rfc9308">RFC 9308: Applicability of QUIC</A>: §2
+          (3–5% of networks block UDP), §3.2 (30-second NAT bindings)
+        </li>
+        <li>
+          <A href="https://www.rfc-editor.org/rfc/rfc7838">RFC 7838: HTTP Alternative Services</A>
+        </li>
+      </ArticleList>
+
+      <ArticleParagraph>
+        <strong>Caddy and quic-go</strong>
+      </ArticleParagraph>
+      <ArticleList>
+        <li>
+          <A href="https://caddyserver.com/docs/caddyfile/options">
+            Caddy global options: servers → protocols
+          </A>
+        </li>
+        <li>
+          Caddy issues: <A href="https://github.com/caddyserver/caddy/issues/7556">#7556</A> ·{" "}
+          <A href="https://github.com/caddyserver/caddy/issues/5942">#5942</A> ·{" "}
+          <A href="https://github.com/caddyserver/caddy/issues/6678">#6678</A> ·{" "}
+          <A href="https://github.com/caddyserver/caddy/issues/6537">#6537</A> ·{" "}
+          <A href="https://github.com/caddyserver/caddy/issues/7885">#7885</A> ·{" "}
+          <A href="https://github.com/caddyserver/caddy/issues/5075">#5075</A> ·{" "}
+          <A href="https://github.com/caddyserver/caddy/issues/3833">#3833</A>
+        </li>
+        <li>
+          <A href="https://github.com/quic-go/quic-go/issues/4394">
+            quic-go #4394: GSO severely degrades connection performance
+          </A>
+        </li>
+      </ArticleList>
+
+      <ArticleParagraph>
+        <strong>Browser behaviour</strong>
+      </ArticleParagraph>
+      <ArticleList>
+        <li>
+          <A href="https://groups.google.com/a/chromium.org/g/proto-quic/c/cWoQxBMopR0">
+            Chromium proto-quic: QUIC client timeouts and failover to h2
+          </A>
+        </li>
+      </ArticleList>
+
+      <div className="mt-8 flex items-center justify-between border-t border-border/40 pt-5">
+        <div className="flex items-center gap-2 font-sans text-xs text-muted-foreground">
+          <HeartIcon size={13} className="text-brand-sunset/70" />
+          <span>
+            Want to see the system this happened on?{" "}
+            <A href="https://support.azarnuzy.com">Try SupportOps live</A>.
+          </span>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 // ─── Article router ───────────────────────────────────────────────────────────
 
 const ARTICLE_COMPONENTS: Record<string, () => ReactElement> = {
   "1": SygmaStudioArticle,
   "2": CakraArticle,
   "3": HiazeeArticle,
+  "4": SupportOpsHttp3Article,
 };
 
 // ─── Blog Detail Page ─────────────────────────────────────────────────────────

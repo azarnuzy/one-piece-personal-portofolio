@@ -22,8 +22,8 @@ export interface BlogPost {
 }
 
 export const CATEGORIES: { value: BlogCategory; label: string; count?: number }[] = [
-  { value: "all", label: "All Posts", count: 3 },
-  { value: "web-development", label: "Web Development", count: 1 },
+  { value: "all", label: "All Posts", count: 4 },
+  { value: "web-development", label: "Web Development", count: 2 },
   { value: "tutorials", label: "Tutorials", count: 1 },
   { value: "career", label: "Career", count: 1 },
 ];
@@ -37,6 +37,18 @@ export const CATEGORY_LABEL: Record<Exclude<BlogCategory, "all">, string> = {
 };
 
 export const POSTS: BlogPost[] = [
+  {
+    id: "4",
+    slug: "supportops-http3-stalls",
+    title: "Fast Server, Slow Pages: How HTTP/3 Tripped Up SupportOps",
+    description:
+      "The API answered in 124 ms, yet a 16 kB response took 9.4 seconds to arrive. A debugging story about QUIC over a phone hotspot, why browsers don't fall back to TCP, and the three-line Caddy fix.",
+    date: "Sep 21, 2026",
+    readTime: 12,
+    category: "web-development",
+    likes: 0,
+    thumbnailKey: "websocket",
+  },
   {
     id: "1",
     slug: "building-sygma-studio-ai-orchestration",
