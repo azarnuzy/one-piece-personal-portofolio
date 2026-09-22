@@ -4,6 +4,7 @@ import { memo } from "react";
 import { FeaturedProjects } from "@/pages/homepage/FeaturedProjects";
 import { LatestInsights } from "@/pages/homepage/LatestInsights";
 import { LetsConnect } from "@/pages/homepage/LetsConnect";
+import { SupportOpsSpotlight } from "@/pages/homepage/SupportOpsSpotlight";
 import { TechIUse } from "@/pages/homepage/TechIUse";
 import { ThingsIFocusOn } from "@/pages/homepage/ThingsIFocusOn";
 
@@ -31,8 +32,11 @@ function HomePageInner() {
           <div className="lg:col-span-6">
             <TechIUse />
           </div>
-          <div className="lg:col-span-6">
+          <div className="flex flex-col gap-4 md:gap-5 lg:col-span-6">
             <LetsConnect />
+            <div className="flex-1">
+              <SupportOpsSpotlight />
+            </div>
           </div>
         </div>
       </div>
