@@ -1,15 +1,21 @@
 import {
+  SiBetterauth,
   SiDocker,
   SiExpress,
   SiFigma,
   SiGit,
+  SiGithubactions,
+  SiHono,
   SiNextdotjs,
   SiNginx,
   SiNodedotjs,
+  SiOpentelemetry,
+  SiPnpm,
   SiReact,
   SiRedis,
   SiSequelize,
   SiTailwindcss,
+  SiTanstack,
   SiTypescript,
   SiVitest,
   SiVuedotjs,
@@ -34,6 +40,20 @@ const TECH = [
   { Icon: SiNginx, label: "Nginx", color: "#009639" },
   { Icon: SiVitest, label: "Vitest", color: "#6E9F18" },
   { Icon: SiFigma, label: "Figma", color: "#F24E1E" },
+  { Icon: SiHono, label: "Hono", color: "#E36002" },
+  { Icon: SiTanstack, label: "TanStack", color: "currentColor" },
+  { Icon: SiBetterauth, label: "Better Auth", color: "currentColor" },
+  { Icon: SiOpentelemetry, label: "OTel", color: "#F5A800" },
+  { Icon: SiGithubactions, label: "GH Actions", color: "#2088FF" },
+  { Icon: SiPnpm, label: "pnpm", color: "#F69220" },
+];
+
+// Icons8 color logos (PNG from their CDN) for the SupportOps stack.
+const ICONS8 = [
+  { id: "38561", label: "PostgreSQL" },
+  { id: "zJh5Gyrd6ZKu", label: "Prisma" },
+  { id: "YO3YqSaTOu5K", label: "Vite" },
+  { id: "pUf6Ty49x4KC", label: "MCP" },
 ];
 
 export function TechIUse() {
@@ -69,7 +89,41 @@ export function TechIUse() {
             </span>
           </motion.div>
         ))}
+        {ICONS8.map(({ id, label }, idx) => (
+          <motion.div
+            key={label}
+            initial={{ opacity: 0, y: 8 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.4 }}
+            transition={{ duration: 0.4, delay: (TECH.length + idx) * 0.05 }}
+            whileHover={{ y: -3, scale: 1.04 }}
+            className="group flex cursor-pointer flex-col items-center gap-1.5 rounded-lg border border-border/40 bg-muted/60 p-2.5 transition-colors hover:border-brand-treasure/50 hover:bg-brand-treasure/5"
+          >
+            <img
+              src={`https://img.icons8.com/?id=${id}&format=png&size=40`}
+              alt=""
+              width={20}
+              height={20}
+              loading="lazy"
+            />
+            <span className="font-sans text-2xs text-muted-foreground group-hover:text-card-foreground">
+              {label}
+            </span>
+          </motion.div>
+        ))}
       </div>
+
+      <p className="relative mt-3 text-right font-sans text-2xs text-muted-foreground">
+        Some logos by{" "}
+        <a
+          href="https://icons8.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline underline-offset-2 hover:text-card-foreground"
+        >
+          Icons8
+        </a>
+      </p>
     </motion.section>
   );
 }
